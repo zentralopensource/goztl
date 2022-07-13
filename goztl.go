@@ -97,7 +97,7 @@ func addOptions(s string, opt interface{}) (string, error) {
 // ClientOpt are options for New.
 type ClientOpt func(*Client) error
 
-// NewFromToken returns a new Zentral API client with the given base URL and API token.
+// NewClient returns a new Zentral API client with the given base URL and API token.
 func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientOpt) (*Client, error) {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
