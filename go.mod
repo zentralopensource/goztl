@@ -1,4 +1,4 @@
-module github.com/zentralopensource/ztlgo
+module github.com/zentralopensource/goztl
 
 go 1.18
 
