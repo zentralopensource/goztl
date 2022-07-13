@@ -134,7 +134,7 @@ func (s *MetaBusinessUnitsServiceOp) Update(ctx context.Context, mbuID int, upda
 
 	path := fmt.Sprintf("%s%d/", mbuBasePath, mbuID)
 
-	req, err := s.client.NewRequest(ctx, http.MethodPost, path, updateRequest)
+	req, err := s.client.NewRequest(ctx, http.MethodPut, path, updateRequest)
 	if err != nil {
 		return nil, nil, err
 	}
