@@ -34,6 +34,7 @@ type Client struct {
 
 	// Services used for communicating with the API
 	MetaBusinessUnits MetaBusinessUnitsService
+	Tags              TagsService
 
 	// Zentral API token
 	token string
@@ -117,6 +118,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 		token:     cleanToken,
 	}
 	c.MetaBusinessUnits = &MetaBusinessUnitsServiceOp{client: c}
+	c.Tags = &TagsServiceOp{client: c}
 
 	c.headers = make(map[string]string)
 
