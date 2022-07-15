@@ -29,23 +29,23 @@ var _ TaxonomiesService = &TaxonomiesServiceOp{}
 
 // Taxonomy represents a Zentral Taxonomy
 type Taxonomy struct {
-	ID                 int       `json:"id,omitempty"`
-	MetaBusinessUnitID int       `json:"meta_business_unit,omitempty"`
-	Name               string    `json:"name,omitempty"`
-	Created            Timestamp `json:"created_at,omitempty"`
-	Updated            Timestamp `json:"updated_at,omitempty"`
+	ID                 int       `json:"id"`
+	MetaBusinessUnitID *int      `json:"meta_business_unit,omitempty"`
+	Name               string    `json:"name"`
+	Created            Timestamp `json:"created_at"`
+	Updated            Timestamp `json:"updated_at"`
 }
 
 // TaxonomyCreateRequest represents a request to create a Taxonomy.
 type TaxonomyCreateRequest struct {
 	Name               string `json:"name"`
-	MetaBusinessUnitID int    `json:"meta_business_unit,omitempty"`
+	MetaBusinessUnitID *int   `json:"meta_business_unit"`
 }
 
 // TaxonomyUpdateRequest represents a request to create a Taxonomy.
 type TaxonomyUpdateRequest struct {
 	Name               string `json:"name"`
-	MetaBusinessUnitID int    `json:"meta_business_unit,omitempty"`
+	MetaBusinessUnitID *int   `json:"meta_business_unit"`
 }
 
 func (Taxonomy Taxonomy) String() string {

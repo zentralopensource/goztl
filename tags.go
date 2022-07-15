@@ -29,27 +29,27 @@ var _ TagsService = &TagsServiceOp{}
 
 // Tag represents a Zentral Tag
 type Tag struct {
-	ID                 int    `json:"id,omitempty"`
-	TaxonomyID         int    `json:"taxonomy,omitempty"`
-	MetaBusinessUnitID int    `json:"meta_business_unit,omitempty"`
-	Name               string `json:"name,omitempty"`
-	Slug               string `json:"slug,omitempty"`
-	Color              string `json:"color,omitempty"`
+	ID                 int    `json:"id"`
+	TaxonomyID         *int   `json:"taxonomy,omitempty"`
+	MetaBusinessUnitID *int   `json:"meta_business_unit,omitempty"`
+	Name               string `json:"name"`
+	Slug               string `json:"slug"`
+	Color              string `json:"color"`
 }
 
 // TagCreateRequest represents a request to create a tag.
 type TagCreateRequest struct {
 	Name               string `json:"name"`
-	TaxonomyID         int    `json:"taxonomy,omitempty"`
-	MetaBusinessUnitID int    `json:"meta_business_unit,omitempty"`
+	TaxonomyID         *int   `json:"taxonomy"`
+	MetaBusinessUnitID *int   `json:"meta_business_unit"`
 	Color              string `json:"color,omitempty"`
 }
 
 // TagUpdateRequest represents a request to create a tag.
 type TagUpdateRequest struct {
 	Name               string `json:"name"`
-	TaxonomyID         int    `json:"taxonomy,omitempty"`
-	MetaBusinessUnitID int    `json:"meta_business_unit,omitempty"`
+	TaxonomyID         *int   `json:"taxonomy"`
+	MetaBusinessUnitID *int   `json:"meta_business_unit"`
 	Color              string `json:"color,omitempty"`
 }
 
