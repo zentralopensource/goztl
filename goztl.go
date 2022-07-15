@@ -133,6 +133,14 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	return c, nil
 }
 
+// SetUserAgent is a client option for setting the user agent.
+func SetUserAgent(ua string) ClientOpt {
+	return func(c *Client) error {
+		c.UserAgent = fmt.Sprintf("%s %s", ua, c.UserAgent)
+		return nil
+	}
+}
+
 // SetRequestHeaders sets optional HTTP headers on the client that are sent on each HTTP request.
 func SetRequestHeaders(headers map[string]string) ClientOpt {
 	return func(c *Client) error {
