@@ -38,13 +38,19 @@ type MetaBusinessUnit struct {
 
 // MetaBusinessUnitCreateRequest represents a request to create a meta business unit.
 type MetaBusinessUnitCreateRequest struct {
-	Name                 string `json:"name"`
-	APIEnrollmentEnabled bool   `json:"api_enrollment_enabled"`
+	Name string `json:"name"`
+
+	// Boolean to enable API enrollments.
+	APIEnrollmentEnabled bool `json:"api_enrollment_enabled"`
 }
 
 // MetaBusinessUnitUpdateRequest represents a request to create a meta business unit.
 type MetaBusinessUnitUpdateRequest struct {
 	Name string `json:"name"`
+
+	// Boolean to enable API enrollments.
+	// If set, it cannot be unset.
+	APIEnrollmentEnabled bool `json:"api_enrollment_enabled"`
 }
 
 func (mbu MetaBusinessUnit) String() string {
