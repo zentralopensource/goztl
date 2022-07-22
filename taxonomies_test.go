@@ -38,7 +38,7 @@ func TestTaxonomiesService_GetByID(t *testing.T) {
 	mux.HandleFunc("/inventory/taxonomies/1/", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		testHeader(t, r, "Accept", "application/json")
-		fmt.Fprint(w, fmt.Sprintf(`{"id":1,"meta_business_unit":null,"name":"yolo","api_enrollment_enabled":false,"created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr))
+		fmt.Fprint(w, fmt.Sprintf(`{"id":1,"meta_business_unit":null,"name":"yolo","created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr))
 	})
 
 	ctx := context.Background()
