@@ -1,0 +1,50 @@
+name: tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        go-version: [ 1.18.x ]
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go-version }}
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Get values for cache paths to be used in later steps
+    - id: cache-paths
+      run: |
+        echo "::set-output name=go-cache::$(go env GOCACHE)"
+        echo "::set-output name=go-mod-cache::$(go env GOMODCACHE)"
+
+    - name: Cache go modules
+      uses: actions/cache@v3
+      with:
+        path: |
+          ${{ steps.cache-paths.outputs.go-cache }}
+          ${{ steps.cache-paths.outputs.go-mod-cache }}
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: ${{ runner.os }}-go-
+
+    - name: Ensure go generate produces a zero diff
+      shell: bash
+      run: go generate -x ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code)
+
+    - name: Format
+      run: if [ "$(gofmt -s -l . | wc -l)" -gt 0 ]; then exit 1; fi
+      if: matrix.os == 'ubuntu-latest'
+
+    - name: Test
+      run: go test -race ./...
