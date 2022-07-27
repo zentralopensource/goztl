@@ -42,7 +42,7 @@ type TaxonomyCreateRequest struct {
 	MetaBusinessUnitID *int   `json:"meta_business_unit"`
 }
 
-// TaxonomyUpdateRequest represents a request to create a Taxonomy.
+// TaxonomyUpdateRequest represents a request to update a Taxonomy.
 type TaxonomyUpdateRequest struct {
 	Name               string `json:"name"`
 	MetaBusinessUnitID *int   `json:"meta_business_unit"`

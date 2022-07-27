@@ -44,7 +44,7 @@ type MetaBusinessUnitCreateRequest struct {
 	APIEnrollmentEnabled bool `json:"api_enrollment_enabled"`
 }
 
-// MetaBusinessUnitUpdateRequest represents a request to create a meta business unit.
+// MetaBusinessUnitUpdateRequest represents a request to update a meta business unit.
 type MetaBusinessUnitUpdateRequest struct {
 	Name string `json:"name"`
 

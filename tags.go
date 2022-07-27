@@ -45,7 +45,7 @@ type TagCreateRequest struct {
 	Color              string `json:"color,omitempty"`
 }
 
-// TagUpdateRequest represents a request to create a tag.
+// TagUpdateRequest represents a request to update a tag.
 type TagUpdateRequest struct {
 	Name               string `json:"name"`
 	TaxonomyID         *int   `json:"taxonomy"`

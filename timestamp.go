@@ -6,7 +6,7 @@ import (
 )
 
 // Timestamp represents a time that can be unmarshalled from a JSON string
-// formatted as either an RFC3339 or Unix timestamp. All
+// formatted as either an ISO8601 or Unix timestamp. All
 // exported methods of time.Time can be called on Timestamp.
 type Timestamp struct {
 	time.Time
