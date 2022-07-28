@@ -33,6 +33,7 @@ type Client struct {
 	UserAgent string
 
 	// Services used for communicating with the API
+	JMESPathChecks    JMESPathChecksService
 	MetaBusinessUnits MetaBusinessUnitsService
 	Tags              TagsService
 	Taxonomies        TaxonomiesService
@@ -118,6 +119,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 		UserAgent: userAgent,
 		token:     cleanToken,
 	}
+	c.JMESPathChecks = &JMESPathChecksServiceOp{client: c}
 	c.MetaBusinessUnits = &MetaBusinessUnitsServiceOp{client: c}
 	c.Tags = &TagsServiceOp{client: c}
 	c.Taxonomies = &TaxonomiesServiceOp{client: c}
