@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.4"
+	libraryVersion = "0.1.6"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
