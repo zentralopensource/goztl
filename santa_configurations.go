@@ -66,7 +66,7 @@ type SantaConfigurationRequest struct {
 	BlockUSBMount             bool     `json:"block_usb_mount"`
 	RemountUSBMode            []string `json:"remount_usb_mode"`
 	AllowUnknownShard         int      `json:"allow_unknown_shard"`
-	EnableAllEventUploadShard int      `json:"enable_all_even_upload_shard"`
+	EnableAllEventUploadShard int      `json:"enable_all_event_upload_shard"`
 	SyncIncidentSeverity      int      `json:"sync_incident_severity"`
 }
 
