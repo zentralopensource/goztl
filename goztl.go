@@ -39,6 +39,7 @@ type Client struct {
 	Taxonomies        TaxonomiesService
 	// Santa
 	SantaConfigurations SantaConfigurationsService
+	SantaEnrollments    SantaEnrollmentsService
 
 	// Zentral API token
 	token string
@@ -128,6 +129,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.Taxonomies = &TaxonomiesServiceOp{client: c}
 	// Santa
 	c.SantaConfigurations = &SantaConfigurationsServiceOp{client: c}
+	c.SantaEnrollments = &SantaEnrollmentsServiceOp{client: c}
 
 	c.headers = make(map[string]string)
 
