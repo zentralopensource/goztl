@@ -16,10 +16,10 @@ func TestJMESPathChecksService_List(t *testing.T) {
 	mux.HandleFunc("/inventory/jmespath_checks/", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		testHeader(t, r, "Accept", "application/json")
-		fmt.Fprint(w, fmt.Sprintf(`[{"id":1,"name":"yolo","description":"desc",
-                                             "source_name":"source","platforms":["MACOS"],"tags":[18,29],
-					     "jmespath_expression":"ok","version":3,
-		                             "created_at":%[1]s,"updated_at":%[1]s}]`, referenceTimeStr))
+		fmt.Fprintf(w, `[{"id":1,"name":"yolo","description":"desc",
+                                  "source_name":"source","platforms":["MACOS"],"tags":[18,29],
+			          "jmespath_expression":"ok","version":3,
+		                  "created_at":%[1]s,"updated_at":%[1]s}]`, referenceTimeStr)
 	})
 
 	ctx := context.Background()
@@ -52,10 +52,10 @@ func TestJMESPathChecksService_GetByID(t *testing.T) {
 	mux.HandleFunc("/inventory/jmespath_checks/1/", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		testHeader(t, r, "Accept", "application/json")
-		fmt.Fprint(w, fmt.Sprintf(`{"id":17,"name":"yolo","description":"desc",
-                                            "source_name":"source","platforms":["MACOS"],
-					    "jmespath_expression":"ok","version":3,
-		                            "created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr))
+		fmt.Fprintf(w, `{"id":17,"name":"yolo","description":"desc",
+                                 "source_name":"source","platforms":["MACOS"],
+			         "jmespath_expression":"ok","version":3,
+		                 "created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr)
 	})
 
 	ctx := context.Background()
@@ -88,10 +88,10 @@ func TestJMESPathChecksService_GetByName(t *testing.T) {
 		testMethod(t, r, "GET")
 		testHeader(t, r, "Accept", "application/json")
 		testQueryArg(t, r, "name", "yolo")
-		fmt.Fprint(w, fmt.Sprintf(`[{"id":18,"name":"yolo","description":"desc",
-                                             "source_name":"source",
-					     "jmespath_expression":"ok","version":3,
-		                             "created_at":%[1]s,"updated_at":%[1]s}]`, referenceTimeStr))
+		fmt.Fprintf(w, `[{"id":18,"name":"yolo","description":"desc",
+                                  "source_name":"source",
+			          "jmespath_expression":"ok","version":3,
+		                  "created_at":%[1]s,"updated_at":%[1]s}]`, referenceTimeStr)
 	})
 
 	ctx := context.Background()
@@ -124,10 +124,10 @@ func TestJMESPathChecksService_Create(t *testing.T) {
 		testHeader(t, r, "Accept", "application/json")
 		testHeader(t, r, "Content-Type", "application/json")
 		testBody(t, r, `{"name":"yolo","description":"desc","source_name":"source","platforms":["MACOS"],"tags":[18,29],"jmespath_expression":"ok"}`+"\n")
-		fmt.Fprint(w, fmt.Sprintf(`{"id":19,"name":"yolo","description":"desc",
-                                            "source_name":"source","platforms":["MACOS"],"tags":[18,29],
-					    "jmespath_expression":"ok","version":3,
-		                            "created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr))
+		fmt.Fprintf(w, `{"id":19,"name":"yolo","description":"desc",
+                                 "source_name":"source","platforms":["MACOS"],"tags":[18,29],
+			         "jmespath_expression":"ok","version":3,
+		                 "created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr)
 	})
 
 	ctx := context.Background()
@@ -172,10 +172,10 @@ func TestJMESPathChecksService_Update(t *testing.T) {
 		testHeader(t, r, "Accept", "application/json")
 		testHeader(t, r, "Content-Type", "application/json")
 		testBody(t, r, `{"name":"yolo1","description":"","source_name":"source","platforms":["MACOS"],"tags":[],"jmespath_expression":"ok"}`+"\n")
-		fmt.Fprint(w, fmt.Sprintf(`{"id":1,"name":"yolo1","description":"",
-                                            "source_name":"source","platforms":["MACOS"],"tags":[],
-					    "jmespath_expression":"ok","version":3,
-		                            "created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr))
+		fmt.Fprintf(w, `{"id":1,"name":"yolo1","description":"",
+                                 "source_name":"source","platforms":["MACOS"],"tags":[],
+			         "jmespath_expression":"ok","version":3,
+		                 "created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr)
 	})
 
 	ctx := context.Background()

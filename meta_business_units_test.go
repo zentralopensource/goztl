@@ -16,7 +16,7 @@ func TestMetaBusinessUnitsService_List(t *testing.T) {
 	mux.HandleFunc("/inventory/meta_business_units/", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		testHeader(t, r, "Accept", "application/json")
-		fmt.Fprint(w, fmt.Sprintf(`[{"id":1,"name":"yolo","api_enrollment_enabled":false,"created_at":%[1]s,"updated_at":%[1]s}]`, referenceTimeStr))
+		fmt.Fprintf(w, `[{"id":1,"name":"yolo","api_enrollment_enabled":false,"created_at":%[1]s,"updated_at":%[1]s}]`, referenceTimeStr)
 	})
 
 	ctx := context.Background()
@@ -38,7 +38,7 @@ func TestMetaBusinessUnitsService_GetByID(t *testing.T) {
 	mux.HandleFunc("/inventory/meta_business_units/1/", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		testHeader(t, r, "Accept", "application/json")
-		fmt.Fprint(w, fmt.Sprintf(`{"id":1,"name":"yolo","api_enrollment_enabled":false,"created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr))
+		fmt.Fprintf(w, `{"id":1,"name":"yolo","api_enrollment_enabled":false,"created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr)
 	})
 
 	ctx := context.Background()
@@ -61,7 +61,7 @@ func TestMetaBusinessUnitsService_GetByName(t *testing.T) {
 		testMethod(t, r, "GET")
 		testHeader(t, r, "Accept", "application/json")
 		testQueryArg(t, r, "name", "yolo")
-		fmt.Fprint(w, fmt.Sprintf(`[{"id":1,"name":"yolo","api_enrollment_enabled":false,"created_at":%[1]s,"updated_at":%[1]s}]`, referenceTimeStr))
+		fmt.Fprintf(w, `[{"id":1,"name":"yolo","api_enrollment_enabled":false,"created_at":%[1]s,"updated_at":%[1]s}]`, referenceTimeStr)
 	})
 
 	ctx := context.Background()
@@ -85,7 +85,7 @@ func TestMetaBusinessUnitsService_Create(t *testing.T) {
 		testHeader(t, r, "Accept", "application/json")
 		testHeader(t, r, "Content-Type", "application/json")
 		testBody(t, r, `{"name":"yolo","api_enrollment_enabled":false}`+"\n")
-		fmt.Fprint(w, fmt.Sprintf(`{"id":1,"name":"yolo","api_enrollment_enabled":false,"created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr))
+		fmt.Fprintf(w, `{"id":1,"name":"yolo","api_enrollment_enabled":false,"created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr)
 	})
 
 	ctx := context.Background()
@@ -109,7 +109,7 @@ func TestMetaBusinessUnitsService_Update(t *testing.T) {
 		testHeader(t, r, "Accept", "application/json")
 		testHeader(t, r, "Content-Type", "application/json")
 		testBody(t, r, `{"name":"yolo1","api_enrollment_enabled":false}`+"\n")
-		fmt.Fprint(w, fmt.Sprintf(`{"id":1,"name":"yolo1","api_enrollment_enabled":false,"created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr))
+		fmt.Fprintf(w, `{"id":1,"name":"yolo1","api_enrollment_enabled":false,"created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr)
 	})
 
 	ctx := context.Background()
