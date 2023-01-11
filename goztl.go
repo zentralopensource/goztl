@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -228,7 +227,7 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*Res
 		// won't reuse it anyway.
 		const maxBodySlurpSize = 2 << 10
 		if resp.ContentLength == -1 || resp.ContentLength <= maxBodySlurpSize {
-			io.CopyN(ioutil.Discard, resp.Body, maxBodySlurpSize)
+			io.CopyN(io.Discard, resp.Body, maxBodySlurpSize)
 		}
 
 		if rerr := resp.Body.Close(); err == nil {
@@ -284,7 +283,7 @@ func CheckResponse(r *http.Response) error {
 	}
 
 	errorResponse := &ErrorResponse{Response: r}
-	data, err := ioutil.ReadAll(r.Body)
+	data, err := io.ReadAll(r.Body)
 	if err == nil && len(data) > 0 {
 		errorResponse.Message = string(data)
 	}
