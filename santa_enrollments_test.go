@@ -205,24 +205,26 @@ func TestSantaEnrollmentsService_GetByConfigurationID(t *testing.T) {
 		t.Errorf("SantaEnrollments.GetByConfigurationID returned error: %v", err)
 	}
 
-	want := &SantaEnrollment{
-		ID:                    1,
-		ConfigurationID:       2,
-		EnrolledMachinesCount: 3,
-		Secret: EnrollmentSecret{
-			ID:                 4,
-			Secret:             "SECRET",
-			MetaBusinessUnitID: 5,
-			TagIDs:             []int{6, 7},
-			SerialNumbers:      []string{"huit", "neuf"},
-			UDIDs:              []string{},
-			RequestCount:       10,
+	want := []SantaEnrollment{
+		{
+			ID:                    1,
+			ConfigurationID:       2,
+			EnrolledMachinesCount: 3,
+			Secret: EnrollmentSecret{
+				ID:                 4,
+				Secret:             "SECRET",
+				MetaBusinessUnitID: 5,
+				TagIDs:             []int{6, 7},
+				SerialNumbers:      []string{"huit", "neuf"},
+				UDIDs:              []string{},
+				RequestCount:       10,
+			},
+			ConfigProfileURL: "/api/santa/enrollments/1/configuration_profile/",
+			PlistURL:         "/api/santa/enrollments/1/plist/",
+			Version:          11,
+			Created:          Timestamp{referenceTime},
+			Updated:          Timestamp{referenceTime},
 		},
-		ConfigProfileURL: "/api/santa/enrollments/1/configuration_profile/",
-		PlistURL:         "/api/santa/enrollments/1/plist/",
-		Version:          11,
-		Created:          Timestamp{referenceTime},
-		Updated:          Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("SantaEnrollments.GetByConfigurationID returned %+v, want %+v", got, want)

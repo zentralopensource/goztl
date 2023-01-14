@@ -13,7 +13,7 @@ const seBasePath = "santa/enrollments/"
 type SantaEnrollmentsService interface {
 	List(context.Context, *ListOptions) ([]SantaEnrollment, *Response, error)
 	GetByID(context.Context, int) (*SantaEnrollment, *Response, error)
-	GetByConfigurationID(context.Context, int) (*SantaEnrollment, *Response, error)
+	GetByConfigurationID(context.Context, int) ([]SantaEnrollment, *Response, error)
 	Create(context.Context, *SantaEnrollmentRequest) (*SantaEnrollment, *Response, error)
 	Update(context.Context, int, *SantaEnrollmentRequest) (*SantaEnrollment, *Response, error)
 	Delete(context.Context, int) (*Response, error)
@@ -82,23 +82,15 @@ func (s *SantaEnrollmentsServiceOp) GetByID(ctx context.Context, seID int) (*San
 	return se, resp, err
 }
 
-// GetByConfigurationID retrieves a Santa enrollment by name.
-func (s *SantaEnrollmentsServiceOp) GetByConfigurationID(ctx context.Context, configuration_id int) (*SantaEnrollment, *Response, error) {
+// GetByConfigurationID retrieves the Santa enrollments for a given configuration.
+func (s *SantaEnrollmentsServiceOp) GetByConfigurationID(ctx context.Context, configuration_id int) ([]SantaEnrollment, *Response, error) {
 	if configuration_id < 1 {
 		return nil, nil, NewArgError("name", "cannot be negative")
 	}
 
 	listSEOpt := &listSEOptions{ConfigurationID: configuration_id}
 
-	ses, resp, err := s.list(ctx, nil, listSEOpt)
-	if err != nil {
-		return nil, resp, err
-	}
-	if len(ses) < 1 {
-		return nil, resp, nil
-	}
-
-	return &ses[0], resp, err
+	return s.list(ctx, nil, listSEOpt)
 }
 
 // Create a new Santa enrollment.
