@@ -85,7 +85,7 @@ func (s *SantaEnrollmentsServiceOp) GetByID(ctx context.Context, seID int) (*San
 // GetByConfigurationID retrieves the Santa enrollments for a given configuration.
 func (s *SantaEnrollmentsServiceOp) GetByConfigurationID(ctx context.Context, configuration_id int) ([]SantaEnrollment, *Response, error) {
 	if configuration_id < 1 {
-		return nil, nil, NewArgError("name", "cannot be negative")
+		return nil, nil, NewArgError("configuration_id", "cannot be negative")
 	}
 
 	listSEOpt := &listSEOptions{ConfigurationID: configuration_id}
