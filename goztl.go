@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.8"
+	libraryVersion = "0.1.9"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -37,6 +37,8 @@ type Client struct {
 	MetaBusinessUnits MetaBusinessUnitsService
 	Tags              TagsService
 	Taxonomies        TaxonomiesService
+	// Osquery
+	OsqueryConfigurations OsqueryConfigurationsService
 	// Santa
 	SantaConfigurations SantaConfigurationsService
 	SantaEnrollments    SantaEnrollmentsService
@@ -128,6 +130,8 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.MetaBusinessUnits = &MetaBusinessUnitsServiceOp{client: c}
 	c.Tags = &TagsServiceOp{client: c}
 	c.Taxonomies = &TaxonomiesServiceOp{client: c}
+	// Osquery
+	c.OsqueryConfigurations = &OsqueryConfigurationsServiceOp{client: c}
 	// Santa
 	c.SantaConfigurations = &SantaConfigurationsServiceOp{client: c}
 	c.SantaEnrollments = &SantaEnrollmentsServiceOp{client: c}
