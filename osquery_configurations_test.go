@@ -22,6 +22,7 @@ var ocListJSONResponse = `
 	"inventory_ec2": false,
 	"inventory_interval": 600,
 	"options": {"config_refresh": 120},
+	"automatic_table_constructions": [],
         "created_at": "2022-07-22T01:02:03.444444",
         "updated_at": "2022-07-22T01:02:03.444444"
     }
@@ -38,6 +39,7 @@ var ocGetJSONResponse = `
     "inventory_ec2": false,
     "inventory_interval": 600,
     "options": {"config_refresh": 120},
+    "automatic_table_constructions": [1],
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -53,6 +55,7 @@ var ocCreateJSONResponse = `
     "inventory_ec2": false,
     "inventory_interval": 600,
     "options": {"config_refresh": 120},
+    "automatic_table_constructions": [1, 2],
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -68,6 +71,7 @@ var ocUpdateJSONResponse = `
     "inventory_ec2": false,
     "inventory_interval": 600,
     "options": {"config_refresh": 120},
+    "automatic_table_constructions": [1, 2, 3],
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -99,6 +103,7 @@ func TestOsqueryConfigurationsService_List(t *testing.T) {
 			InventoryEC2:      false,
 			InventoryInterval: 600,
 			Options:           map[string]interface{}{"config_refresh": 120.0},
+			ATCs:              []int{},
 			Created:           Timestamp{referenceTime},
 			Updated:           Timestamp{referenceTime},
 		},
@@ -133,6 +138,7 @@ func TestOsqueryConfigurationsService_GetByID(t *testing.T) {
 		InventoryEC2:      false,
 		InventoryInterval: 600,
 		Options:           map[string]interface{}{"config_refresh": 120.0},
+		ATCs:              []int{1},
 		Created:           Timestamp{referenceTime},
 		Updated:           Timestamp{referenceTime},
 	}
@@ -167,6 +173,7 @@ func TestOsqueryConfigurationsService_GetByName(t *testing.T) {
 		InventoryEC2:      false,
 		InventoryInterval: 600,
 		Options:           map[string]interface{}{"config_refresh": 120.0},
+		ATCs:              []int{},
 		Created:           Timestamp{referenceTime},
 		Updated:           Timestamp{referenceTime},
 	}
@@ -187,6 +194,7 @@ func TestOsqueryConfigurationsService_Create(t *testing.T) {
 		InventoryEC2:      false,
 		InventoryInterval: 600,
 		Options:           map[string]interface{}{"config_refresh": 120.0},
+		ATCs:              []int{1, 2},
 	}
 
 	mux.HandleFunc("/osquery/configurations/", func(w http.ResponseWriter, r *http.Request) {
@@ -218,6 +226,7 @@ func TestOsqueryConfigurationsService_Create(t *testing.T) {
 		InventoryEC2:      false,
 		InventoryInterval: 600,
 		Options:           map[string]interface{}{"config_refresh": 120.0},
+		ATCs:              []int{1, 2},
 		Created:           Timestamp{referenceTime},
 		Updated:           Timestamp{referenceTime},
 	}
@@ -237,6 +246,7 @@ func TestOsqueryConfigurationsService_Update(t *testing.T) {
 		InventoryApps:     true,
 		InventoryEC2:      false,
 		InventoryInterval: 600,
+		ATCs:              []int{1, 2, 3},
 		Options:           map[string]interface{}{"config_refresh": 120.0},
 	}
 
@@ -268,6 +278,7 @@ func TestOsqueryConfigurationsService_Update(t *testing.T) {
 		InventoryEC2:      false,
 		InventoryInterval: 600,
 		Options:           map[string]interface{}{"config_refresh": 120.0},
+		ATCs:              []int{1, 2, 3},
 		Created:           Timestamp{referenceTime},
 		Updated:           Timestamp{referenceTime},
 	}
