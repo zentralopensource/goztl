@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.12"
+	libraryVersion = "0.1.13"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -41,6 +41,7 @@ type Client struct {
 	OsqueryATC            OsqueryATCService
 	OsqueryConfigurations OsqueryConfigurationsService
 	OsqueryFileCategories OsqueryFileCategoriesService
+	OsqueryQueries        OsqueryQueriesService
 	// Santa
 	SantaConfigurations SantaConfigurationsService
 	SantaEnrollments    SantaEnrollmentsService
@@ -136,6 +137,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.OsqueryATC = &OsqueryATCServiceOp{client: c}
 	c.OsqueryConfigurations = &OsqueryConfigurationsServiceOp{client: c}
 	c.OsqueryFileCategories = &OsqueryFileCategoriesServiceOp{client: c}
+	c.OsqueryQueries = &OsqueryQueriesServiceOp{client: c}
 	// Santa
 	c.SantaConfigurations = &SantaConfigurationsServiceOp{client: c}
 	c.SantaEnrollments = &SantaEnrollmentsServiceOp{client: c}
@@ -306,3 +308,7 @@ func CheckResponse(r *http.Response) error {
 // Int is a helper routine that allocates a new int value
 // to store v and returns a pointer to it.
 func Int(v int) *int { return &v }
+
+// String is a helper routine that allocates a new string value
+// to store v and returns a pointer to it.
+func String(v string) *string { return &v }
