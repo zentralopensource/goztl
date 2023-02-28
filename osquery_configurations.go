@@ -98,9 +98,9 @@ func (s *OsqueryConfigurationsServiceOp) GetByName(ctx context.Context, name str
 		return nil, nil, NewArgError("name", "cannot be blank")
 	}
 
-	listSCOpt := &listOCOptions{Name: name}
+	listOCOpt := &listOCOptions{Name: name}
 
-	ocs, resp, err := s.list(ctx, nil, listSCOpt)
+	ocs, resp, err := s.list(ctx, nil, listOCOpt)
 	if err != nil {
 		return nil, resp, err
 	}

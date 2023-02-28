@@ -93,9 +93,9 @@ func (s *OsqueryFileCategoriesServiceOp) GetByName(ctx context.Context, name str
 		return nil, nil, NewArgError("name", "cannot be blank")
 	}
 
-	listSCOpt := &listOFCOptions{Name: name}
+	listOFCOpt := &listOFCOptions{Name: name}
 
-	ofcs, resp, err := s.list(ctx, nil, listSCOpt)
+	ofcs, resp, err := s.list(ctx, nil, listOFCOpt)
 	if err != nil {
 		return nil, resp, err
 	}

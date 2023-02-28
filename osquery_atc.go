@@ -94,9 +94,9 @@ func (s *OsqueryATCServiceOp) GetByName(ctx context.Context, name string) (*Osqu
 		return nil, nil, NewArgError("name", "cannot be blank")
 	}
 
-	listSCOpt := &listOAOptions{Name: name}
+	listOAOpt := &listOAOptions{Name: name}
 
-	oas, resp, err := s.list(ctx, nil, listSCOpt)
+	oas, resp, err := s.list(ctx, nil, listOAOpt)
 	if err != nil {
 		return nil, resp, err
 	}
