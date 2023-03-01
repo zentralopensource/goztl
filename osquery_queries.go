@@ -27,7 +27,7 @@ type OsqueryQueriesServiceOp struct {
 
 var _ OsqueryQueriesService = &OsqueryQueriesServiceOp{}
 
-// OsqueryQuery represents a Zentral Osquery file category
+// OsqueryQuery represents a Zentral Osquery query
 type OsqueryQuery struct {
 	ID                     int       `json:"id,omitempty"`
 	Name                   string    `json:"name"`
@@ -46,7 +46,7 @@ func (oq OsqueryQuery) String() string {
 	return Stringify(oq)
 }
 
-// OsqueryQueryRequest represents a request to create or update a Osquery file category
+// OsqueryQueryRequest represents a request to create or update a Osquery query
 type OsqueryQueryRequest struct {
 	Name                   string   `json:"name"`
 	SQL                    string   `json:"sql"`
@@ -66,7 +66,7 @@ func (s *OsqueryQueriesServiceOp) List(ctx context.Context, opt *ListOptions) ([
 	return s.list(ctx, opt, nil)
 }
 
-// GetByID retrieves a Osquery file category by id.
+// GetByID retrieves a Osquery query by id.
 func (s *OsqueryQueriesServiceOp) GetByID(ctx context.Context, oqID int) (*OsqueryQuery, *Response, error) {
 	if oqID < 1 {
 		return nil, nil, NewArgError("oqID", "cannot be less than 1")
@@ -89,7 +89,7 @@ func (s *OsqueryQueriesServiceOp) GetByID(ctx context.Context, oqID int) (*Osque
 	return oq, resp, err
 }
 
-// GetByName retrieves a Osquery file category by name.
+// GetByName retrieves a Osquery query by name.
 func (s *OsqueryQueriesServiceOp) GetByName(ctx context.Context, name string) (*OsqueryQuery, *Response, error) {
 	if len(name) < 1 {
 		return nil, nil, NewArgError("name", "cannot be blank")
@@ -108,7 +108,7 @@ func (s *OsqueryQueriesServiceOp) GetByName(ctx context.Context, name string) (*
 	return &oqs[0], resp, err
 }
 
-// Create a new Osquery file category.
+// Create a new Osquery query.
 func (s *OsqueryQueriesServiceOp) Create(ctx context.Context, createRequest *OsqueryQueryRequest) (*OsqueryQuery, *Response, error) {
 	if createRequest == nil {
 		return nil, nil, NewArgError("createRequest", "cannot be nil")
@@ -128,7 +128,7 @@ func (s *OsqueryQueriesServiceOp) Create(ctx context.Context, createRequest *Osq
 	return oq, resp, err
 }
 
-// Update a Osquery file category.
+// Update a Osquery query.
 func (s *OsqueryQueriesServiceOp) Update(ctx context.Context, oqID int, updateRequest *OsqueryQueryRequest) (*OsqueryQuery, *Response, error) {
 	if oqID < 1 {
 		return nil, nil, NewArgError("oqID", "cannot be less than 1")
@@ -154,7 +154,7 @@ func (s *OsqueryQueriesServiceOp) Update(ctx context.Context, oqID int, updateRe
 	return oq, resp, err
 }
 
-// Delete a Osquery file category.
+// Delete a Osquery query.
 func (s *OsqueryQueriesServiceOp) Delete(ctx context.Context, oqID int) (*Response, error) {
 	if oqID < 1 {
 		return nil, NewArgError("oqID", "cannot be less than 1")
