@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.13"
+	libraryVersion = "0.1.14"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -41,6 +41,7 @@ type Client struct {
 	OsqueryATC            OsqueryATCService
 	OsqueryConfigurations OsqueryConfigurationsService
 	OsqueryFileCategories OsqueryFileCategoriesService
+	OsqueryPacks          OsqueryPacksService
 	OsqueryQueries        OsqueryQueriesService
 	// Santa
 	SantaConfigurations SantaConfigurationsService
@@ -137,6 +138,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.OsqueryATC = &OsqueryATCServiceOp{client: c}
 	c.OsqueryConfigurations = &OsqueryConfigurationsServiceOp{client: c}
 	c.OsqueryFileCategories = &OsqueryFileCategoriesServiceOp{client: c}
+	c.OsqueryPacks = &OsqueryPacksServiceOp{client: c}
 	c.OsqueryQueries = &OsqueryQueriesServiceOp{client: c}
 	// Santa
 	c.SantaConfigurations = &SantaConfigurationsServiceOp{client: c}
