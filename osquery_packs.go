@@ -29,12 +29,12 @@ var _ OsqueryPacksService = &OsqueryPacksServiceOp{}
 
 // OsqueryPack represents a Zentral Osquery pack
 type OsqueryPack struct {
-	ID               int       `json:"id,omitempty"`
+	ID               int       `json:"id"`
 	Name             string    `json:"name"`
 	Slug             string    `json:"slug"`
 	Description      string    `json:"description"`
 	DiscoveryQueries []string  `json:"discovery_queries"`
-	Shard            *int      `json:"shard,omitempty"`
+	Shard            *int      `json:"shard"`
 	EventRoutingKey  string    `json:"event_routing_key"`
 	Created          Timestamp `json:"created_at"`
 	Updated          Timestamp `json:"updated_at"`
@@ -49,7 +49,7 @@ type OsqueryPackRequest struct {
 	Name             string   `json:"name"`
 	Description      string   `json:"description"`
 	DiscoveryQueries []string `json:"discovery_queries"`
-	Shard            *int     `json:"shard,omitempty"`
+	Shard            *int     `json:"shard"`
 	EventRoutingKey  string   `json:"event_routing_key"`
 }
 
