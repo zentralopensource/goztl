@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.17"
+	libraryVersion = "0.1.18"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -38,12 +38,13 @@ type Client struct {
 	Tags              TagsService
 	Taxonomies        TaxonomiesService
 	// Osquery
-	OsqueryATC            OsqueryATCService
-	OsqueryConfigurations OsqueryConfigurationsService
-	OsqueryFileCategories OsqueryFileCategoriesService
-	OsqueryPacks          OsqueryPacksService
-	OsqueryPackQueries    OsqueryPackQueriesService
-	OsqueryQueries        OsqueryQueriesService
+	OsqueryATC                OsqueryATCService
+	OsqueryConfigurations     OsqueryConfigurationsService
+	OsqueryConfigurationPacks OsqueryConfigurationPacksService
+	OsqueryFileCategories     OsqueryFileCategoriesService
+	OsqueryPacks              OsqueryPacksService
+	OsqueryPackQueries        OsqueryPackQueriesService
+	OsqueryQueries            OsqueryQueriesService
 	// Santa
 	SantaConfigurations SantaConfigurationsService
 	SantaEnrollments    SantaEnrollmentsService
@@ -138,6 +139,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	// Osquery
 	c.OsqueryATC = &OsqueryATCServiceOp{client: c}
 	c.OsqueryConfigurations = &OsqueryConfigurationsServiceOp{client: c}
+	c.OsqueryConfigurationPacks = &OsqueryConfigurationPacksServiceOp{client: c}
 	c.OsqueryFileCategories = &OsqueryFileCategoriesServiceOp{client: c}
 	c.OsqueryPacks = &OsqueryPacksServiceOp{client: c}
 	c.OsqueryPackQueries = &OsqueryPackQueriesServiceOp{client: c}
