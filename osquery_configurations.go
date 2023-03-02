@@ -37,8 +37,8 @@ type OsqueryConfiguration struct {
 	InventoryEC2      bool                   `json:"inventory_ec2"`
 	InventoryInterval int                    `json:"inventory_interval"`
 	Options           map[string]interface{} `json:"options"`
-	ATCs              []int                  `json:"automatic_table_constructions"`
-	FileCategories    []int                  `json:"file_categories"`
+	ATCIDs            []int                  `json:"automatic_table_constructions"`
+	FileCategoryIDs   []int                  `json:"file_categories"`
 	Created           Timestamp              `json:"created_at,omitempty"`
 	Updated           Timestamp              `json:"updated_at,omitempty"`
 }
@@ -56,8 +56,8 @@ type OsqueryConfigurationRequest struct {
 	InventoryEC2      bool                   `json:"inventory_ec2"`
 	InventoryInterval int                    `json:"inventory_interval"`
 	Options           map[string]interface{} `json:"options"`
-	FileCategories    []int                  `json:"file_categories"`
-	ATCs              []int                  `json:"automatic_table_constructions"`
+	ATCIDs            []int                  `json:"automatic_table_constructions"`
+	FileCategoryIDs   []int                  `json:"file_categories"`
 }
 
 type listOCOptions struct {

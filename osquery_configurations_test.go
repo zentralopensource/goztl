@@ -107,8 +107,8 @@ func TestOsqueryConfigurationsService_List(t *testing.T) {
 			InventoryEC2:      false,
 			InventoryInterval: 600,
 			Options:           map[string]interface{}{"config_refresh": 120.0},
-			ATCs:              []int{},
-			FileCategories:    []int{},
+			ATCIDs:            []int{},
+			FileCategoryIDs:   []int{},
 			Created:           Timestamp{referenceTime},
 			Updated:           Timestamp{referenceTime},
 		},
@@ -143,8 +143,8 @@ func TestOsqueryConfigurationsService_GetByID(t *testing.T) {
 		InventoryEC2:      false,
 		InventoryInterval: 600,
 		Options:           map[string]interface{}{"config_refresh": 120.0},
-		ATCs:              []int{1},
-		FileCategories:    []int{1},
+		ATCIDs:            []int{1},
+		FileCategoryIDs:   []int{1},
 		Created:           Timestamp{referenceTime},
 		Updated:           Timestamp{referenceTime},
 	}
@@ -179,8 +179,8 @@ func TestOsqueryConfigurationsService_GetByName(t *testing.T) {
 		InventoryEC2:      false,
 		InventoryInterval: 600,
 		Options:           map[string]interface{}{"config_refresh": 120.0},
-		ATCs:              []int{},
-		FileCategories:    []int{},
+		ATCIDs:            []int{},
+		FileCategoryIDs:   []int{},
 		Created:           Timestamp{referenceTime},
 		Updated:           Timestamp{referenceTime},
 	}
@@ -201,8 +201,8 @@ func TestOsqueryConfigurationsService_Create(t *testing.T) {
 		InventoryEC2:      false,
 		InventoryInterval: 600,
 		Options:           map[string]interface{}{"config_refresh": 120.0},
-		ATCs:              []int{1, 2},
-		FileCategories:    []int{1, 2},
+		ATCIDs:            []int{1, 2},
+		FileCategoryIDs:   []int{1, 2},
 	}
 
 	mux.HandleFunc("/osquery/configurations/", func(w http.ResponseWriter, r *http.Request) {
@@ -234,8 +234,8 @@ func TestOsqueryConfigurationsService_Create(t *testing.T) {
 		InventoryEC2:      false,
 		InventoryInterval: 600,
 		Options:           map[string]interface{}{"config_refresh": 120.0},
-		ATCs:              []int{1, 2},
-		FileCategories:    []int{1, 2},
+		ATCIDs:            []int{1, 2},
+		FileCategoryIDs:   []int{1, 2},
 		Created:           Timestamp{referenceTime},
 		Updated:           Timestamp{referenceTime},
 	}
@@ -255,8 +255,8 @@ func TestOsqueryConfigurationsService_Update(t *testing.T) {
 		InventoryApps:     true,
 		InventoryEC2:      false,
 		InventoryInterval: 600,
-		ATCs:              []int{1, 2, 3},
-		FileCategories:    []int{1, 2, 3},
+		ATCIDs:            []int{1, 2, 3},
+		FileCategoryIDs:   []int{1, 2, 3},
 		Options:           map[string]interface{}{"config_refresh": 120.0},
 	}
 
@@ -288,8 +288,8 @@ func TestOsqueryConfigurationsService_Update(t *testing.T) {
 		InventoryEC2:      false,
 		InventoryInterval: 600,
 		Options:           map[string]interface{}{"config_refresh": 120.0},
-		ATCs:              []int{1, 2, 3},
-		FileCategories:    []int{1, 2, 3},
+		ATCIDs:            []int{1, 2, 3},
+		FileCategoryIDs:   []int{1, 2, 3},
 		Created:           Timestamp{referenceTime},
 		Updated:           Timestamp{referenceTime},
 	}
