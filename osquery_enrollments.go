@@ -91,9 +91,9 @@ func (s *OsqueryEnrollmentsServiceOp) GetByConfigurationID(ctx context.Context, 
 		return nil, nil, NewArgError("configuration_id", "cannot be negative")
 	}
 
-	listSEOpt := &listOEOptions{ConfigurationID: configuration_id}
+	listOEOpt := &listOEOptions{ConfigurationID: configuration_id}
 
-	return s.list(ctx, nil, listSEOpt)
+	return s.list(ctx, nil, listOEOpt)
 }
 
 // Create a new Osquery enrollment.
