@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.20"
+	libraryVersion = "0.1.21"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -38,6 +38,7 @@ type Client struct {
 	Tags              TagsService
 	Taxonomies        TaxonomiesService
 	// Monolith
+	MonolithCatalogs  MonolithCatalogsService
 	MonolithManifests MonolithManifestsService
 	// Osquery
 	OsqueryATC                OsqueryATCService
@@ -140,6 +141,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.Tags = &TagsServiceOp{client: c}
 	c.Taxonomies = &TaxonomiesServiceOp{client: c}
 	// Monolith
+	c.MonolithCatalogs = &MonolithCatalogsServiceOp{client: c}
 	c.MonolithManifests = &MonolithManifestsServiceOp{client: c}
 	// Osquery
 	c.OsqueryATC = &OsqueryATCServiceOp{client: c}
