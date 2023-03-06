@@ -79,7 +79,7 @@ func (s *MonolithManifestsServiceOp) GetByID(ctx context.Context, mmID int) (*Mo
 	return mm, resp, err
 }
 
-// GetByConfigurationID retrieves the Monolith manifests for a given configuration.
+// GetByName retrieves a Monolith manifest by name.
 func (s *MonolithManifestsServiceOp) GetByName(ctx context.Context, name string) (*MonolithManifest, *Response, error) {
 	if len(name) < 1 {
 		return nil, nil, NewArgError("name", "cannot be blank")
