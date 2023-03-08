@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.26"
+	libraryVersion = "0.1.27"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -40,6 +40,7 @@ type Client struct {
 	// Monolith
 	MonolithCatalogs             MonolithCatalogsService
 	MonolithConditions           MonolithConditionsService
+	MonolithEnrollments          MonolithEnrollmentsService
 	MonolithManifests            MonolithManifestsService
 	MonolithManifestCatalogs     MonolithManifestCatalogsService
 	MonolithManifestSubManifests MonolithManifestSubManifestsService
@@ -148,6 +149,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	// Monolith
 	c.MonolithCatalogs = &MonolithCatalogsServiceOp{client: c}
 	c.MonolithConditions = &MonolithConditionsServiceOp{client: c}
+	c.MonolithEnrollments = &MonolithEnrollmentsServiceOp{client: c}
 	c.MonolithManifests = &MonolithManifestsServiceOp{client: c}
 	c.MonolithManifestCatalogs = &MonolithManifestCatalogsServiceOp{client: c}
 	c.MonolithManifestSubManifests = &MonolithManifestSubManifestsServiceOp{client: c}
