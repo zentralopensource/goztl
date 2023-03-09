@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.28"
+	libraryVersion = "0.1.29"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -48,6 +48,7 @@ type Client struct {
 	MonolithSubManifestPkgInfos  MonolithSubManifestPkgInfosService
 	// Munki
 	MunkiConfigurations MunkiConfigurationsService
+	MunkiEnrollments    MunkiEnrollmentsService
 	// Osquery
 	OsqueryATC                OsqueryATCService
 	OsqueryConfigurations     OsqueryConfigurationsService
@@ -159,6 +160,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.MonolithSubManifestPkgInfos = &MonolithSubManifestPkgInfosServiceOp{client: c}
 	// Munki
 	c.MunkiConfigurations = &MunkiConfigurationsServiceOp{client: c}
+	c.MunkiEnrollments = &MunkiEnrollmentsServiceOp{client: c}
 	// Osquery
 	c.OsqueryATC = &OsqueryATCServiceOp{client: c}
 	c.OsqueryConfigurations = &OsqueryConfigurationsServiceOp{client: c}
