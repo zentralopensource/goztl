@@ -21,6 +21,14 @@ var oqListJSONResponse = `
 	"description": "List all users",
 	"value": "A list of user attributes",
 	"version": 1,
+	"scheduling": {
+	    "can_be_denylisted": true,
+	    "interval": 60,
+	    "log_removed_actions": false,
+	    "pack": 2,
+	    "shard": 10,
+	    "snapshot_mode": false
+	},
 	"compliance_check_enabled": false,
         "created_at": "2022-07-22T01:02:03.444444",
         "updated_at": "2022-07-22T01:02:03.444444"
@@ -39,6 +47,7 @@ var oqGetJSONResponse = `
     "value": "A list of user attributes",
     "version": 1,
     "compliance_check_enabled": false,
+    "scheduling": null,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -54,6 +63,7 @@ var oqCreateJSONResponse = `
     "description": "List all users",
     "value": "A list of user attributes",
     "version": 1,
+    "scheduling": null,
     "compliance_check_enabled": false,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
@@ -71,6 +81,14 @@ var oqUpdateJSONResponse = `
     "value": "A list of user attributes",
     "version": 1,
     "compliance_check_enabled": false,
+    "scheduling": {
+	"can_be_denylisted": true,
+	"interval": 161,
+	"log_removed_actions": true,
+	"pack": 2,
+	"shard": null,
+	"snapshot_mode": false
+    },
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -102,8 +120,16 @@ func TestOsqueryQueriesService_List(t *testing.T) {
 			Value:                  "A list of user attributes",
 			Version:                1,
 			ComplianceCheckEnabled: false,
-			Created:                Timestamp{referenceTime},
-			Updated:                Timestamp{referenceTime},
+			Scheduling: &OsqueryQueryScheduling{
+				CanBeDenyListed:   true,
+				Interval:          60,
+				LogRemovedActions: false,
+				PackID:            2,
+				Shard:             Int(10),
+				SnapshotMode:      false,
+			},
+			Created: Timestamp{referenceTime},
+			Updated: Timestamp{referenceTime},
 		},
 	}
 	if !cmp.Equal(got, want) {
@@ -170,8 +196,60 @@ func TestOsqueryQueriesService_GetByName(t *testing.T) {
 		Value:                  "A list of user attributes",
 		Version:                1,
 		ComplianceCheckEnabled: false,
-		Created:                Timestamp{referenceTime},
-		Updated:                Timestamp{referenceTime},
+		Scheduling: &OsqueryQueryScheduling{
+			CanBeDenyListed:   true,
+			Interval:          60,
+			LogRemovedActions: false,
+			PackID:            2,
+			Shard:             Int(10),
+			SnapshotMode:      false,
+		},
+		Created: Timestamp{referenceTime},
+		Updated: Timestamp{referenceTime},
+	}
+	if !cmp.Equal(got, want) {
+		t.Errorf("OsqueryQueries.GetByName returned %+v, want %+v", got, want)
+	}
+}
+
+func TestOsqueryQueriesService_GetByPackID(t *testing.T) {
+	client, mux, teardown := setup()
+	defer teardown()
+
+	mux.HandleFunc("/osquery/queries/", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		testHeader(t, r, "Accept", "application/json")
+		testQueryArg(t, r, "pack_id", "2")
+		fmt.Fprint(w, oqListJSONResponse)
+	})
+
+	ctx := context.Background()
+	got, _, err := client.OsqueryQueries.GetByPackID(ctx, 2)
+	if err != nil {
+		t.Errorf("OsqueryQueries.GetByPackID returned error: %v", err)
+	}
+
+	want := []OsqueryQuery{
+		{
+			ID:                     4,
+			Name:                   "Users",
+			SQL:                    "SELECT * FROM users;",
+			Platforms:              []string{"darwin", "linux", "windows"},
+			Description:            "List all users",
+			Value:                  "A list of user attributes",
+			Version:                1,
+			ComplianceCheckEnabled: false,
+			Scheduling: &OsqueryQueryScheduling{
+				CanBeDenyListed:   true,
+				Interval:          60,
+				LogRemovedActions: false,
+				PackID:            2,
+				Shard:             Int(10),
+				SnapshotMode:      false,
+			},
+			Created: Timestamp{referenceTime},
+			Updated: Timestamp{referenceTime},
+		},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("OsqueryQueries.GetByName returned %+v, want %+v", got, want)
@@ -242,6 +320,10 @@ func TestOsqueryQueriesService_Update(t *testing.T) {
 		Description:            "List all users",
 		Value:                  "A list of user attributes",
 		ComplianceCheckEnabled: false,
+		Scheduling: &OsqueryQuerySchedulingRequest{
+			Interval: 161,
+			PackID:   2,
+		},
 	}
 
 	mux.HandleFunc("/osquery/queries/1/", func(w http.ResponseWriter, r *http.Request) {
@@ -273,8 +355,15 @@ func TestOsqueryQueriesService_Update(t *testing.T) {
 		Value:                  "A list of user attributes",
 		Version:                1,
 		ComplianceCheckEnabled: false,
-		Created:                Timestamp{referenceTime},
-		Updated:                Timestamp{referenceTime},
+		Scheduling: &OsqueryQueryScheduling{
+			CanBeDenyListed:   true,
+			Interval:          161,
+			LogRemovedActions: true,
+			PackID:            2,
+			SnapshotMode:      false,
+		},
+		Created: Timestamp{referenceTime},
+		Updated: Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("OsqueryQueries.Update returned %+v, want %+v", got, want)

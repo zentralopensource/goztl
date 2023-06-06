@@ -14,6 +14,7 @@ type OsqueryQueriesService interface {
 	List(context.Context, *ListOptions) ([]OsqueryQuery, *Response, error)
 	GetByID(context.Context, int) (*OsqueryQuery, *Response, error)
 	GetByName(context.Context, string) (*OsqueryQuery, *Response, error)
+	GetByPackID(context.Context, int) ([]OsqueryQuery, *Response, error)
 	Create(context.Context, *OsqueryQueryRequest) (*OsqueryQuery, *Response, error)
 	Update(context.Context, int, *OsqueryQueryRequest) (*OsqueryQuery, *Response, error)
 	Delete(context.Context, int) (*Response, error)
@@ -27,38 +28,61 @@ type OsqueryQueriesServiceOp struct {
 
 var _ OsqueryQueriesService = &OsqueryQueriesServiceOp{}
 
+// OsqueryQueryScheduling represents the scheduling information of a Zentral Osquery query
+type OsqueryQueryScheduling struct {
+	PackID            int  `json:"pack"`
+	Interval          int  `json:"interval"`
+	LogRemovedActions bool `json:"log_removed_actions"`
+	SnapshotMode      bool `json:"snapshot_mode"`
+	Shard             *int `json:"shard"`
+	CanBeDenyListed   bool `json:"can_be_denylisted"`
+}
+
 // OsqueryQuery represents a Zentral Osquery query
 type OsqueryQuery struct {
-	ID                     int       `json:"id,omitempty"`
-	Name                   string    `json:"name"`
-	SQL                    string    `json:"sql"`
-	Platforms              []string  `json:"platforms"`
-	MinOsqueryVersion      *string   `json:"minimum_osquery_version"`
-	Description            string    `json:"description"`
-	Value                  string    `json:"value"`
-	Version                int       `json:"version"`
-	ComplianceCheckEnabled bool      `json:"compliance_check_enabled"`
-	Created                Timestamp `json:"created_at"`
-	Updated                Timestamp `json:"updated_at"`
+	ID                     int                     `json:"id,omitempty"`
+	Name                   string                  `json:"name"`
+	SQL                    string                  `json:"sql"`
+	Platforms              []string                `json:"platforms"`
+	MinOsqueryVersion      *string                 `json:"minimum_osquery_version"`
+	Description            string                  `json:"description"`
+	Value                  string                  `json:"value"`
+	Version                int                     `json:"version"`
+	ComplianceCheckEnabled bool                    `json:"compliance_check_enabled"`
+	Scheduling             *OsqueryQueryScheduling `json:"scheduling"`
+	Created                Timestamp               `json:"created_at"`
+	Updated                Timestamp               `json:"updated_at"`
 }
 
 func (oq OsqueryQuery) String() string {
 	return Stringify(oq)
 }
 
+// OsqueryQuerySchedulingRequest represents a request to create or update a Osquery pack query scheduling
+type OsqueryQuerySchedulingRequest struct {
+	PackID            int  `json:"pack"`
+	Interval          int  `json:"interval"`
+	LogRemovedActions bool `json:"log_removed_actions"`
+	SnapshotMode      bool `json:"snapshot_mode"`
+	Shard             *int `json:"shard"`
+	CanBeDenyListed   bool `json:"can_be_denylisted"`
+}
+
 // OsqueryQueryRequest represents a request to create or update a Osquery query
 type OsqueryQueryRequest struct {
-	Name                   string   `json:"name"`
-	SQL                    string   `json:"sql"`
-	Platforms              []string `json:"platforms"`
-	MinOsqueryVersion      *string  `json:"minimum_osquery_version"`
-	Description            string   `json:"description"`
-	Value                  string   `json:"value"`
-	ComplianceCheckEnabled bool     `json:"compliance_check_enabled"`
+	Name                   string                         `json:"name"`
+	SQL                    string                         `json:"sql"`
+	Platforms              []string                       `json:"platforms"`
+	MinOsqueryVersion      *string                        `json:"minimum_osquery_version"`
+	Description            string                         `json:"description"`
+	Value                  string                         `json:"value"`
+	ComplianceCheckEnabled bool                           `json:"compliance_check_enabled"`
+	Scheduling             *OsqueryQuerySchedulingRequest `json:"scheduling"`
 }
 
 type listOQOptions struct {
-	Name string `url:"name,omitempty"`
+	Name   string `url:"name,omitempty"`
+	PackID int    `url:"pack_id,omitempty"`
 }
 
 // List lists all the Osquery queries.
@@ -106,6 +130,17 @@ func (s *OsqueryQueriesServiceOp) GetByName(ctx context.Context, name string) (*
 	}
 
 	return &oqs[0], resp, err
+}
+
+// GetByPackID retrieves Osquery queries by pack ID.
+func (s *OsqueryQueriesServiceOp) GetByPackID(ctx context.Context, packID int) ([]OsqueryQuery, *Response, error) {
+	if packID < 1 {
+		return nil, nil, NewArgError("packID", "cannot be less than 1")
+	}
+
+	listOQOpt := &listOQOptions{PackID: packID}
+
+	return s.list(ctx, nil, listOQOpt)
 }
 
 // Create a new Osquery query.
