@@ -46,7 +46,7 @@ func (mb MDMBlueprint) String() string {
 // MDMBlueprintRequest represents a request to create or update a MDM blueprint
 type MDMBlueprintRequest struct {
 	Name                string `json:"name"`
-	InventoryInterval   int    `json:"inventory_internal"`
+	InventoryInterval   int    `json:"inventory_interval"`
 	CollectApps         int    `json:"collect_apps"`
 	CollectCertificates int    `json:"collect_certificates"`
 	CollectProfiles     int    `json:"collect_profiles"`
