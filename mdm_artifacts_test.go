@@ -14,7 +14,7 @@ import (
 var maListJSONResponse = `
 [
     {
-        "id": 4,
+        "id": "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
         "name": "Default",
 	"type": "Profile",
 	"channel": "Device",
@@ -23,7 +23,7 @@ var maListJSONResponse = `
 	"auto_update": true,
 	"reinstall_interval": 1,
 	"reinstall_on_os_update": "No",
-	"requires": [2],
+	"requires": ["b89d21e8-76de-4ae5-948d-5627474ab8be"],
         "created_at": "2022-07-22T01:02:03.444444",
         "updated_at": "2022-07-22T01:02:03.444444"
     }
@@ -32,7 +32,7 @@ var maListJSONResponse = `
 
 var maGetJSONResponse = `
 {
-    "id": 4,
+    "id": "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
     "name": "Default",
     "type": "Profile",
     "channel": "Device",
@@ -41,7 +41,7 @@ var maGetJSONResponse = `
     "auto_update": true,
     "reinstall_interval": 1,
     "reinstall_on_os_update": "No",
-    "requires": [2],
+    "requires": ["b89d21e8-76de-4ae5-948d-5627474ab8be"],
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -49,7 +49,7 @@ var maGetJSONResponse = `
 
 var maCreateJSONResponse = `
 {
-    "id": 4,
+    "id": "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
     "name": "Default",
     "type": "Profile",
     "channel": "Device",
@@ -58,7 +58,7 @@ var maCreateJSONResponse = `
     "auto_update": true,
     "reinstall_interval": 1,
     "reinstall_on_os_update": "No",
-    "requires": [2],
+    "requires": ["b89d21e8-76de-4ae5-948d-5627474ab8be"],
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -66,7 +66,7 @@ var maCreateJSONResponse = `
 
 var maUpdateJSONResponse = `
 {
-    "id": 4,
+    "id": "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
     "name": "Default",
     "type": "Profile",
     "channel": "Device",
@@ -75,7 +75,7 @@ var maUpdateJSONResponse = `
     "auto_update": true,
     "reinstall_interval": 1,
     "reinstall_on_os_update": "No",
-    "requires": [2],
+    "requires": ["b89d21e8-76de-4ae5-948d-5627474ab8be"],
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -99,7 +99,7 @@ func TestMDMArtifactsService_List(t *testing.T) {
 
 	want := []MDMArtifact{
 		{
-			ID:                          4,
+			ID:                          "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
 			Name:                        "Default",
 			Type:                        "Profile",
 			Channel:                     "Device",
@@ -108,7 +108,7 @@ func TestMDMArtifactsService_List(t *testing.T) {
 			AutoUpdate:                  true,
 			ReinstallInterval:           1,
 			ReinstallOnOSUpdate:         "No",
-			Requires:                    []int{2},
+			Requires:                    []string{"b89d21e8-76de-4ae5-948d-5627474ab8be"},
 			Created:                     Timestamp{referenceTime},
 			Updated:                     Timestamp{referenceTime},
 		},
@@ -122,20 +122,20 @@ func TestMDMArtifactsService_GetByID(t *testing.T) {
 	client, mux, teardown := setup()
 	defer teardown()
 
-	mux.HandleFunc("/mdm/artifacts/4/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/mdm/artifacts/526efd25-c1f7-498c-82b5-94ff0b39ba8e/", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		testHeader(t, r, "Accept", "application/json")
 		fmt.Fprint(w, maGetJSONResponse)
 	})
 
 	ctx := context.Background()
-	got, _, err := client.MDMArtifacts.GetByID(ctx, 4)
+	got, _, err := client.MDMArtifacts.GetByID(ctx, "526efd25-c1f7-498c-82b5-94ff0b39ba8e")
 	if err != nil {
 		t.Errorf("MDMArtifacts.GetByID returned error: %v", err)
 	}
 
 	want := &MDMArtifact{
-		ID:                          4,
+		ID:                          "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
 		Name:                        "Default",
 		Type:                        "Profile",
 		Channel:                     "Device",
@@ -144,7 +144,7 @@ func TestMDMArtifactsService_GetByID(t *testing.T) {
 		AutoUpdate:                  true,
 		ReinstallInterval:           1,
 		ReinstallOnOSUpdate:         "No",
-		Requires:                    []int{2},
+		Requires:                    []string{"b89d21e8-76de-4ae5-948d-5627474ab8be"},
 		Created:                     Timestamp{referenceTime},
 		Updated:                     Timestamp{referenceTime},
 	}
@@ -171,7 +171,7 @@ func TestMDMArtifactsService_GetByName(t *testing.T) {
 	}
 
 	want := &MDMArtifact{
-		ID:                          4,
+		ID:                          "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
 		Name:                        "Default",
 		Type:                        "Profile",
 		Channel:                     "Device",
@@ -180,7 +180,7 @@ func TestMDMArtifactsService_GetByName(t *testing.T) {
 		AutoUpdate:                  true,
 		ReinstallInterval:           1,
 		ReinstallOnOSUpdate:         "No",
-		Requires:                    []int{2},
+		Requires:                    []string{"b89d21e8-76de-4ae5-948d-5627474ab8be"},
 		Created:                     Timestamp{referenceTime},
 		Updated:                     Timestamp{referenceTime},
 	}
@@ -202,7 +202,7 @@ func TestMDMArtifactsService_Create(t *testing.T) {
 		AutoUpdate:                  true,
 		ReinstallInterval:           1,
 		ReinstallOnOSUpdate:         "No",
-		Requires:                    []int{2},
+		Requires:                    []string{"b89d21e8-76de-4ae5-948d-5627474ab8be"},
 	}
 
 	mux.HandleFunc("/mdm/artifacts/", func(w http.ResponseWriter, r *http.Request) {
@@ -226,7 +226,7 @@ func TestMDMArtifactsService_Create(t *testing.T) {
 	}
 
 	want := &MDMArtifact{
-		ID:                          4,
+		ID:                          "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
 		Name:                        "Default",
 		Type:                        "Profile",
 		Channel:                     "Device",
@@ -235,7 +235,7 @@ func TestMDMArtifactsService_Create(t *testing.T) {
 		AutoUpdate:                  true,
 		ReinstallInterval:           1,
 		ReinstallOnOSUpdate:         "No",
-		Requires:                    []int{2},
+		Requires:                    []string{"b89d21e8-76de-4ae5-948d-5627474ab8be"},
 		Created:                     Timestamp{referenceTime},
 		Updated:                     Timestamp{referenceTime},
 	}
@@ -257,10 +257,10 @@ func TestMDMArtifactsService_Update(t *testing.T) {
 		AutoUpdate:                  true,
 		ReinstallInterval:           1,
 		ReinstallOnOSUpdate:         "No",
-		Requires:                    []int{2},
+		Requires:                    []string{"b89d21e8-76de-4ae5-948d-5627474ab8be"},
 	}
 
-	mux.HandleFunc("/mdm/artifacts/4/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/mdm/artifacts/526efd25-c1f7-498c-82b5-94ff0b39ba8e/", func(w http.ResponseWriter, r *http.Request) {
 		v := new(MDMArtifactRequest)
 		err := json.NewDecoder(r.Body).Decode(v)
 		if err != nil {
@@ -274,13 +274,13 @@ func TestMDMArtifactsService_Update(t *testing.T) {
 	})
 
 	ctx := context.Background()
-	got, _, err := client.MDMArtifacts.Update(ctx, 4, updateRequest)
+	got, _, err := client.MDMArtifacts.Update(ctx, "526efd25-c1f7-498c-82b5-94ff0b39ba8e", updateRequest)
 	if err != nil {
 		t.Errorf("MDMArtifacts.Update returned error: %v", err)
 	}
 
 	want := &MDMArtifact{
-		ID:                          4,
+		ID:                          "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
 		Name:                        "Default",
 		Type:                        "Profile",
 		Channel:                     "Device",
@@ -289,7 +289,7 @@ func TestMDMArtifactsService_Update(t *testing.T) {
 		AutoUpdate:                  true,
 		ReinstallInterval:           1,
 		ReinstallOnOSUpdate:         "No",
-		Requires:                    []int{2},
+		Requires:                    []string{"b89d21e8-76de-4ae5-948d-5627474ab8be"},
 		Created:                     Timestamp{referenceTime},
 		Updated:                     Timestamp{referenceTime},
 	}
@@ -302,13 +302,13 @@ func TestMDMArtifactsService_Delete(t *testing.T) {
 	client, mux, teardown := setup()
 	defer teardown()
 
-	mux.HandleFunc("/mdm/artifacts/4/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/mdm/artifacts/526efd25-c1f7-498c-82b5-94ff0b39ba8e/", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "DELETE")
 		w.WriteHeader(http.StatusNoContent)
 	})
 
 	ctx := context.Background()
-	_, err := client.MDMArtifacts.Delete(ctx, 4)
+	_, err := client.MDMArtifacts.Delete(ctx, "526efd25-c1f7-498c-82b5-94ff0b39ba8e")
 	if err != nil {
 		t.Errorf("MDMArtifacts.Delete returned error: %v", err)
 	}
