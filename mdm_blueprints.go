@@ -35,6 +35,7 @@ type MDMBlueprint struct {
 	CollectApps         int       `json:"collect_apps"`
 	CollectCertificates int       `json:"collect_certificates"`
 	CollectProfiles     int       `json:"collect_profiles"`
+	FileVaultConfigID   *int      `json:"filevault_config"`
 	Created             Timestamp `json:"created_at,omitempty"`
 	Updated             Timestamp `json:"updated_at,omitempty"`
 }
@@ -50,6 +51,7 @@ type MDMBlueprintRequest struct {
 	CollectApps         int    `json:"collect_apps"`
 	CollectCertificates int    `json:"collect_certificates"`
 	CollectProfiles     int    `json:"collect_profiles"`
+	FileVaultConfigID   *int   `json:"filevault_config"`
 }
 
 type listMBOptions struct {

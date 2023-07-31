@@ -20,6 +20,7 @@ var mbListJSONResponse = `
 	"collect_apps": 0,
 	"collect_certificates": 1,
 	"collect_profiles": 2,
+	"filevault_config": null,
         "created_at": "2022-07-22T01:02:03.444444",
         "updated_at": "2022-07-22T01:02:03.444444"
     }
@@ -34,6 +35,7 @@ var mbGetJSONResponse = `
     "collect_apps": 0,
     "collect_certificates": 1,
     "collect_profiles": 2,
+    "filevault_config": 3,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -60,6 +62,7 @@ var mbUpdateJSONResponse = `
     "collect_apps": 0,
     "collect_certificates": 1,
     "collect_profiles": 2,
+    "filevault_config": 3,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -121,6 +124,7 @@ func TestMDMBlueprintsService_GetByID(t *testing.T) {
 		CollectApps:         0,
 		CollectCertificates: 1,
 		CollectProfiles:     2,
+		FileVaultConfigID:   Int(3),
 		Created:             Timestamp{referenceTime},
 		Updated:             Timestamp{referenceTime},
 	}
@@ -218,6 +222,7 @@ func TestMDMBlueprintsService_Update(t *testing.T) {
 		CollectApps:         0,
 		CollectCertificates: 1,
 		CollectProfiles:     2,
+		FileVaultConfigID:   Int(3),
 	}
 
 	mux.HandleFunc("/mdm/blueprints/4/", func(w http.ResponseWriter, r *http.Request) {
@@ -246,6 +251,7 @@ func TestMDMBlueprintsService_Update(t *testing.T) {
 		CollectApps:         0,
 		CollectCertificates: 1,
 		CollectProfiles:     2,
+		FileVaultConfigID:   Int(3),
 		Created:             Timestamp{referenceTime},
 		Updated:             Timestamp{referenceTime},
 	}
