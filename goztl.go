@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.36"
+	libraryVersion = "0.1.37"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -38,11 +38,12 @@ type Client struct {
 	Tags              TagsService
 	Taxonomies        TaxonomiesService
 	// MDM
-	MDMArtifacts          MDMArtifactsService
-	MDMBlueprints         MDMBlueprintsService
-	MDMBlueprintArtifacts MDMBlueprintArtifactsService
-	MDMFileVaultConfigs   MDMFileVaultConfigsService
-	MDMProfiles           MDMProfilesService
+	MDMArtifacts               MDMArtifactsService
+	MDMBlueprints              MDMBlueprintsService
+	MDMBlueprintArtifacts      MDMBlueprintArtifactsService
+	MDMFileVaultConfigs        MDMFileVaultConfigsService
+	MDMProfiles                MDMProfilesService
+	MDMRecoveryPasswordConfigs MDMRecoveryPasswordConfigsService
 	// Monolith
 	MonolithCatalogs             MonolithCatalogsService
 	MonolithConditions           MonolithConditionsService
@@ -160,6 +161,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.MDMBlueprintArtifacts = &MDMBlueprintArtifactsServiceOp{client: c}
 	c.MDMFileVaultConfigs = &MDMFileVaultConfigsServiceOp{client: c}
 	c.MDMProfiles = &MDMProfilesServiceOp{client: c}
+	c.MDMRecoveryPasswordConfigs = &MDMRecoveryPasswordConfigsServiceOp{client: c}
 	// Monolith
 	c.MonolithCatalogs = &MonolithCatalogsServiceOp{client: c}
 	c.MonolithConditions = &MonolithConditionsServiceOp{client: c}

@@ -29,15 +29,16 @@ var _ MDMBlueprintsService = &MDMBlueprintsServiceOp{}
 
 // MDMBlueprint represents a Zentral MDM blueprint
 type MDMBlueprint struct {
-	ID                  int       `json:"id,omitempty"`
-	Name                string    `json:"name"`
-	InventoryInterval   int       `json:"inventory_interval"`
-	CollectApps         int       `json:"collect_apps"`
-	CollectCertificates int       `json:"collect_certificates"`
-	CollectProfiles     int       `json:"collect_profiles"`
-	FileVaultConfigID   *int      `json:"filevault_config"`
-	Created             Timestamp `json:"created_at,omitempty"`
-	Updated             Timestamp `json:"updated_at,omitempty"`
+	ID                       int       `json:"id,omitempty"`
+	Name                     string    `json:"name"`
+	InventoryInterval        int       `json:"inventory_interval"`
+	CollectApps              int       `json:"collect_apps"`
+	CollectCertificates      int       `json:"collect_certificates"`
+	CollectProfiles          int       `json:"collect_profiles"`
+	FileVaultConfigID        *int      `json:"filevault_config"`
+	RecoveryPasswordConfigID *int      `json:"recovery_password_config"`
+	Created                  Timestamp `json:"created_at,omitempty"`
+	Updated                  Timestamp `json:"updated_at,omitempty"`
 }
 
 func (mb MDMBlueprint) String() string {
@@ -46,12 +47,13 @@ func (mb MDMBlueprint) String() string {
 
 // MDMBlueprintRequest represents a request to create or update a MDM blueprint
 type MDMBlueprintRequest struct {
-	Name                string `json:"name"`
-	InventoryInterval   int    `json:"inventory_interval"`
-	CollectApps         int    `json:"collect_apps"`
-	CollectCertificates int    `json:"collect_certificates"`
-	CollectProfiles     int    `json:"collect_profiles"`
-	FileVaultConfigID   *int   `json:"filevault_config"`
+	Name                     string `json:"name"`
+	InventoryInterval        int    `json:"inventory_interval"`
+	CollectApps              int    `json:"collect_apps"`
+	CollectCertificates      int    `json:"collect_certificates"`
+	CollectProfiles          int    `json:"collect_profiles"`
+	FileVaultConfigID        *int   `json:"filevault_config"`
+	RecoveryPasswordConfigID *int   `json:"recovery_password_config"`
 }
 
 type listMBOptions struct {

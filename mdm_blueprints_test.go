@@ -21,6 +21,7 @@ var mbListJSONResponse = `
 	"collect_certificates": 1,
 	"collect_profiles": 2,
 	"filevault_config": null,
+	"recovery_password_config": null,
         "created_at": "2022-07-22T01:02:03.444444",
         "updated_at": "2022-07-22T01:02:03.444444"
     }
@@ -36,6 +37,7 @@ var mbGetJSONResponse = `
     "collect_certificates": 1,
     "collect_profiles": 2,
     "filevault_config": 3,
+    "recovery_password_config": 4,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -63,6 +65,7 @@ var mbUpdateJSONResponse = `
     "collect_certificates": 1,
     "collect_profiles": 2,
     "filevault_config": 3,
+    "recovery_password_config": 4,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -118,15 +121,16 @@ func TestMDMBlueprintsService_GetByID(t *testing.T) {
 	}
 
 	want := &MDMBlueprint{
-		ID:                  4,
-		Name:                "Default",
-		InventoryInterval:   77777,
-		CollectApps:         0,
-		CollectCertificates: 1,
-		CollectProfiles:     2,
-		FileVaultConfigID:   Int(3),
-		Created:             Timestamp{referenceTime},
-		Updated:             Timestamp{referenceTime},
+		ID:                       4,
+		Name:                     "Default",
+		InventoryInterval:        77777,
+		CollectApps:              0,
+		CollectCertificates:      1,
+		CollectProfiles:          2,
+		FileVaultConfigID:        Int(3),
+		RecoveryPasswordConfigID: Int(4),
+		Created:                  Timestamp{referenceTime},
+		Updated:                  Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("MDMBlueprints.GetByID returned %+v, want %+v", got, want)
@@ -217,12 +221,13 @@ func TestMDMBlueprintsService_Update(t *testing.T) {
 	defer teardown()
 
 	updateRequest := &MDMBlueprintRequest{
-		Name:                "Default",
-		InventoryInterval:   77777,
-		CollectApps:         0,
-		CollectCertificates: 1,
-		CollectProfiles:     2,
-		FileVaultConfigID:   Int(3),
+		Name:                     "Default",
+		InventoryInterval:        77777,
+		CollectApps:              0,
+		CollectCertificates:      1,
+		CollectProfiles:          2,
+		FileVaultConfigID:        Int(3),
+		RecoveryPasswordConfigID: Int(4),
 	}
 
 	mux.HandleFunc("/mdm/blueprints/4/", func(w http.ResponseWriter, r *http.Request) {
@@ -245,15 +250,16 @@ func TestMDMBlueprintsService_Update(t *testing.T) {
 	}
 
 	want := &MDMBlueprint{
-		ID:                  4,
-		Name:                "Default",
-		InventoryInterval:   77777,
-		CollectApps:         0,
-		CollectCertificates: 1,
-		CollectProfiles:     2,
-		FileVaultConfigID:   Int(3),
-		Created:             Timestamp{referenceTime},
-		Updated:             Timestamp{referenceTime},
+		ID:                       4,
+		Name:                     "Default",
+		InventoryInterval:        77777,
+		CollectApps:              0,
+		CollectCertificates:      1,
+		CollectProfiles:          2,
+		FileVaultConfigID:        Int(3),
+		RecoveryPasswordConfigID: Int(4),
+		Created:                  Timestamp{referenceTime},
+		Updated:                  Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("MDMBlueprints.Update returned %+v, want %+v", got, want)
