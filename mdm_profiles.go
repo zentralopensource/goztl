@@ -28,28 +28,9 @@ var _ MDMProfilesService = &MDMProfilesServiceOp{}
 
 // MDMProfile represents a Zentral MDM profile
 type MDMProfile struct {
-	ID               string     `json:"id"`
-	ArtifactID       string     `json:"artifact"`
-	Source           string     `json:"source"`
-	IOS              bool       `json:"ios"`
-	IOSMaxVersion    string     `json:"ios_max_version"`
-	IOSMinVersion    string     `json:"ios_min_version"`
-	IPadOS           bool       `json:"ipados"`
-	IPadOSMaxVersion string     `json:"ipados_max_version"`
-	IPadOSMinVersion string     `json:"ipados_min_version"`
-	MacOS            bool       `json:"macos"`
-	MacOSMaxVersion  string     `json:"macos_max_version"`
-	MacOSMinVersion  string     `json:"macos_min_version"`
-	TVOS             bool       `json:"tvos"`
-	TVOSMaxVersion   string     `json:"tvos_max_version"`
-	TVOSMinVersion   string     `json:"tvos_min_version"`
-	DefaultShard     int        `json:"default_shard"`
-	ShardModulo      int        `json:"shard_modulo"`
-	ExcludedTagIDs   []int      `json:"excluded_tags"`
-	TagShards        []TagShard `json:"tag_shards"`
-	Version          int        `json:"version"`
-	Created          Timestamp  `json:"created_at"`
-	Updated          Timestamp  `json:"updated_at"`
+	ID     string `json:"id"`
+	Source string `json:"source"`
+	MDMArtifactVersion
 }
 
 func (mp MDMProfile) String() string {
@@ -58,25 +39,8 @@ func (mp MDMProfile) String() string {
 
 // MDMProfileRequest represents a request to create or update a MDM profile
 type MDMProfileRequest struct {
-	ArtifactID       string     `json:"artifact"`
-	Source           string     `json:"source"`
-	IOS              bool       `json:"ios"`
-	IOSMaxVersion    string     `json:"ios_max_version"`
-	IOSMinVersion    string     `json:"ios_min_version"`
-	IPadOS           bool       `json:"ipados"`
-	IPadOSMaxVersion string     `json:"ipados_max_version"`
-	IPadOSMinVersion string     `json:"ipados_min_version"`
-	MacOS            bool       `json:"macos"`
-	MacOSMaxVersion  string     `json:"macos_max_version"`
-	MacOSMinVersion  string     `json:"macos_min_version"`
-	TVOS             bool       `json:"tvos"`
-	TVOSMaxVersion   string     `json:"tvos_max_version"`
-	TVOSMinVersion   string     `json:"tvos_min_version"`
-	DefaultShard     int        `json:"default_shard"`
-	ShardModulo      int        `json:"shard_modulo"`
-	ExcludedTagIDs   []int      `json:"excluded_tags"`
-	TagShards        []TagShard `json:"tag_shards"`
-	Version          int        `json:"version"`
+	Source string `json:"source"`
+	MDMArtifactVersionRequest
 }
 
 type listMPOptions struct{}
