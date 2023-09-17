@@ -15,6 +15,9 @@ var meaListJSONResponse = `
 [
     {
         "id": "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
+	"package_uri": "s3://bucket/test123.pkg",
+	"package_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+	"package_size": 12345678,
 	"filename": "test123.pkg",
 	"product_id": "com.zentral.test123",
 	"product_version": "1.0",
@@ -51,6 +54,9 @@ var meaListJSONResponse = `
 var meaGetJSONResponse = `
 {
     "id": "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
+    "package_uri": "s3://bucket/test123.pkg",
+    "package_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "package_size": 12345678,
     "filename": "test123.pkg",
     "product_id": "com.zentral.test123",
     "product_version": "1.0",
@@ -86,6 +92,9 @@ var meaGetJSONResponse = `
 var meaCreateJSONResponse = `
 {
     "id": "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
+    "package_uri": "s3://bucket/test123.pkg",
+    "package_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "package_size": 12345678,
     "filename": "test123.pkg",
     "product_id": "com.zentral.test123",
     "product_version": "1.0",
@@ -121,6 +130,9 @@ var meaCreateJSONResponse = `
 var meaUpdateJSONResponse = `
 {
     "id": "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
+    "package_uri": "s3://bucket/test123.ipa",
+    "package_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "package_size": 12345678,
     "filename": "test123.ipa",
     "product_id": "com.zentral.test123",
     "product_version": "1.0",
@@ -172,6 +184,9 @@ func TestMDMEnterpriseAppsService_List(t *testing.T) {
 	want := []MDMEnterpriseApp{
 		{
 			ID:               "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
+			PackageURI:       "s3://bucket/test123.pkg",
+			PackageSHA256:    "0000000000000000000000000000000000000000000000000000000000000000",
+			PackageSize:      12345678,
 			Filename:         "test123.pkg",
 			ProductID:        "com.zentral.test123",
 			ProductVersion:   "1.0",
@@ -225,6 +240,9 @@ func TestMDMEnterpriseAppsService_GetByID(t *testing.T) {
 
 	want := &MDMEnterpriseApp{
 		ID:               "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
+		PackageURI:       "s3://bucket/test123.pkg",
+		PackageSHA256:    "0000000000000000000000000000000000000000000000000000000000000000",
+		PackageSize:      12345678,
 		Filename:         "test123.pkg",
 		ProductID:        "com.zentral.test123",
 		ProductVersion:   "1.0",
@@ -264,8 +282,8 @@ func TestMDMEnterpriseAppsService_Create(t *testing.T) {
 	defer teardown()
 
 	createRequest := &MDMEnterpriseAppRequest{
-		SourceURI:        "s3://bucket/test123.pkg",
-		SourceSHA256:     "0000000000000000000000000000000000000000",
+		PackageURI:       "s3://bucket/test123.pkg",
+		PackageSHA256:    "0000000000000000000000000000000000000000000000000000000000000000",
 		IOSApp:           false,
 		InstallAsManaged: true,
 		RemoveOnUnenroll: true,
@@ -313,6 +331,9 @@ func TestMDMEnterpriseAppsService_Create(t *testing.T) {
 
 	want := &MDMEnterpriseApp{
 		ID:               "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
+		PackageURI:       "s3://bucket/test123.pkg",
+		PackageSHA256:    "0000000000000000000000000000000000000000000000000000000000000000",
+		PackageSize:      12345678,
 		Filename:         "test123.pkg",
 		ProductID:        "com.zentral.test123",
 		ProductVersion:   "1.0",
@@ -352,8 +373,8 @@ func TestMDMEnterpriseAppsService_Update(t *testing.T) {
 	defer teardown()
 
 	updateRequest := &MDMEnterpriseAppRequest{
-		SourceURI:        "s3://bucket/test123.ipa",
-		SourceSHA256:     "0000000000000000000000000000000000000000",
+		PackageURI:       "s3://bucket/test123.ipa",
+		PackageSHA256:    "0000000000000000000000000000000000000000000000000000000000000000",
 		IOSApp:           true,
 		InstallAsManaged: true,
 		RemoveOnUnenroll: true,
@@ -400,6 +421,9 @@ func TestMDMEnterpriseAppsService_Update(t *testing.T) {
 
 	want := &MDMEnterpriseApp{
 		ID:             "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
+		PackageURI:     "s3://bucket/test123.ipa",
+		PackageSHA256:  "0000000000000000000000000000000000000000000000000000000000000000",
+		PackageSize:    12345678,
 		Filename:       "test123.ipa",
 		ProductID:      "com.zentral.test123",
 		ProductVersion: "1.0",

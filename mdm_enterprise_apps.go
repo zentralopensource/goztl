@@ -29,6 +29,9 @@ var _ MDMEnterpriseAppsService = &MDMEnterpriseAppsServiceOp{}
 // MDMEnterpriseApp represents a Zentral MDM enterprise app
 type MDMEnterpriseApp struct {
 	ID               string  `json:"id"`
+	PackageURI       string  `json:"package_uri"`
+	PackageSHA256    string  `json:"package_sha256"`
+	PackageSize      int64   `json:"package_size"`
 	Filename         string  `json:"filename"`
 	ProductID        string  `json:"product_id"`
 	ProductVersion   string  `json:"product_version"`
@@ -45,8 +48,8 @@ func (mea MDMEnterpriseApp) String() string {
 
 // MDMEnterpriseAppRequest represents a request to create or update a MDM enterprise app
 type MDMEnterpriseAppRequest struct {
-	SourceURI        string  `json:"source_uri"`
-	SourceSHA256     string  `json:"source_sha256"`
+	PackageURI       string  `json:"package_uri"`
+	PackageSHA256    string  `json:"package_sha256"`
 	IOSApp           bool    `json:"ios_app"`
 	Configuration    *string `json:"configuration"`
 	InstallAsManaged bool    `json:"installed_as_managed"`
