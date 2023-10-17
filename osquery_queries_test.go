@@ -30,6 +30,7 @@ var oqListJSONResponse = `
 	    "snapshot_mode": false
 	},
 	"compliance_check_enabled": false,
+	"tag": null,
         "created_at": "2022-07-22T01:02:03.444444",
         "updated_at": "2022-07-22T01:02:03.444444"
     }
@@ -47,6 +48,7 @@ var oqGetJSONResponse = `
     "value": "A list of user attributes",
     "version": 1,
     "compliance_check_enabled": false,
+    "tag": 17,
     "scheduling": null,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
@@ -65,6 +67,7 @@ var oqCreateJSONResponse = `
     "version": 1,
     "scheduling": null,
     "compliance_check_enabled": false,
+    "tag": 17,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -81,6 +84,7 @@ var oqUpdateJSONResponse = `
     "value": "A list of user attributes",
     "version": 1,
     "compliance_check_enabled": false,
+    "tag": null,
     "scheduling": {
 	"can_be_denylisted": true,
 	"interval": 161,
@@ -162,6 +166,7 @@ func TestOsqueryQueriesService_GetByID(t *testing.T) {
 		Value:                  "A list of user attributes",
 		Version:                1,
 		ComplianceCheckEnabled: false,
+		TagID:                  Int(17),
 		Created:                Timestamp{referenceTime},
 		Updated:                Timestamp{referenceTime},
 	}
@@ -300,6 +305,7 @@ func TestOsqueryQueriesService_Create(t *testing.T) {
 		Value:                  "A list of user attributes",
 		Version:                1,
 		ComplianceCheckEnabled: false,
+		TagID:                  Int(17),
 		Created:                Timestamp{referenceTime},
 		Updated:                Timestamp{referenceTime},
 	}
