@@ -37,6 +37,7 @@ type MunkiConfiguration struct {
 	PrincipalUserDetectionDomains   []string  `json:"principal_user_detection_domains"`
 	CollectedConditionKeys          []string  `json:"collected_condition_keys"`
 	ManagedInstallsSyncIntervalDays int       `json:"managed_installs_sync_interval_days"`
+	ScriptChecksRunIntervalSeconds  int       `json:"script_checks_run_interval_seconds"`
 	AutoReinstallIncidents          bool      `json:"auto_reinstall_incidents"`
 	AutoFailedInstallIncidents      bool      `json:"auto_failed_install_incidents"`
 	Version                         int       `json:"version"`
@@ -57,6 +58,7 @@ type MunkiConfigurationRequest struct {
 	PrincipalUserDetectionDomains   []string `json:"principal_user_detection_domains"`
 	CollectedConditionKeys          []string `json:"collected_condition_keys"`
 	ManagedInstallsSyncIntervalDays int      `json:"managed_installs_sync_interval_days"`
+	ScriptChecksRunIntervalSeconds  int      `json:"script_checks_run_interval_seconds"`
 	AutoReinstallIncidents          bool     `json:"auto_reinstall_incidents"`
 	AutoFailedInstallIncidents      bool     `json:"auto_failed_install_incidents"`
 }

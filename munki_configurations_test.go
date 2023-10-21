@@ -29,6 +29,7 @@ var mucListJSONResponse = `
             "machine_type"
         ],
         "managed_installs_sync_interval_days": 7,
+        "script_checks_run_interval_seconds": 86400,
         "auto_reinstall_incidents": true,
         "auto_failed_install_incidents": false,
         "version": 5,
@@ -56,6 +57,7 @@ var mucGetJSONResponse = `
     "machine_type"
   ],
   "managed_installs_sync_interval_days": 1,
+  "script_checks_run_interval_seconds": 14400,
   "auto_reinstall_incidents": true,
   "auto_failed_install_incidents": true,
   "version": 5,
@@ -82,6 +84,7 @@ var mucCreateJSONResponse = `
     "machine_type"
   ],
   "managed_installs_sync_interval_days": 1,
+  "script_checks_run_interval_seconds": 14400,
   "auto_reinstall_incidents": true,
   "auto_failed_install_incidents": true,
   "version": 1,
@@ -108,6 +111,7 @@ var mucUpdateJSONResponse = `
     "machine_type"
   ],
   "managed_installs_sync_interval_days": 1,
+  "script_checks_run_interval_seconds": 14400,
   "auto_reinstall_incidents": true,
   "auto_failed_install_incidents": true,
   "version": 5,
@@ -142,6 +146,7 @@ func TestMunkiConfigurationsService_List(t *testing.T) {
 			PrincipalUserDetectionDomains:   []string{"example.com"},
 			CollectedConditionKeys:          []string{"arch", "machine_type"},
 			ManagedInstallsSyncIntervalDays: 7,
+			ScriptChecksRunIntervalSeconds:  86400,
 			AutoReinstallIncidents:          true,
 			AutoFailedInstallIncidents:      false,
 			Version:                         5,
@@ -179,6 +184,7 @@ func TestMunkiConfigurationsService_GetByID(t *testing.T) {
 		PrincipalUserDetectionDomains:   []string{"zentral.io"},
 		CollectedConditionKeys:          []string{"arch", "machine_type"},
 		ManagedInstallsSyncIntervalDays: 1,
+		ScriptChecksRunIntervalSeconds:  14400,
 		AutoReinstallIncidents:          true,
 		AutoFailedInstallIncidents:      true,
 		Version:                         5,
@@ -216,6 +222,7 @@ func TestMunkiConfigurationsService_GetByName(t *testing.T) {
 		PrincipalUserDetectionDomains:   []string{"example.com"},
 		CollectedConditionKeys:          []string{"arch", "machine_type"},
 		ManagedInstallsSyncIntervalDays: 7,
+		ScriptChecksRunIntervalSeconds:  86400,
 		AutoReinstallIncidents:          true,
 		AutoFailedInstallIncidents:      false,
 		Version:                         5,
@@ -239,6 +246,7 @@ func TestMunkiConfigurationsService_Create(t *testing.T) {
 		PrincipalUserDetectionDomains:   []string{"zentral.io"},
 		CollectedConditionKeys:          []string{"arch", "machine_type"},
 		ManagedInstallsSyncIntervalDays: 1,
+		ScriptChecksRunIntervalSeconds:  14400,
 		AutoReinstallIncidents:          true,
 		AutoFailedInstallIncidents:      true,
 	}
@@ -272,6 +280,7 @@ func TestMunkiConfigurationsService_Create(t *testing.T) {
 		PrincipalUserDetectionDomains:   []string{"zentral.io"},
 		CollectedConditionKeys:          []string{"arch", "machine_type"},
 		ManagedInstallsSyncIntervalDays: 1,
+		ScriptChecksRunIntervalSeconds:  14400,
 		AutoReinstallIncidents:          true,
 		AutoFailedInstallIncidents:      true,
 		Version:                         1,
@@ -295,6 +304,7 @@ func TestMunkiConfigurationsService_Update(t *testing.T) {
 		PrincipalUserDetectionDomains:   []string{"zentral.io"},
 		CollectedConditionKeys:          []string{"arch", "machine_type"},
 		ManagedInstallsSyncIntervalDays: 1,
+		ScriptChecksRunIntervalSeconds:  14400,
 		AutoReinstallIncidents:          true,
 		AutoFailedInstallIncidents:      true,
 	}
@@ -327,6 +337,7 @@ func TestMunkiConfigurationsService_Update(t *testing.T) {
 		PrincipalUserDetectionDomains:   []string{"zentral.io"},
 		CollectedConditionKeys:          []string{"arch", "machine_type"},
 		ManagedInstallsSyncIntervalDays: 1,
+		ScriptChecksRunIntervalSeconds:  14400,
 		AutoReinstallIncidents:          true,
 		AutoFailedInstallIncidents:      true,
 		Version:                         5,
