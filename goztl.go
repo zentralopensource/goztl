@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.41"
+	libraryVersion = "0.1.42"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -57,6 +57,7 @@ type Client struct {
 	// Munki
 	MunkiConfigurations MunkiConfigurationsService
 	MunkiEnrollments    MunkiEnrollmentsService
+	MunkiScriptChecks   MunkiScriptChecksService
 	// Osquery
 	OsqueryATC                OsqueryATCService
 	OsqueryConfigurations     OsqueryConfigurationsService
@@ -176,6 +177,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	// Munki
 	c.MunkiConfigurations = &MunkiConfigurationsServiceOp{client: c}
 	c.MunkiEnrollments = &MunkiEnrollmentsServiceOp{client: c}
+	c.MunkiScriptChecks = &MunkiScriptChecksServiceOp{client: c}
 	// Osquery
 	c.OsqueryATC = &OsqueryATCServiceOp{client: c}
 	c.OsqueryConfigurations = &OsqueryConfigurationsServiceOp{client: c}
