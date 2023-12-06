@@ -32,6 +32,7 @@ type MDMSoftwareUpdateEnforcement struct {
 	ID            int       `json:"id"`
 	Name          string    `json:"name"`
 	DetailsURL    string    `json:"details_url"`
+	Platforms     []string  `json:"platforms"`
 	TagIDs        []int     `json:"tags"`
 	OSVersion     string    `json:"os_version"`
 	BuildVersion  string    `json:"build_version"`
@@ -49,15 +50,16 @@ func (msue MDMSoftwareUpdateEnforcement) String() string {
 
 // MDMSoftwareUpdateEnforcementRequest represents a request to create or update a MDM software update enforcement
 type MDMSoftwareUpdateEnforcementRequest struct {
-	Name          string  `json:"name"`
-	DetailsURL    string  `json:"details_url"`
-	TagIDs        []int   `json:"tags"`
-	OSVersion     string  `json:"os_version"`
-	BuildVersion  string  `json:"build_version"`
-	LocalDateTime *string `json:"local_datetime"`
-	MaxOSVersion  string  `json:"max_os_version"`
-	DelayDays     *int    `json:"delay_days"`
-	LocalTime     *string `json:"local_time"`
+	Name          string   `json:"name"`
+	DetailsURL    string   `json:"details_url"`
+	Platforms     []string `json:"platforms"`
+	TagIDs        []int    `json:"tags"`
+	OSVersion     string   `json:"os_version"`
+	BuildVersion  string   `json:"build_version"`
+	LocalDateTime *string  `json:"local_datetime"`
+	MaxOSVersion  string   `json:"max_os_version"`
+	DelayDays     *int     `json:"delay_days"`
+	LocalTime     *string  `json:"local_time"`
 }
 
 type listMSUEOptions struct {
