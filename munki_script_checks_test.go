@@ -25,6 +25,7 @@ var mscListJSONResponse = `
 	"min_os_version": "14",
 	"max_os_version": "15",
 	"tags": [2, 3, 4],
+	"excluded_tags": [6, 7],
         "version": 5,
         "created_at": "2022-07-22T01:02:03.444444",
         "updated_at": "2022-07-22T01:02:03.444444"
@@ -45,6 +46,7 @@ var mscGetJSONResponse = `
     "min_os_version": "14",
     "max_os_version": "15",
     "tags": [2, 3, 4],
+    "excluded_tags": [6, 7],
     "version": 5,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
@@ -64,6 +66,7 @@ var mscCreateJSONResponse = `
     "min_os_version": "14",
     "max_os_version": "15",
     "tags": [2, 3, 4],
+    "excluded_tags": [6, 7],
     "version": 5,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
@@ -83,6 +86,7 @@ var mscUpdateJSONResponse = `
     "min_os_version": "14",
     "max_os_version": "15",
     "tags": [2, 3, 4],
+    "excluded_tags": [6, 7],
     "version": 5,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
@@ -118,6 +122,7 @@ func TestMunkiScriptChecksService_List(t *testing.T) {
 			MinOSVersion:   "14",
 			MaxOSVersion:   "15",
 			TagIDs:         []int{2, 3, 4},
+			ExcludedTagIDs: []int{6, 7},
 			Version:        5,
 			Created:        Timestamp{referenceTime},
 			Updated:        Timestamp{referenceTime},
@@ -156,6 +161,7 @@ func TestMunkiScriptChecksService_GetByID(t *testing.T) {
 		MinOSVersion:   "14",
 		MaxOSVersion:   "15",
 		TagIDs:         []int{2, 3, 4},
+		ExcludedTagIDs: []int{6, 7},
 		Version:        5,
 		Created:        Timestamp{referenceTime},
 		Updated:        Timestamp{referenceTime},
@@ -194,6 +200,7 @@ func TestMunkiScriptChecksService_GetByName(t *testing.T) {
 		MinOSVersion:   "14",
 		MaxOSVersion:   "15",
 		TagIDs:         []int{2, 3, 4},
+		ExcludedTagIDs: []int{6, 7},
 		Version:        5,
 		Created:        Timestamp{referenceTime},
 		Updated:        Timestamp{referenceTime},
@@ -218,6 +225,7 @@ func TestMunkiScriptChecksService_Create(t *testing.T) {
 		MinOSVersion:   "14",
 		MaxOSVersion:   "15",
 		TagIDs:         []int{2, 3, 4},
+		ExcludedTagIDs: []int{6, 7},
 	}
 
 	mux.HandleFunc("/munki/script_checks/", func(w http.ResponseWriter, r *http.Request) {
@@ -252,6 +260,7 @@ func TestMunkiScriptChecksService_Create(t *testing.T) {
 		MinOSVersion:   "14",
 		MaxOSVersion:   "15",
 		TagIDs:         []int{2, 3, 4},
+		ExcludedTagIDs: []int{6, 7},
 		Version:        5,
 		Created:        Timestamp{referenceTime},
 		Updated:        Timestamp{referenceTime},
@@ -276,6 +285,7 @@ func TestMunkiScriptChecksService_Update(t *testing.T) {
 		MinOSVersion:   "14",
 		MaxOSVersion:   "15",
 		TagIDs:         []int{2, 3, 4},
+		ExcludedTagIDs: []int{6, 7},
 	}
 
 	mux.HandleFunc("/munki/script_checks/1/", func(w http.ResponseWriter, r *http.Request) {
@@ -309,6 +319,7 @@ func TestMunkiScriptChecksService_Update(t *testing.T) {
 		MinOSVersion:   "14",
 		MaxOSVersion:   "15",
 		TagIDs:         []int{2, 3, 4},
+		ExcludedTagIDs: []int{6, 7},
 		Version:        5,
 		Created:        Timestamp{referenceTime},
 		Updated:        Timestamp{referenceTime},

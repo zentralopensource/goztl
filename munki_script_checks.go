@@ -40,6 +40,7 @@ type MunkiScriptCheck struct {
 	MinOSVersion   string    `json:"min_os_version"`
 	MaxOSVersion   string    `json:"max_os_version"`
 	TagIDs         []int     `json:"tags"`
+	ExcludedTagIDs []int     `json:"excluded_tags"`
 	Version        int       `json:"version"`
 	Created        Timestamp `json:"created_at"`
 	Updated        Timestamp `json:"updated_at"`
@@ -57,6 +58,7 @@ type MunkiScriptCheckRequest struct {
 	MinOSVersion   string `json:"min_os_version"`
 	MaxOSVersion   string `json:"max_os_version"`
 	TagIDs         []int  `json:"tags"`
+	ExcludedTagIDs []int  `json:"excluded_tags"`
 }
 
 func (msc MunkiScriptCheck) String() string {
