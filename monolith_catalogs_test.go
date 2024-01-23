@@ -15,8 +15,8 @@ var mcListJSONResponse = `
 [
     {
         "id": 4,
+	"repository": 3,
         "name": "Default",
-	"priority": 1,
         "created_at": "2022-07-22T01:02:03.444444",
         "updated_at": "2022-07-22T01:02:03.444444"
     }
@@ -26,8 +26,8 @@ var mcListJSONResponse = `
 var mcGetJSONResponse = `
 {
     "id": 4,
+    "repository": 3,
     "name": "Default",
-    "priority": 1,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444",
     "archived_at": "2022-07-22T01:02:03.444444"
@@ -37,8 +37,8 @@ var mcGetJSONResponse = `
 var mcCreateJSONResponse = `
 {
     "id": 4,
+    "repository": 3,
     "name": "Default",
-    "priority": 1,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444",
     "archived_at": null
@@ -48,8 +48,8 @@ var mcCreateJSONResponse = `
 var mcUpdateJSONResponse = `
 {
     "id": 4,
+    "repository": 3,
     "name": "Standard",
-    "priority": 2,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444",
     "archived_at": null
@@ -74,11 +74,11 @@ func TestMonolithCatalogsService_List(t *testing.T) {
 
 	want := []MonolithCatalog{
 		{
-			ID:       4,
-			Name:     "Default",
-			Priority: 1,
-			Created:  Timestamp{referenceTime},
-			Updated:  Timestamp{referenceTime},
+			ID:           4,
+			RepositoryID: 3,
+			Name:         "Default",
+			Created:      Timestamp{referenceTime},
+			Updated:      Timestamp{referenceTime},
 		},
 	}
 	if !cmp.Equal(got, want) {
@@ -103,12 +103,12 @@ func TestMonolithCatalogsService_GetByID(t *testing.T) {
 	}
 
 	want := &MonolithCatalog{
-		ID:         4,
-		Name:       "Default",
-		Priority:   1,
-		Created:    Timestamp{referenceTime},
-		Updated:    Timestamp{referenceTime},
-		ArchivedAt: &Timestamp{referenceTime},
+		ID:           4,
+		RepositoryID: 3,
+		Name:         "Default",
+		Created:      Timestamp{referenceTime},
+		Updated:      Timestamp{referenceTime},
+		ArchivedAt:   &Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("MonolithCatalogs.GetByID returned %+v, want %+v", got, want)
@@ -133,11 +133,11 @@ func TestMonolithCatalogsService_GetByName(t *testing.T) {
 	}
 
 	want := &MonolithCatalog{
-		ID:       4,
-		Name:     "Default",
-		Priority: 1,
-		Created:  Timestamp{referenceTime},
-		Updated:  Timestamp{referenceTime},
+		ID:           4,
+		RepositoryID: 3,
+		Name:         "Default",
+		Created:      Timestamp{referenceTime},
+		Updated:      Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("MonolithCatalogs.GetByName returned %+v, want %+v", got, want)
@@ -149,8 +149,8 @@ func TestMonolithCatalogsService_Create(t *testing.T) {
 	defer teardown()
 
 	createRequest := &MonolithCatalogRequest{
-		Name:     "Default",
-		Priority: 1,
+		RepositoryID: 3,
+		Name:         "Default",
 	}
 
 	mux.HandleFunc("/monolith/catalogs/", func(w http.ResponseWriter, r *http.Request) {
@@ -174,11 +174,11 @@ func TestMonolithCatalogsService_Create(t *testing.T) {
 	}
 
 	want := &MonolithCatalog{
-		ID:       4,
-		Name:     "Default",
-		Priority: 1,
-		Created:  Timestamp{referenceTime},
-		Updated:  Timestamp{referenceTime},
+		ID:           4,
+		RepositoryID: 3,
+		Name:         "Default",
+		Created:      Timestamp{referenceTime},
+		Updated:      Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("MonolithCatalogs.Create returned %+v, want %+v", got, want)
@@ -190,8 +190,8 @@ func TestMonolithCatalogsService_Update(t *testing.T) {
 	defer teardown()
 
 	updateRequest := &MonolithCatalogRequest{
-		Name:     "Standard",
-		Priority: 2,
+		RepositoryID: 3,
+		Name:         "Standard",
 	}
 
 	mux.HandleFunc("/monolith/catalogs/4/", func(w http.ResponseWriter, r *http.Request) {
@@ -214,11 +214,11 @@ func TestMonolithCatalogsService_Update(t *testing.T) {
 	}
 
 	want := &MonolithCatalog{
-		ID:       4,
-		Name:     "Standard",
-		Priority: 2,
-		Created:  Timestamp{referenceTime},
-		Updated:  Timestamp{referenceTime},
+		ID:           4,
+		RepositoryID: 3,
+		Name:         "Standard",
+		Created:      Timestamp{referenceTime},
+		Updated:      Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("MonolithCatalogs.Update returned %+v, want %+v", got, want)

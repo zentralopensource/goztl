@@ -29,12 +29,12 @@ var _ MonolithCatalogsService = &MonolithCatalogsServiceOp{}
 
 // MonolithCatalog represents a Zentral MonolithCatalog
 type MonolithCatalog struct {
-	ID         int        `json:"id"`
-	Name       string     `json:"name"`
-	Priority   int        `json:"priority"`
-	Created    Timestamp  `json:"created_at"`
-	Updated    Timestamp  `json:"updated_at"`
-	ArchivedAt *Timestamp `json:"archived_at"`
+	ID           int        `json:"id"`
+	RepositoryID int        `json:"repository"`
+	Name         string     `json:"name"`
+	Created      Timestamp  `json:"created_at"`
+	Updated      Timestamp  `json:"updated_at"`
+	ArchivedAt   *Timestamp `json:"archived_at"`
 }
 
 func (se MonolithCatalog) String() string {
@@ -43,8 +43,8 @@ func (se MonolithCatalog) String() string {
 
 // MonolithCatalogRequest represents a request to create or update a Monolith catalog
 type MonolithCatalogRequest struct {
-	Name     string `json:"name"`
-	Priority int    `json:"priority"`
+	Name         string `json:"name"`
+	RepositoryID int    `json:"repository"`
 }
 
 type listMCOptions struct {
