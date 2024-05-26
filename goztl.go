@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.46"
+	libraryVersion = "0.1.47"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -47,15 +47,16 @@ type Client struct {
 	MDMRecoveryPasswordConfigs    MDMRecoveryPasswordConfigsService
 	MDMSoftwareUpdateEnforcements MDMSoftwareUpdateEnforcementsService
 	// Monolith
-	MonolithCatalogs             MonolithCatalogsService
-	MonolithConditions           MonolithConditionsService
-	MonolithEnrollments          MonolithEnrollmentsService
-	MonolithManifests            MonolithManifestsService
-	MonolithManifestCatalogs     MonolithManifestCatalogsService
-	MonolithManifestSubManifests MonolithManifestSubManifestsService
-	MonolithRepositories         MonolithRepositoriesService
-	MonolithSubManifests         MonolithSubManifestsService
-	MonolithSubManifestPkgInfos  MonolithSubManifestPkgInfosService
+	MonolithCatalogs                   MonolithCatalogsService
+	MonolithConditions                 MonolithConditionsService
+	MonolithEnrollments                MonolithEnrollmentsService
+	MonolithManifests                  MonolithManifestsService
+	MonolithManifestCatalogs           MonolithManifestCatalogsService
+	MonolithManifestEnrollmentPackages MonolithManifestEnrollmentPackagesService
+	MonolithManifestSubManifests       MonolithManifestSubManifestsService
+	MonolithRepositories               MonolithRepositoriesService
+	MonolithSubManifests               MonolithSubManifestsService
+	MonolithSubManifestPkgInfos        MonolithSubManifestPkgInfosService
 	// Munki
 	MunkiConfigurations MunkiConfigurationsService
 	MunkiEnrollments    MunkiEnrollmentsService
@@ -174,6 +175,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.MonolithEnrollments = &MonolithEnrollmentsServiceOp{client: c}
 	c.MonolithManifests = &MonolithManifestsServiceOp{client: c}
 	c.MonolithManifestCatalogs = &MonolithManifestCatalogsServiceOp{client: c}
+	c.MonolithManifestEnrollmentPackages = &MonolithManifestEnrollmentPackagesServiceOp{client: c}
 	c.MonolithManifestSubManifests = &MonolithManifestSubManifestsServiceOp{client: c}
 	c.MonolithRepositories = &MonolithRepositoriesServiceOp{client: c}
 	c.MonolithSubManifests = &MonolithSubManifestsServiceOp{client: c}
