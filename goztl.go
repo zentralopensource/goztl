@@ -46,6 +46,7 @@ type Client struct {
 	MDMProfiles                   MDMProfilesService
 	MDMPushCertificates           MDMPushCertificatesService
 	MDMRecoveryPasswordConfigs    MDMRecoveryPasswordConfigsService
+	MDMSCEPConfigs                MDMSCEPConfigsService
 	MDMSoftwareUpdateEnforcements MDMSoftwareUpdateEnforcementsService
 	// Monolith
 	MonolithCatalogs                   MonolithCatalogsService
@@ -170,6 +171,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.MDMProfiles = &MDMProfilesServiceOp{client: c}
 	c.MDMPushCertificates = &MDMPushCertificatesServiceOp{client: c}
 	c.MDMRecoveryPasswordConfigs = &MDMRecoveryPasswordConfigsServiceOp{client: c}
+	c.MDMSCEPConfigs = &MDMSCEPConfigsServiceOp{client: c}
 	c.MDMSoftwareUpdateEnforcements = &MDMSoftwareUpdateEnforcementsServiceOp{client: c}
 	// Monolith
 	c.MonolithCatalogs = &MonolithCatalogsServiceOp{client: c}
