@@ -43,7 +43,7 @@ type MDMSCEPConfig struct {
 	URL                string  `json:"url"`
 	KeyUsage           int     `json:"key_usage"`
 	KeyIsExtractable   bool    `json:"key_is_extractable"`
-	KeySize            int     `json:"key_size"`
+	KeySize            int     `json:"keysize"`
 	AllowAllAppsAccess bool    `json:"allow_all_apps_access"`
 
 	// Challenge info only present if not provisioned

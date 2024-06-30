@@ -18,7 +18,7 @@ var mscepListJSONResponse = `
 	"url": "https://www.example.com/scep/",
 	"key_usage": 1,
 	"key_is_extractable": false,
-	"key_size": 2048,
+	"keysize": 2048,
 	"allow_all_apps_access": false,
 	"challenge_type": "MICROSOFT_CA",
 	"microsoft_ca_challenge_kwargs" : {
@@ -43,7 +43,7 @@ var mscepGetByNameJSONResponse = `
 	"url": "https://www.example.com/scep/",
 	"key_usage": 1,
 	"key_is_extractable": false,
-	"key_size": 2048,
+	"keysize": 2048,
 	"allow_all_apps_access": false,
 	"challenge_type": "STATIC",
 	"microsoft_ca_challenge_kwargs" : null,
@@ -65,7 +65,7 @@ var mscepGetJSONResponse = `
     "url": "https://www.example.com/scep/",
     "key_usage": 1,
     "key_is_extractable": true,
-    "key_size": 2048,
+    "keysize": 2048,
     "allow_all_apps_access": true,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
