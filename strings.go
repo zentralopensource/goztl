@@ -9,7 +9,7 @@ import (
 
 var timestampType = reflect.TypeOf(Timestamp{})
 
-// Stringify attempts to create a string representation of DigitalOcean types
+// Stringify attempts to create a string representation of Zentral types
 func Stringify(message interface{}) string {
 	var buf bytes.Buffer
 	v := reflect.ValueOf(message)
