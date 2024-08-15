@@ -34,7 +34,7 @@ type MDMOTAEnrollment struct {
 	DisplayName       string           `json:"display_name"`
 	BlueprintID       *int             `json:"blueprint"`
 	PushCertificateID int              `json:"push_certificate"`
-	RealmID           *int             `json:"realm"`
+	RealmUUID         *string          `json:"realm"`
 	SCEPConfigID      int              `json:"scep_config"`
 	SCEPVerification  bool             `json:"scep_verification"`
 	Secret            EnrollmentSecret `json:"enrollment_secret"`
@@ -52,7 +52,7 @@ type MDMOTAEnrollmentRequest struct {
 	DisplayName       *string                 `json:"display_name"`
 	BlueprintID       *int                    `json:"blueprint"`
 	PushCertificateID int                     `json:"push_certificate"`
-	RealmID           *int                    `json:"realm"`
+	RealmUUID         *string                 `json:"realm"`
 	SCEPConfigID      int                     `json:"scep_config"`
 	SCEPVerification  bool                    `json:"scep_verification"`
 	Secret            EnrollmentSecretRequest `json:"enrollment_secret"`

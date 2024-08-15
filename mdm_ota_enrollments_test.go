@@ -19,7 +19,7 @@ var moeListJSONResponme = `
 	"display_name": "Fomo",
 	"blueprint": 2,
 	"push_certificate": 3,
-	"realm": 4,
+	"realm": "2217e326-5c12-406f-8c31-cc95fe9fea1b",
 	"scep_config": 5,
 	"scep_verification": true,
 	"enrollment_secret": {
@@ -70,7 +70,7 @@ var moeCreateJSONResponme = `
     "display_name": "Fomo",
     "blueprint": 2,
     "push_certificate": 3,
-    "realm": 4,
+    "realm": "2217e326-5c12-406f-8c31-cc95fe9fea1b",
     "scep_config": 5,
     "scep_verification": true,
     "enrollment_secret": {
@@ -95,7 +95,7 @@ var moeUpdateJSONResponme = `
     "display_name": "Fomo",
     "blueprint": 2,
     "push_certificate": 3,
-    "realm": 4,
+    "realm": "2217e326-5c12-406f-8c31-cc95fe9fea1b",
     "scep_config": 5,
     "scep_verification": true,
     "enrollment_secret": {
@@ -136,7 +136,7 @@ func TestMDMOTAEnrollmentsService_List(t *testing.T) {
 			DisplayName:       "Fomo",
 			BlueprintID:       Int(2),
 			PushCertificateID: 3,
-			RealmID:           Int(4),
+			RealmUUID:         String("2217e326-5c12-406f-8c31-cc95fe9fea1b"),
 			SCEPConfigID:      5,
 			SCEPVerification:  true,
 			Secret: EnrollmentSecret{
@@ -221,7 +221,7 @@ func TestMDMOTAEnrollmentsService_GetByName(t *testing.T) {
 		DisplayName:       "Fomo",
 		BlueprintID:       Int(2),
 		PushCertificateID: 3,
-		RealmID:           Int(4),
+		RealmUUID:         String("2217e326-5c12-406f-8c31-cc95fe9fea1b"),
 		SCEPConfigID:      5,
 		SCEPVerification:  true,
 		Secret: EnrollmentSecret{
@@ -250,7 +250,7 @@ func TestMDMOTAEnrollmentsService_Create(t *testing.T) {
 		DisplayName:       String("Fomo"),
 		BlueprintID:       Int(2),
 		PushCertificateID: 3,
-		RealmID:           Int(4),
+		RealmUUID:         String("2217e326-5c12-406f-8c31-cc95fe9fea1b"),
 		SCEPConfigID:      5,
 		SCEPVerification:  true,
 		Secret: EnrollmentSecretRequest{
@@ -288,7 +288,7 @@ func TestMDMOTAEnrollmentsService_Create(t *testing.T) {
 		DisplayName:       "Fomo",
 		BlueprintID:       Int(2),
 		PushCertificateID: 3,
-		RealmID:           Int(4),
+		RealmUUID:         String("2217e326-5c12-406f-8c31-cc95fe9fea1b"),
 		SCEPConfigID:      5,
 		SCEPVerification:  true,
 		Secret: EnrollmentSecret{
@@ -318,7 +318,7 @@ func TestMDMOTAEnrollmentsService_Update(t *testing.T) {
 		DisplayName:       String("Fomo"),
 		BlueprintID:       Int(2),
 		PushCertificateID: 3,
-		RealmID:           Int(4),
+		RealmUUID:         String("2217e326-5c12-406f-8c31-cc95fe9fea1b"),
 		SCEPConfigID:      5,
 		SCEPVerification:  true,
 		Secret: EnrollmentSecretRequest{
@@ -355,7 +355,7 @@ func TestMDMOTAEnrollmentsService_Update(t *testing.T) {
 		DisplayName:       "Fomo",
 		BlueprintID:       Int(2),
 		PushCertificateID: 3,
-		RealmID:           Int(4),
+		RealmUUID:         String("2217e326-5c12-406f-8c31-cc95fe9fea1b"),
 		SCEPConfigID:      5,
 		SCEPVerification:  true,
 		Secret: EnrollmentSecret{
