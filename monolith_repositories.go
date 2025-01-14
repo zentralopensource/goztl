@@ -43,14 +43,24 @@ type MonolithS3Backend struct {
 	CloudfrontPrivkeyPEM string `json:"cloudfront_privkey_pem"`
 }
 
+type MonolithAzureBackend struct {
+	StorageAccount string `json:"storage_account"`
+	Container      string `json:"container"`
+	Prefix         string `json:"prefix"`
+	ClientID       string `json:"client_id"`
+	TenantID       string `json:"tenant_id"`
+	ClientSecret   string `json:"client_secret"`
+}
+
 type MonolithRepository struct {
-	ID                 int                `json:"id"`
-	Name               string             `json:"name"`
-	MetaBusinessUnitID *int               `json:"meta_business_unit"`
-	Backend            string             `json:"backend"`
-	S3                 *MonolithS3Backend `json:"s3_kwargs"`
-	Created            Timestamp          `json:"created_at"`
-	Updated            Timestamp          `json:"updated_at"`
+	ID                 int                   `json:"id"`
+	Name               string                `json:"name"`
+	MetaBusinessUnitID *int                  `json:"meta_business_unit"`
+	Backend            string                `json:"backend"`
+	Azure              *MonolithAzureBackend `json:"azure_kwargs"`
+	S3                 *MonolithS3Backend    `json:"s3_kwargs"`
+	Created            Timestamp             `json:"created_at"`
+	Updated            Timestamp             `json:"updated_at"`
 }
 
 func (mr MonolithRepository) String() string {
@@ -59,10 +69,11 @@ func (mr MonolithRepository) String() string {
 
 // MonolithRepositoryRequest represents a request to create or update a Monolith manifest
 type MonolithRepositoryRequest struct {
-	Name               string             `json:"name"`
-	MetaBusinessUnitID *int               `json:"meta_business_unit"`
-	Backend            string             `json:"backend"`
-	S3                 *MonolithS3Backend `json:"s3_kwargs,omitempty"`
+	Name               string                `json:"name"`
+	MetaBusinessUnitID *int                  `json:"meta_business_unit"`
+	Backend            string                `json:"backend"`
+	Azure              *MonolithAzureBackend `json:"azure_kwargs,omitempty"`
+	S3                 *MonolithS3Backend    `json:"s3_kwargs,omitempty"`
 }
 
 type listMROptions struct {
