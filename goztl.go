@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.52"
+	libraryVersion = "0.1.53"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -41,6 +41,8 @@ type Client struct {
 	MDMArtifacts                  MDMArtifactsService
 	MDMBlueprints                 MDMBlueprintsService
 	MDMBlueprintArtifacts         MDMBlueprintArtifactsService
+	MDMDataAssets                 MDMDataAssetsService
+	MDMDeclarations               MDMDeclarationsService
 	MDMEnterpriseApps             MDMEnterpriseAppsService
 	MDMFileVaultConfigs           MDMFileVaultConfigsService
 	MDMOTAEnrollments             MDMOTAEnrollmentsService
@@ -169,6 +171,8 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.MDMArtifacts = &MDMArtifactsServiceOp{client: c}
 	c.MDMBlueprints = &MDMBlueprintsServiceOp{client: c}
 	c.MDMBlueprintArtifacts = &MDMBlueprintArtifactsServiceOp{client: c}
+	c.MDMDataAssets = &MDMDataAssetsServiceOp{client: c}
+	c.MDMDeclarations = &MDMDeclarationsServiceOp{client: c}
 	c.MDMEnterpriseApps = &MDMEnterpriseAppsServiceOp{client: c}
 	c.MDMFileVaultConfigs = &MDMFileVaultConfigsServiceOp{client: c}
 	c.MDMOTAEnrollments = &MDMOTAEnrollmentsServiceOp{client: c}
