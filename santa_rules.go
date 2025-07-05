@@ -34,6 +34,7 @@ type SantaRule struct {
 	ID                    int       `json:"id"`
 	ConfigurationID       int       `json:"configuration"`
 	Policy                int       `json:"policy"`
+	CELExpr               string    `json:"cel_expr"`
 	TargetType            string    `json:"target_type"`
 	TargetIdentifier      string    `json:"target_identifier"`
 	Description           string    `json:"description"`
@@ -58,6 +59,7 @@ func (sr SantaRule) String() string {
 type SantaRuleRequest struct {
 	ConfigurationID       int      `json:"configuration"`
 	Policy                int      `json:"policy"`
+	CELExpr               string   `json:"cel_expr"`
 	TargetType            string   `json:"target_type"`
 	TargetIdentifier      string   `json:"target_identifier"`
 	Description           string   `json:"description"`
