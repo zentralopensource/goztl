@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.56"
+	libraryVersion = "0.1.57"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -83,6 +83,8 @@ type Client struct {
 	SantaConfigurations SantaConfigurationsService
 	SantaEnrollments    SantaEnrollmentsService
 	SantaRules          SantaRulesService
+	// Stores
+	Stores StoresService
 
 	// Zentral API token
 	token string
@@ -216,6 +218,8 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.SantaConfigurations = &SantaConfigurationsServiceOp{client: c}
 	c.SantaEnrollments = &SantaEnrollmentsServiceOp{client: c}
 	c.SantaRules = &SantaRulesServiceOp{client: c}
+	// Stores
+	c.Stores = &StoresServiceOp{client: c}
 
 	c.headers = make(map[string]string)
 
