@@ -134,7 +134,7 @@ func TestProbesActionsService_GetByID(t *testing.T) {
 			URL:      "https://www.example.com/post",
 			Username: String("yolo"),
 			Password: String("fomo"),
-			Headers:  []ProbeActionHTTPPostHeader{{Name: "Authorization", Value: "Bearer yolofomo"}},
+			Headers:  []HTTPHeader{{Name: "Authorization", Value: "Bearer yolofomo"}},
 		},
 		Created: Timestamp{referenceTime},
 		Updated: Timestamp{referenceTime},
