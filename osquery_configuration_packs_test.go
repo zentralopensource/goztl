@@ -17,7 +17,8 @@ var ocpListJSONResponse = `
         "id": 4,
 	"configuration": 5,
 	"pack": 6,
-	"tags": [1, 2]
+	"tags": [1, 2],
+	"excluded_tags": [3]
     }
 ]
 `
@@ -27,7 +28,8 @@ var ocpGetJSONResponse = `
     "id": 4,
     "configuration": 5,
     "pack": 6,
-    "tags": [1, 2]
+    "tags": [1, 2],
+    "excluded_tags": []
 }
 `
 
@@ -36,7 +38,8 @@ var ocpCreateJSONResponse = `
     "id": 4,
     "configuration": 5,
     "pack": 6,
-    "tags": [1, 2]
+    "tags": [1, 2],
+    "excluded_tags": [3]
 }
 `
 
@@ -45,7 +48,8 @@ var ocpUpdateJSONResponse = `
     "id": 4,
     "configuration": 5,
     "pack": 6,
-    "tags": [1, 2]
+    "tags": [1, 2],
+    "excluded_tags": []
 }
 `
 
@@ -71,6 +75,7 @@ func TestOsqueryConfigurationPacksService_List(t *testing.T) {
 			ConfigurationID: 5,
 			PackID:          6,
 			TagIDs:          []int{1, 2},
+			ExcludedTagIDs:  []int{3},
 		},
 	}
 	if !cmp.Equal(got, want) {
@@ -99,6 +104,7 @@ func TestOsqueryConfigurationPacksService_GetByID(t *testing.T) {
 		ConfigurationID: 5,
 		PackID:          6,
 		TagIDs:          []int{1, 2},
+		ExcludedTagIDs:  []int{},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("OsqueryConfigurationPacks.GetByID returned %+v, want %+v", got, want)
@@ -128,6 +134,7 @@ func TestOsqueryConfigurationPacksService_GetByConfigurationID(t *testing.T) {
 			ConfigurationID: 5,
 			PackID:          6,
 			TagIDs:          []int{1, 2},
+			ExcludedTagIDs:  []int{3},
 		},
 	}
 	if !cmp.Equal(got, want) {
@@ -158,6 +165,7 @@ func TestOsqueryConfigurationPacksService_GetByPackID(t *testing.T) {
 			ConfigurationID: 5,
 			PackID:          6,
 			TagIDs:          []int{1, 2},
+			ExcludedTagIDs:  []int{3},
 		},
 	}
 	if !cmp.Equal(got, want) {
@@ -173,6 +181,7 @@ func TestOsqueryConfigurationPacksService_Create(t *testing.T) {
 		ConfigurationID: 5,
 		PackID:          6,
 		TagIDs:          []int{1, 2},
+		ExcludedTagIDs:  []int{3},
 	}
 
 	mux.HandleFunc("/osquery/configuration_packs/", func(w http.ResponseWriter, r *http.Request) {
@@ -200,6 +209,7 @@ func TestOsqueryConfigurationPacksService_Create(t *testing.T) {
 		ConfigurationID: 5,
 		PackID:          6,
 		TagIDs:          []int{1, 2},
+		ExcludedTagIDs:  []int{3},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("OsqueryConfigurationPacks.Create returned %+v, want %+v", got, want)
@@ -214,6 +224,7 @@ func TestOsqueryConfigurationPacksService_Update(t *testing.T) {
 		ConfigurationID: 5,
 		PackID:          6,
 		TagIDs:          []int{1, 2},
+		ExcludedTagIDs:  []int{},
 	}
 
 	mux.HandleFunc("/osquery/configuration_packs/4/", func(w http.ResponseWriter, r *http.Request) {
@@ -240,6 +251,7 @@ func TestOsqueryConfigurationPacksService_Update(t *testing.T) {
 		ConfigurationID: 5,
 		PackID:          6,
 		TagIDs:          []int{1, 2},
+		ExcludedTagIDs:  []int{},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("OsqueryConfigurationPacks.Update returned %+v, want %+v", got, want)

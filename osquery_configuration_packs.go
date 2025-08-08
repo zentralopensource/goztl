@@ -34,6 +34,7 @@ type OsqueryConfigurationPack struct {
 	ConfigurationID int   `json:"configuration"`
 	PackID          int   `json:"pack"`
 	TagIDs          []int `json:"tags"`
+	ExcludedTagIDs  []int `json:"excluded_tags"`
 }
 
 func (ocp OsqueryConfigurationPack) String() string {
@@ -45,6 +46,7 @@ type OsqueryConfigurationPackRequest struct {
 	ConfigurationID int   `json:"configuration"`
 	PackID          int   `json:"pack"`
 	TagIDs          []int `json:"tags"`
+	ExcludedTagIDs  []int `json:"excluded_tags"`
 }
 
 type listOCPOptions struct {
