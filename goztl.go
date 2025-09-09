@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.58"
+	libraryVersion = "0.1.59"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -38,6 +38,7 @@ type Client struct {
 	Tags              TagsService
 	Taxonomies        TaxonomiesService
 	// MDM
+	MDMACMEIssuers                MDMACMEIssuersService
 	MDMArtifacts                  MDMArtifactsService
 	MDMBlueprints                 MDMBlueprintsService
 	MDMBlueprintArtifacts         MDMBlueprintArtifactsService
@@ -49,7 +50,7 @@ type Client struct {
 	MDMProfiles                   MDMProfilesService
 	MDMPushCertificates           MDMPushCertificatesService
 	MDMRecoveryPasswordConfigs    MDMRecoveryPasswordConfigsService
-	MDMSCEPConfigs                MDMSCEPConfigsService
+	MDMSCEPIssuers                MDMSCEPIssuersService
 	MDMSoftwareUpdateEnforcements MDMSoftwareUpdateEnforcementsService
 	// Monolith
 	MonolithCatalogs                   MonolithCatalogsService
@@ -173,6 +174,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.Tags = &TagsServiceOp{client: c}
 	c.Taxonomies = &TaxonomiesServiceOp{client: c}
 	// MDM
+	c.MDMACMEIssuers = &MDMACMEIssuersServiceOp{client: c}
 	c.MDMArtifacts = &MDMArtifactsServiceOp{client: c}
 	c.MDMBlueprints = &MDMBlueprintsServiceOp{client: c}
 	c.MDMBlueprintArtifacts = &MDMBlueprintArtifactsServiceOp{client: c}
@@ -184,7 +186,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.MDMProfiles = &MDMProfilesServiceOp{client: c}
 	c.MDMPushCertificates = &MDMPushCertificatesServiceOp{client: c}
 	c.MDMRecoveryPasswordConfigs = &MDMRecoveryPasswordConfigsServiceOp{client: c}
-	c.MDMSCEPConfigs = &MDMSCEPConfigsServiceOp{client: c}
+	c.MDMSCEPIssuers = &MDMSCEPIssuersServiceOp{client: c}
 	c.MDMSoftwareUpdateEnforcements = &MDMSoftwareUpdateEnforcementsServiceOp{client: c}
 	// Monolith
 	c.MonolithCatalogs = &MonolithCatalogsServiceOp{client: c}
