@@ -35,8 +35,8 @@ type MDMOTAEnrollment struct {
 	BlueprintID       *int             `json:"blueprint"`
 	PushCertificateID int              `json:"push_certificate"`
 	RealmUUID         *string          `json:"realm"`
-	SCEPConfigID      int              `json:"scep_config"`
-	SCEPVerification  bool             `json:"scep_verification"`
+	ACMEIssuerUUID    *string          `json:"acme_issuer"`
+	SCEPIssuerUUID    string           `json:"scep_issuer"`
 	Secret            EnrollmentSecret `json:"enrollment_secret"`
 	Created           Timestamp        `json:"created_at,omitempty"`
 	Updated           Timestamp        `json:"updated_at,omitempty"`
@@ -53,8 +53,8 @@ type MDMOTAEnrollmentRequest struct {
 	BlueprintID       *int                    `json:"blueprint"`
 	PushCertificateID int                     `json:"push_certificate"`
 	RealmUUID         *string                 `json:"realm"`
-	SCEPConfigID      int                     `json:"scep_config"`
-	SCEPVerification  bool                    `json:"scep_verification"`
+	ACMEIssuerUUID    *string                 `json:"acme_issuer"`
+	SCEPIssuerUUID    string                  `json:"scep_issuer"`
 	Secret            EnrollmentSecretRequest `json:"enrollment_secret"`
 }
 
