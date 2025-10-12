@@ -35,6 +35,8 @@ type MDMBlueprint struct {
 	CollectApps                  int       `json:"collect_apps"`
 	CollectCertificates          int       `json:"collect_certificates"`
 	CollectProfiles              int       `json:"collect_profiles"`
+	LegacyProfilesViaDDM         bool      `json:"legacy_profiles_via_ddm"`
+	DefaultLocationID            *int      `json:"default_location"`
 	FileVaultConfigID            *int      `json:"filevault_config"`
 	RecoveryPasswordConfigID     *int      `json:"recovery_password_config"`
 	SoftwareUpdateEnforcementIDs []int     `json:"software_update_enforcements"`
@@ -53,6 +55,8 @@ type MDMBlueprintRequest struct {
 	CollectApps                  int    `json:"collect_apps"`
 	CollectCertificates          int    `json:"collect_certificates"`
 	CollectProfiles              int    `json:"collect_profiles"`
+	LegacyProfilesViaDDM         bool   `json:"legacy_profiles_via_ddm"`
+	DefaultLocationID            *int   `json:"default_location"`
 	FileVaultConfigID            *int   `json:"filevault_config"`
 	RecoveryPasswordConfigID     *int   `json:"recovery_password_config"`
 	SoftwareUpdateEnforcementIDs []int  `json:"software_update_enforcements"`
