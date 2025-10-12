@@ -47,6 +47,7 @@ type Client struct {
 	MDMDeclarations               MDMDeclarationsService
 	MDMEnterpriseApps             MDMEnterpriseAppsService
 	MDMFileVaultConfigs           MDMFileVaultConfigsService
+	MDMLocations                  MDMLocationsService
 	MDMOTAEnrollments             MDMOTAEnrollmentsService
 	MDMProfiles                   MDMProfilesService
 	MDMPushCertificates           MDMPushCertificatesService
@@ -184,6 +185,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.MDMDeclarations = &MDMDeclarationsServiceOp{client: c}
 	c.MDMEnterpriseApps = &MDMEnterpriseAppsServiceOp{client: c}
 	c.MDMFileVaultConfigs = &MDMFileVaultConfigsServiceOp{client: c}
+	c.MDMLocations = &MDMLocationsServiceOp{client: c}
 	c.MDMOTAEnrollments = &MDMOTAEnrollmentsServiceOp{client: c}
 	c.MDMProfiles = &MDMProfilesServiceOp{client: c}
 	c.MDMPushCertificates = &MDMPushCertificatesServiceOp{client: c}
