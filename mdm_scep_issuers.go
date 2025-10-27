@@ -39,6 +39,7 @@ type MDMSCEPIssuer struct {
 	KeyUsage int    `json:"key_usage"`
 
 	Backend         *string          `json:"backend"`
+	Digicert        *Digicert        `json:"digicert_kwargs"`
 	IDent           *IDent           `json:"ident_kwargs"`
 	MicrosoftCA     *MicrosoftCA     `json:"microsoft_ca_kwargs"`
 	OktaCA          *MicrosoftCA     `json:"okta_ca_kwargs"`
@@ -63,6 +64,7 @@ type MDMSCEPIssuerRequest struct {
 	KeyUsage int    `json:"key_usage"`
 
 	Backend         string           `json:"backend"`
+	Digicert        *Digicert        `json:"digicert_kwargs"`
 	IDent           *IDent           `json:"ident_kwargs"`
 	MicrosoftCA     *MicrosoftCA     `json:"microsoft_ca_kwargs"`
 	OktaCA          *MicrosoftCA     `json:"okta_ca_kwargs"`

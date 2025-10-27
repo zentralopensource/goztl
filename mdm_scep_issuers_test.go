@@ -123,6 +123,31 @@ var mscepGetJSONResponse = `
 }
 `
 
+var mscepGetJSONResponse2 = `
+{
+    "id": "62ed7c87-dc8b-4367-84d9-0491ece2196d",
+    "provisioning_uid": "YoLoFoMo",
+    "name": "Default",
+    "description": "Description",
+    "url": "https://www.example.com/scep/",
+    "key_usage": 1,
+    "key_size": 2048,
+    "backend": "DIGICERT",
+    "digicert_kwargs": {
+        "api_base_url": "https://one.digicert.com/mpki/api/",
+	"api_token": "secret",
+	"profile_guid": "60a3ce98-b05f-4f1b-83b0-200d82723134",
+	"business_unit_guid": "34f0d9a5-4603-4d07-baf3-2071f6e5b874",
+	"seat_type": "DEVICE_SEAT",
+	"seat_id_mapping": "common_name",
+	"default_seat_email": "yolo@example.com"
+    },
+    "version": 1,
+    "created_at": "2022-07-22T01:02:03.444444",
+    "updated_at": "2022-07-22T01:02:03.444444"
+}
+`
+
 func TestMDMSCEPIssuersService_List(t *testing.T) {
 	client, mux, teardown := setup()
 	defer teardown()
@@ -190,6 +215,49 @@ func TestMDMSCEPIssuersService_GetByID(t *testing.T) {
 		Backend:         String("STATIC_CHALLENGE"),
 		StaticChallenge: &StaticChallenge{
 			Challenge: "fomo",
+		},
+		Version: 1,
+		Created: Timestamp{referenceTime},
+		Updated: Timestamp{referenceTime},
+	}
+	if !cmp.Equal(got, want) {
+		t.Errorf("MDMSCEPIssuers.GetByID returned %+v, want %+v", got, want)
+	}
+}
+
+func TestMDMSCEPIssuersService_GetByID2(t *testing.T) {
+	client, mux, teardown := setup()
+	defer teardown()
+
+	mux.HandleFunc("/mdm/scep_issuers/62ed7c87-dc8b-4367-84d9-0491ece2196d/", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		testHeader(t, r, "Accept", "application/json")
+		fmt.Fprint(w, mscepGetJSONResponse2)
+	})
+
+	ctx := context.Background()
+	got, _, err := client.MDMSCEPIssuers.GetByID(ctx, "62ed7c87-dc8b-4367-84d9-0491ece2196d")
+	if err != nil {
+		t.Errorf("MDMSCEPIssuers.GetByID returned error: %v", err)
+	}
+
+	want := &MDMSCEPIssuer{
+		ID:              "62ed7c87-dc8b-4367-84d9-0491ece2196d",
+		ProvisioningUID: String("YoLoFoMo"),
+		Name:            "Default",
+		Description:     "Description",
+		URL:             "https://www.example.com/scep/",
+		KeyUsage:        1,
+		KeySize:         2048,
+		Backend:         String("DIGICERT"),
+		Digicert: &Digicert{
+			APIBaseURL:       "https://one.digicert.com/mpki/api/",
+			APIToken:         "secret",
+			ProfileGUID:      "60a3ce98-b05f-4f1b-83b0-200d82723134",
+			BusinessUnitGUID: "34f0d9a5-4603-4d07-baf3-2071f6e5b874",
+			SeatType:         "DEVICE_SEAT",
+			SeatIDMapping:    "common_name",
+			DefaultSeatEmail: "yolo@example.com",
 		},
 		Version: 1,
 		Created: Timestamp{referenceTime},
