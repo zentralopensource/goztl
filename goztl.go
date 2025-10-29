@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	libraryVersion = "0.1.62"
+	libraryVersion = "0.1.63"
 	userAgent      = "goztl/" + libraryVersion
 	mediaType      = "application/json"
 )
@@ -48,12 +48,14 @@ type Client struct {
 	MDMEnterpriseApps             MDMEnterpriseAppsService
 	MDMFileVaultConfigs           MDMFileVaultConfigsService
 	MDMLocations                  MDMLocationsService
+	MDMLocationAssets             MDMLocationAssetsService
 	MDMOTAEnrollments             MDMOTAEnrollmentsService
 	MDMProfiles                   MDMProfilesService
 	MDMPushCertificates           MDMPushCertificatesService
 	MDMRecoveryPasswordConfigs    MDMRecoveryPasswordConfigsService
 	MDMSCEPIssuers                MDMSCEPIssuersService
 	MDMSoftwareUpdateEnforcements MDMSoftwareUpdateEnforcementsService
+	MDMStoreApps                  MDMStoreAppsService
 	// Monolith
 	MonolithCatalogs                   MonolithCatalogsService
 	MonolithConditions                 MonolithConditionsService
@@ -186,12 +188,14 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.MDMEnterpriseApps = &MDMEnterpriseAppsServiceOp{client: c}
 	c.MDMFileVaultConfigs = &MDMFileVaultConfigsServiceOp{client: c}
 	c.MDMLocations = &MDMLocationsServiceOp{client: c}
+	c.MDMLocationAssets = &MDMLocationAssetsServiceOp{client: c}
 	c.MDMOTAEnrollments = &MDMOTAEnrollmentsServiceOp{client: c}
 	c.MDMProfiles = &MDMProfilesServiceOp{client: c}
 	c.MDMPushCertificates = &MDMPushCertificatesServiceOp{client: c}
 	c.MDMRecoveryPasswordConfigs = &MDMRecoveryPasswordConfigsServiceOp{client: c}
 	c.MDMSCEPIssuers = &MDMSCEPIssuersServiceOp{client: c}
 	c.MDMSoftwareUpdateEnforcements = &MDMSoftwareUpdateEnforcementsServiceOp{client: c}
+	c.MDMStoreApps = &MDMStoreAppsServiceOp{client: c}
 	// Monolith
 	c.MonolithCatalogs = &MonolithCatalogsServiceOp{client: c}
 	c.MonolithConditions = &MonolithConditionsServiceOp{client: c}
