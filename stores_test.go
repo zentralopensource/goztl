@@ -60,7 +60,7 @@ var storeGetJSONResponse = `
 }
 `
 
-var storeCreateJSONResponse = `
+var storeCreateSplunkJSONResponse = `
 {
   "id": "eaabf092-caed-4b0e-a8d5-851205b2fa56",
   "name": "Default",
@@ -77,6 +77,28 @@ var storeCreateJSONResponse = `
     "batch_size": 1,
     "search_request_timeout": 300,
     "verify_tls": true
+  },
+  "created_at": "2022-07-22T01:02:03.444444",
+  "updated_at": "2022-07-22T01:02:03.444444"
+}
+`
+
+var storeCreateKinesisJSONResponse = `
+{
+  "id": "eaabf092-caed-4b0e-a8d5-851205b2fa56",
+  "name": "Default",
+  "description": "Description",
+  "admin_console": false,
+  "events_url_authorized_roles": [],
+  "event_filters": {},
+  "backend": "KINESIS",
+  "kinesis_kwargs": {
+    "stream": "yolo-fomo",
+    "region_name": "eu-central-1",
+    "aws_access_key_id": "YOLO",
+    "aws_secret_access_key": "FOMO",
+    "batch_size": 17,
+    "serialization_format": "firehose_v1"
   },
   "created_at": "2022-07-22T01:02:03.444444",
   "updated_at": "2022-07-22T01:02:03.444444"
@@ -252,7 +274,7 @@ func TestStoresService_GetByName(t *testing.T) {
 	}
 }
 
-func TestStoresService_Create(t *testing.T) {
+func TestStoresService_CreateSplunk(t *testing.T) {
 	client, mux, teardown := setup()
 	defer teardown()
 
@@ -282,7 +304,7 @@ func TestStoresService_Create(t *testing.T) {
 		testHeader(t, r, "Content-Type", "application/json")
 		assert.Equal(t, createRequest, v)
 
-		fmt.Fprint(w, storeCreateJSONResponse)
+		fmt.Fprint(w, storeCreateSplunkJSONResponse)
 	})
 
 	ctx := context.Background()
@@ -313,6 +335,68 @@ func TestStoresService_Create(t *testing.T) {
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("Stores.Create returned %+v, want %+v", got, want)
+	}
+}
+
+func TestStoresService_CreateKinesis(t *testing.T) {
+	client, mux, teardown := setup()
+	defer teardown()
+
+	createRequest := &StoreRequest{
+		Name:        "Default",
+		Description: "Description",
+		Backend:     "KINESIS",
+		Kinesis: &StoreKinesis{
+			Stream:              "yolo-fomo",
+			RegionName:          "eu-central-1",
+			AWSAccessKeyID:      String("YOLO"),
+			AWSSecretAccessKey:  String("FOMO"),
+			BatchSize:           17,
+			SerializationFormat: "firehose_v1",
+		},
+	}
+
+	mux.HandleFunc("/stores/stores/", func(w http.ResponseWriter, r *http.Request) {
+		v := new(StoreRequest)
+		err := json.NewDecoder(r.Body).Decode(v)
+		if err != nil {
+			t.Fatal(err)
+		}
+		testMethod(t, r, "POST")
+		testHeader(t, r, "Accept", "application/json")
+		testHeader(t, r, "Content-Type", "application/json")
+		assert.Equal(t, createRequest, v)
+
+		fmt.Fprint(w, storeCreateKinesisJSONResponse)
+	})
+
+	ctx := context.Background()
+	got, _, err := client.Stores.Create(ctx, createRequest)
+	if err != nil {
+		t.Errorf("Stores.Create Splunk returned error: %v", err)
+	}
+
+	want := &Store{
+		ID:                         "eaabf092-caed-4b0e-a8d5-851205b2fa56",
+		Name:                       "Default",
+		Description:                "Description",
+		AdminConsole:               false,
+		EventsURLAuthorizedRoleIDs: []int{},
+		EventFilters:               &EventFilterSet{},
+		Backend:                    "KINESIS",
+		Kinesis: &StoreKinesis{
+			Stream:              "yolo-fomo",
+			RegionName:          "eu-central-1",
+			AWSAccessKeyID:      String("YOLO"),
+			AWSSecretAccessKey:  String("FOMO"),
+			BatchSize:           17,
+			SerializationFormat: "firehose_v1",
+		},
+		Created: Timestamp{referenceTime},
+		Updated: Timestamp{referenceTime},
+	}
+	if !cmp.Equal(got, want) {
+		t.Errorf("Stores.Create Kinesis returned %+v, want %+v", got, want)
 	}
 }
 

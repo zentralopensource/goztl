@@ -40,6 +40,16 @@ type StoreHTTP struct {
 	MaxRetries     int          `json:"max_retries"`
 }
 
+type StoreKinesis struct {
+	RegionName          string  `json:"region_name"`
+	AWSAccessKeyID      *string `json:"aws_access_key_id"`
+	AWSSecretAccessKey  *string `json:"aws_secret_access_key"`
+	AssumeRoleARN       *string `json:"assume_role_arn"`
+	Stream              string  `json:"stream"`
+	BatchSize           int     `json:"batch_size"`
+	SerializationFormat string  `json:"serialization_format"`
+}
+
 type StoreSplunk struct {
 	// HEC
 	HECURL                    string       `json:"hec_url"`
@@ -74,6 +84,7 @@ type Store struct {
 	EventFilters               *EventFilterSet `json:"event_filters"`
 	Backend                    string          `json:"backend"`
 	HTTP                       *StoreHTTP      `json:"http_kwargs"`
+	Kinesis                    *StoreKinesis   `json:"kinesis_kwargs"`
 	Splunk                     *StoreSplunk    `json:"splunk_kwargs"`
 	Created                    Timestamp       `json:"created_at"`
 	Updated                    Timestamp       `json:"updated_at"`
@@ -92,6 +103,7 @@ type StoreRequest struct {
 	EventFilters               *EventFilterSet `json:"event_filters"`
 	Backend                    string          `json:"backend"`
 	HTTP                       *StoreHTTP      `json:"http_kwargs"`
+	Kinesis                    *StoreKinesis   `json:"kinesis_kwargs"`
 	Splunk                     *StoreSplunk    `json:"splunk_kwargs"`
 }
 
