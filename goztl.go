@@ -32,6 +32,9 @@ type Client struct {
 	UserAgent string
 
 	// Services used for communicating with the API
+	// Google Workspace
+	GWSConnections      GWSConnectionsService
+	GWSGroupTagMappings GWSGroupTagMappingsService
 	// Inventory
 	JMESPathChecks    JMESPathChecksService
 	MetaBusinessUnits MetaBusinessUnitsService
@@ -172,6 +175,9 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 		UserAgent: userAgent,
 		token:     cleanToken,
 	}
+	// Google Workspace
+	c.GWSConnections = &GWSConnectionsServiceOp{client: c}
+	c.GWSGroupTagMappings = &GWSGroupTagMappingsServiceOp{client: c}
 	// Inventory
 	c.JMESPathChecks = &JMESPathChecksServiceOp{client: c}
 	c.MetaBusinessUnits = &MetaBusinessUnitsServiceOp{client: c}
