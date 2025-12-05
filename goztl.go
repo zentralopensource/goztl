@@ -9,16 +9,24 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"runtime/debug"
 	"strings"
 
 	"github.com/google/go-querystring/query"
 )
 
 const (
-	libraryVersion = "0.1.64"
-	userAgent      = "goztl/" + libraryVersion
-	mediaType      = "application/json"
+	mediaType = "application/json"
 )
+
+func UserAgent() string {
+	var revision = "snapshot"
+	info, ok := debug.ReadBuildInfo()
+	if ok {
+		revision = info.Main.Version
+	}
+	return "goztl/" + revision
+}
 
 // Client manages communication with Zentral API.
 type Client struct {
@@ -172,7 +180,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c := &Client{
 		client:    httpClient,
 		BaseURL:   baseURL,
-		UserAgent: userAgent,
+		UserAgent: UserAgent(),
 		token:     cleanToken,
 	}
 	// Google Workspace
