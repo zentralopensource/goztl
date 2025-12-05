@@ -23,7 +23,15 @@ func UserAgent() string {
 	var revision = "snapshot"
 	info, ok := debug.ReadBuildInfo()
 	if ok {
-		revision = info.Main.Version
+		for _, dep := range info.Deps {
+			if dep.Path == "github.com/zentralopensource/goztl" {
+				revision = dep.Version
+				break
+			}
+		}
+		if revision == "snapshot" && len(info.Main.Version) > 0 {
+			revision = info.Main.Version
+		}
 	}
 	return "goztl/" + revision
 }
