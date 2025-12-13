@@ -50,6 +50,12 @@ type StoreKinesis struct {
 	SerializationFormat string  `json:"serialization_format"`
 }
 
+type StorePanther struct {
+	EndpointURL string `json:"endpoint_url"`
+	BearerToken string `json:"bearer_token"`
+	BatchSize   int    `json:"batch_size"`
+}
+
 type StoreSplunk struct {
 	// HEC
 	HECURL                    string       `json:"hec_url"`
@@ -85,6 +91,7 @@ type Store struct {
 	Backend                    string          `json:"backend"`
 	HTTP                       *StoreHTTP      `json:"http_kwargs"`
 	Kinesis                    *StoreKinesis   `json:"kinesis_kwargs"`
+	Panther                    *StorePanther   `json:"panther_kwargs"`
 	Splunk                     *StoreSplunk    `json:"splunk_kwargs"`
 	Created                    Timestamp       `json:"created_at"`
 	Updated                    Timestamp       `json:"updated_at"`
@@ -104,6 +111,7 @@ type StoreRequest struct {
 	Backend                    string          `json:"backend"`
 	HTTP                       *StoreHTTP      `json:"http_kwargs"`
 	Kinesis                    *StoreKinesis   `json:"kinesis_kwargs"`
+	Panther                    *StorePanther   `json:"panther_kwargs"`
 	Splunk                     *StoreSplunk    `json:"splunk_kwargs"`
 }
 

@@ -105,6 +105,25 @@ var storeCreateKinesisJSONResponse = `
 }
 `
 
+var storeCreatePantherJSONResponse = `
+{
+  "id": "eaabf092-caed-4b0e-a8d5-851205b2fa56",
+  "name": "Default",
+  "description": "Description",
+  "admin_console": false,
+  "events_url_authorized_roles": [],
+  "event_filters": {},
+  "backend": "PANTHER",
+  "panther_kwargs": {
+    "endpoint_url": "https://panther.example.com/store/",
+    "bearer_token": "YOLOFOMO",
+    "batch_size": 17
+  },
+  "created_at": "2022-07-22T01:02:03.444444",
+  "updated_at": "2022-07-22T01:02:03.444444"
+}
+`
+
 var storeUpdateJSONResponse = `
 {
   "id": "eaabf092-caed-4b0e-a8d5-851205b2fa56",
@@ -373,7 +392,7 @@ func TestStoresService_CreateKinesis(t *testing.T) {
 	ctx := context.Background()
 	got, _, err := client.Stores.Create(ctx, createRequest)
 	if err != nil {
-		t.Errorf("Stores.Create Splunk returned error: %v", err)
+		t.Errorf("Stores.Create Kinesis returned error: %v", err)
 	}
 
 	want := &Store{
@@ -397,6 +416,62 @@ func TestStoresService_CreateKinesis(t *testing.T) {
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("Stores.Create Kinesis returned %+v, want %+v", got, want)
+	}
+}
+
+func TestStoresService_CreatePanther(t *testing.T) {
+	client, mux, teardown := setup()
+	defer teardown()
+
+	createRequest := &StoreRequest{
+		Name:        "Default",
+		Description: "Description",
+		Backend:     "PANTHER",
+		Panther: &StorePanther{
+			EndpointURL: "https://panther.example.com/store/",
+			BearerToken: "YOLOFOMO",
+			BatchSize:   17,
+		},
+	}
+
+	mux.HandleFunc("/stores/stores/", func(w http.ResponseWriter, r *http.Request) {
+		v := new(StoreRequest)
+		err := json.NewDecoder(r.Body).Decode(v)
+		if err != nil {
+			t.Fatal(err)
+		}
+		testMethod(t, r, "POST")
+		testHeader(t, r, "Accept", "application/json")
+		testHeader(t, r, "Content-Type", "application/json")
+		assert.Equal(t, createRequest, v)
+
+		fmt.Fprint(w, storeCreatePantherJSONResponse)
+	})
+
+	ctx := context.Background()
+	got, _, err := client.Stores.Create(ctx, createRequest)
+	if err != nil {
+		t.Errorf("Stores.Create Panther returned error: %v", err)
+	}
+
+	want := &Store{
+		ID:                         "eaabf092-caed-4b0e-a8d5-851205b2fa56",
+		Name:                       "Default",
+		Description:                "Description",
+		AdminConsole:               false,
+		EventsURLAuthorizedRoleIDs: []int{},
+		EventFilters:               &EventFilterSet{},
+		Backend:                    "PANTHER",
+		Panther: &StorePanther{
+			EndpointURL: "https://panther.example.com/store/",
+			BearerToken: "YOLOFOMO",
+			BatchSize:   17,
+		},
+		Created: Timestamp{referenceTime},
+		Updated: Timestamp{referenceTime},
+	}
+	if !cmp.Equal(got, want) {
+		t.Errorf("Stores.Create Panther returned %+v, want %+v", got, want)
 	}
 }
 
