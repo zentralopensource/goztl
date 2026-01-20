@@ -64,6 +64,7 @@ type Client struct {
 	MDMDataAssets                 MDMDataAssetsService
 	MDMCertAssets                 MDMCertAssetsService
 	MDMDeclarations               MDMDeclarationsService
+	MDMDEPVirtualServers          MDMDEPVirtualServersService
 	MDMEnterpriseApps             MDMEnterpriseAppsService
 	MDMFileVaultConfigs           MDMFileVaultConfigsService
 	MDMLocations                  MDMLocationsService
@@ -142,6 +143,14 @@ type ErrorResponse struct {
 	Message string `json:"message"`
 }
 
+// PaginatedResults for pagination payloads.
+type PaginatedResults[T any] struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next,omitempty"`
+	Previous *string `json:"previous,omitempty"`
+	Results  []T     `json:"results"`
+}
+
 func addOptions(s string, opt interface{}) (string, error) {
 	v := reflect.ValueOf(opt)
 
@@ -167,6 +176,52 @@ func addOptions(s string, opt interface{}) (string, error) {
 
 	origURL.RawQuery = origValues.Encode()
 	return origURL.String(), nil
+}
+
+func resolveAllPages[T any](
+	ctx context.Context,
+	client *Client,
+	firstPath string,
+) ([]T, *Response, error) {
+
+	var all []T
+	path := firstPath
+
+	var lastResp *Response
+
+	for {
+		req, err := client.NewRequest(ctx, "GET", path, nil)
+		if err != nil {
+			return nil, nil, err
+		}
+
+		page := new(PaginatedResults[T])
+		resp, err := client.Do(ctx, req, page)
+		if err != nil {
+			return nil, resp, err
+		}
+
+		lastResp = resp
+		all = append(all, page.Results...)
+
+		if page.Next == nil || *page.Next == "" {
+			break
+		}
+
+		u, err := url.Parse(*page.Next)
+		if err != nil {
+			return nil, resp, err
+		}
+
+		next := u.RequestURI()
+		if next == "" {
+			next = u.String()
+		}
+
+		path = strings.TrimPrefix(next, "/")
+	}
+
+	return all, lastResp, nil
 }
 
 // ClientOpt are options for New.
@@ -207,6 +262,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.MDMCertAssets = &MDMCertAssetsServiceOp{client: c}
 	c.MDMDataAssets = &MDMDataAssetsServiceOp{client: c}
 	c.MDMDeclarations = &MDMDeclarationsServiceOp{client: c}
+	c.MDMDEPVirtualServers = &MDMDEPVirtualServersServiceOp{client: c}
 	c.MDMEnterpriseApps = &MDMEnterpriseAppsServiceOp{client: c}
 	c.MDMFileVaultConfigs = &MDMFileVaultConfigsServiceOp{client: c}
 	c.MDMLocations = &MDMLocationsServiceOp{client: c}
