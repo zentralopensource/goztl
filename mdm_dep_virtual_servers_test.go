@@ -149,7 +149,6 @@ func TestMDMDEPVirtualServersService_GetByName(t *testing.T) {
 		t.Errorf("MDMDEPVirtualServers.GetByName returned not unique result.")
 	}
 	first := &got[0]
-
 	want := &MDMDEPVirtualServer{
 		ID:      39480,
 		Name:    "CUvRnNufiprz",

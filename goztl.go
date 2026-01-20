@@ -64,6 +64,7 @@ type Client struct {
 	MDMDataAssets                 MDMDataAssetsService
 	MDMCertAssets                 MDMCertAssetsService
 	MDMDeclarations               MDMDeclarationsService
+	MDMDEPEnrollments             MDMDEPEnrollmentsService
 	MDMDEPVirtualServers          MDMDEPVirtualServersService
 	MDMEnterpriseApps             MDMEnterpriseAppsService
 	MDMFileVaultConfigs           MDMFileVaultConfigsService
@@ -186,7 +187,6 @@ func resolveAllPages[T any](
 
 	var all []T
 	path := firstPath
-
 	var lastResp *Response
 
 	for {
@@ -262,6 +262,7 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.MDMCertAssets = &MDMCertAssetsServiceOp{client: c}
 	c.MDMDataAssets = &MDMDataAssetsServiceOp{client: c}
 	c.MDMDeclarations = &MDMDeclarationsServiceOp{client: c}
+	c.MDMDEPEnrollments = &MDMDEPEnrollmentsServiceOp{client: c}
 	c.MDMDEPVirtualServers = &MDMDEPVirtualServersServiceOp{client: c}
 	c.MDMEnterpriseApps = &MDMEnterpriseAppsServiceOp{client: c}
 	c.MDMFileVaultConfigs = &MDMFileVaultConfigsServiceOp{client: c}
