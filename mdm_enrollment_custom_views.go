@@ -166,13 +166,13 @@ func (s *MDMEnrollmentCustomViewsServiceOp) Delete(ctx context.Context, customVi
 }
 
 // Helper moethod for listing MDM enrollment custom view
-func (service *MDMEnrollmentCustomViewsServiceOp) list(ctx context.Context, opt *ListOptions, moeOpt *listMDMEnrollmentCustomViewOptions) ([]MDMEnrollmentCustomView, *Response, error) {
+func (service *MDMEnrollmentCustomViewsServiceOp) list(ctx context.Context, opt *ListOptions, listOpt *listMDMEnrollmentCustomViewOptions) ([]MDMEnrollmentCustomView, *Response, error) {
 	path := enrollmentCustomViewBasePath
 	path, err := addOptions(path, opt)
 	if err != nil {
 		return nil, nil, err
 	}
-	path, err = addOptions(path, moeOpt)
+	path, err = addOptions(path, listOpt)
 	if err != nil {
 		return nil, nil, err
 	}

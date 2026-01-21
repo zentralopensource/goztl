@@ -269,13 +269,13 @@ func (s *MDMDEPEnrollmentsServiceOp) Delete(ctx context.Context, enrollmentID in
 }
 
 // Helper moethod for listing MDM DEP enrollments
-func (service *MDMDEPEnrollmentsServiceOp) list(ctx context.Context, opt *ListOptions, moeOpt *listMDMDEPEnrollmentOptions) ([]MDMDEPEnrollment, *Response, error) {
+func (service *MDMDEPEnrollmentsServiceOp) list(ctx context.Context, opt *ListOptions, listOpt *listMDMDEPEnrollmentOptions) ([]MDMDEPEnrollment, *Response, error) {
 	path := depEnrollmentBasePath
 	path, err := addOptions(path, opt)
 	if err != nil {
 		return nil, nil, err
 	}
-	path, err = addOptions(path, moeOpt)
+	path, err = addOptions(path, listOpt)
 	if err != nil {
 		return nil, nil, err
 	}
