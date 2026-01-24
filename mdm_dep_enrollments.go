@@ -14,8 +14,8 @@ type MDMDEPEnrollmentsService interface {
 	List(context.Context, *ListOptions) ([]MDMDEPEnrollment, *Response, error)
 	GetByID(context.Context, int) (*MDMDEPEnrollment, *Response, error)
 	GetByName(context.Context, string) (*MDMDEPEnrollment, *Response, error)
-	Create(context.Context, *MDMDEPEnrollmentCreationRequest) (*MDMDEPEnrollment, *Response, error)
-	Update(context.Context, int, *MDMDEPEnrollmentUpdateRequest) (*MDMDEPEnrollment, *Response, error)
+	Create(context.Context, *MDMDEPEnrollmentRequest) (*MDMDEPEnrollment, *Response, error)
+	Update(context.Context, int, *MDMDEPEnrollmentRequest) (*MDMDEPEnrollment, *Response, error)
 	Delete(context.Context, int) (*Response, error)
 }
 
@@ -74,8 +74,8 @@ func (enrollment MDMDEPEnrollment) String() string {
 	return Stringify(enrollment)
 }
 
-// MDMDEPEnrollmentCreationRequest represents a request to create MDM DEPEnrollment
-type MDMDEPEnrollmentCreationRequest struct {
+// MDMDEPEnrollmentRequest represents a request to create or update an MDM DEPEnrollment
+type MDMDEPEnrollmentRequest struct {
 	Name                       string                  `json:"name"`
 	DisplayName                string                  `json:"display_name"`
 	Secret                     EnrollmentSecretRequest `json:"enrollment_secret"`
@@ -112,45 +112,6 @@ type MDMDEPEnrollmentCreationRequest struct {
 	BlueprintID                *int                    `json:"blueprint"`
 	RealmUUID                  *string                 `json:"realm"`
 	VirtualServerID            int                     `json:"virtual_server"`
-}
-
-// MDMDEPEnrollmentUpdateRequest represents a request to update a MDM DEPEnrollment
-type MDMDEPEnrollmentUpdateRequest struct {
-	Name                       string                  `json:"name"`
-	DisplayName                string                  `json:"display_name"`
-	Secret                     EnrollmentSecretRequest `json:"enrollment_secret"`
-	UseRealmUser               bool                    `json:"use_realm_user"`
-	UsernamePattern            string                  `json:"username_pattern"`
-	RealmUserIsAdmin           bool                    `json:"realm_user_is_admin"`
-	AdminFullName              *string                 `json:"admin_full_name"`
-	AdminShortName             *string                 `json:"admin_short_name"`
-	HiddenAdmin                bool                    `json:"hidden_admin"`
-	AdminPasswordComplexity    int                     `json:"admin_password_complexity"`
-	AdminPasswordRotationDelay int                     `json:"admin_password_rotation_delay"`
-	AllowPairing               bool                    `json:"allow_pairing"`
-	AutoAdvanceSetup           bool                    `json:"auto_advance_setup"`
-	AwaitDeviceConfigured      bool                    `json:"await_device_configured"`
-	Department                 string                  `json:"department"`
-	IsMandatory                bool                    `json:"is_mandatory"`
-	IsMDMRemovable             bool                    `json:"is_mdm_removable"`
-	IsMultiUser                bool                    `json:"is_multi_user"`
-	IsSupervised               bool                    `json:"is_supervised"`
-	Language                   string                  `json:"language"`
-	OrgMagic                   string                  `json:"org_magic"`
-	Region                     string                  `json:"region"`
-	SkipSetupItems             []string                `json:"skip_setup_items"`
-	SupportEmailAddress        string                  `json:"support_email_address"`
-	SupportPhoneNumber         string                  `json:"support_phone_number"`
-	IncludeTLSCertificates     bool                    `json:"include_tls_certificates"`
-	IOSMaxVersion              string                  `json:"ios_max_version"`
-	IOSMinVersion              string                  `json:"ios_min_version"`
-	MacOSMaxVersion            string                  `json:"macos_max_version"`
-	MacOSMinVersion            string                  `json:"macos_min_version"`
-	PushCertificateID          int                     `json:"push_certificate"`
-	ACMEIssuerUUID             *string                 `json:"acme_issuer"`
-	SCEPIssuerUUID             string                  `json:"scep_issuer"`
-	BlueprintID                *int                    `json:"blueprint"`
-	RealmUUID                  *string                 `json:"realm"`
 }
 
 type listMDMDEPEnrollmentOptions struct {
@@ -205,7 +166,7 @@ func (service *MDMDEPEnrollmentsServiceOp) GetByName(ctx context.Context, name s
 }
 
 // Create a new MDM DEP enrollment.
-func (s *MDMDEPEnrollmentsServiceOp) Create(ctx context.Context, createRequest *MDMDEPEnrollmentCreationRequest) (*MDMDEPEnrollment, *Response, error) {
+func (s *MDMDEPEnrollmentsServiceOp) Create(ctx context.Context, createRequest *MDMDEPEnrollmentRequest) (*MDMDEPEnrollment, *Response, error) {
 	if createRequest == nil {
 		return nil, nil, NewArgError("createRequest", "cannot be nil")
 	}
@@ -225,7 +186,7 @@ func (s *MDMDEPEnrollmentsServiceOp) Create(ctx context.Context, createRequest *
 }
 
 // Update a MDM DEP enrollment.
-func (s *MDMDEPEnrollmentsServiceOp) Update(ctx context.Context, enrollmentID int, updateRequest *MDMDEPEnrollmentUpdateRequest) (*MDMDEPEnrollment, *Response, error) {
+func (s *MDMDEPEnrollmentsServiceOp) Update(ctx context.Context, enrollmentID int, updateRequest *MDMDEPEnrollmentRequest) (*MDMDEPEnrollment, *Response, error) {
 	if enrollmentID < 1 {
 		return nil, nil, NewArgError("enrollmentID", "cannot be less than 1")
 	}
