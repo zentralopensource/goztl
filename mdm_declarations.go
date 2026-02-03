@@ -158,16 +158,5 @@ func (s *MDMDeclarationsServiceOp) list(ctx context.Context, opt *ListOptions, m
 		return nil, nil, err
 	}
 
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mds []MDMDeclaration
-	resp, err := s.client.Do(ctx, req, &mds)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mds, resp, err
+	return resolveAllPages[MDMDeclaration](ctx, s.client, path)
 }

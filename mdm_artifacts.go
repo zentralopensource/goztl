@@ -187,16 +187,5 @@ func (s *MDMArtifactsServiceOp) list(ctx context.Context, opt *ListOptions, maOp
 		return nil, nil, err
 	}
 
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mas []MDMArtifact
-	resp, err := s.client.Do(ctx, req, &mas)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mas, resp, err
+	return resolveAllPages[MDMArtifact](ctx, s.client, path)
 }

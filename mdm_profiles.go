@@ -149,16 +149,5 @@ func (s *MDMProfilesServiceOp) list(ctx context.Context, opt *ListOptions, mpOpt
 		return nil, nil, err
 	}
 
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mps []MDMProfile
-	resp, err := s.client.Do(ctx, req, &mps)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mps, resp, err
+	return resolveAllPages[MDMProfile](ctx, s.client, path)
 }

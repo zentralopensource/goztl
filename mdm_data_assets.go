@@ -155,16 +155,5 @@ func (s *MDMDataAssetsServiceOp) list(ctx context.Context, opt *ListOptions, mda
 		return nil, nil, err
 	}
 
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mdas []MDMDataAsset
-	resp, err := s.client.Do(ctx, req, &mdas)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mdas, resp, err
+	return resolveAllPages[MDMDataAsset](ctx, s.client, path)
 }

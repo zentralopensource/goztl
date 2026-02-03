@@ -12,22 +12,31 @@ import (
 )
 
 var maListJSONResponse = `
-[
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
     {
-        "id": "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
-        "name": "Default",
-	"type": "Profile",
-	"channel": "Device",
-	"platforms": ["macOS"],
-	"install_during_setup_assistant": false,
-	"auto_update": true,
-	"reinstall_interval": 1,
-	"reinstall_on_os_update": "No",
-	"requires": ["b89d21e8-76de-4ae5-948d-5627474ab8be"],
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
+      "id": "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
+      "name": "Default",
+      "type": "Profile",
+      "channel": "Device",
+      "platforms": [
+        "macOS"
+      ],
+      "install_during_setup_assistant": false,
+      "auto_update": true,
+      "reinstall_interval": 1,
+      "reinstall_on_os_update": "No",
+      "requires": [
+        "b89d21e8-76de-4ae5-948d-5627474ab8be"
+      ],
+      "created_at": "2022-07-22T01:02:03.444444",
+      "updated_at": "2022-07-22T01:02:03.444444"
     }
-]
+  ]
+}
 `
 
 var maGetJSONResponse = `

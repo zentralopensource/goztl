@@ -12,43 +12,58 @@ import (
 )
 
 var mcaListJSONResponse = `
-[
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
     {
-        "id": "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
-	"artifact": "b89d21e8-76de-4ae5-948d-5627474ab8be",
-	"accessible": "Default",
-	"acme_issuer": "d5656a00-ca75-4970-80b6-991d58dd9528",
-	"scep_issuer": "cc939995-4e22-4ee4-b8f2-4a17838320af",
-	"subject": [{"type": "CN", "value": "yolo"}],
-	"subject_alt_name": {
-	  "dNSName": "yolo.example.com",
-	  "ntPrincipalName": "yolo@example.com",
-	  "rfc822Name": "yolo@example.com",
-	  "uniformResourceIdentifier": null
-        },
-	"ios": true,
-	"ios_max_version": "14",
-	"ios_min_version": "13",
-	"ipados": true,
-	"ipados_max_version": "16",
-	"ipados_min_version": "15",
-	"macos": true,
-	"macos_max_version": "18",
-	"macos_min_version": "17",
-	"tvos": true,
-	"tvos_max_version": "20",
-	"tvos_min_version": "19",
-	"default_shard": 17,
-	"shard_modulo": 35,
-	"excluded_tags": [1],
-	"tag_shards": [
-	  {"tag": 2, "shard": 11}
-        ],
-	"version": 42,
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
+      "id": "526efd25-c1f7-498c-82b5-94ff0b39ba8e",
+      "artifact": "b89d21e8-76de-4ae5-948d-5627474ab8be",
+      "accessible": "Default",
+      "acme_issuer": "d5656a00-ca75-4970-80b6-991d58dd9528",
+      "scep_issuer": "cc939995-4e22-4ee4-b8f2-4a17838320af",
+      "subject": [
+        {
+          "type": "CN",
+          "value": "yolo"
+        }
+      ],
+      "subject_alt_name": {
+        "dNSName": "yolo.example.com",
+        "ntPrincipalName": "yolo@example.com",
+        "rfc822Name": "yolo@example.com",
+        "uniformResourceIdentifier": null
+      },
+      "ios": true,
+      "ios_max_version": "14",
+      "ios_min_version": "13",
+      "ipados": true,
+      "ipados_max_version": "16",
+      "ipados_min_version": "15",
+      "macos": true,
+      "macos_max_version": "18",
+      "macos_min_version": "17",
+      "tvos": true,
+      "tvos_max_version": "20",
+      "tvos_min_version": "19",
+      "default_shard": 17,
+      "shard_modulo": 35,
+      "excluded_tags": [
+        1
+      ],
+      "tag_shards": [
+        {
+          "tag": 2,
+          "shard": 11
+        }
+      ],
+      "version": 42,
+      "created_at": "2022-07-22T01:02:03.444444",
+      "updated_at": "2022-07-22T01:02:03.444444"
     }
-]
+  ]
+}
 `
 
 var mcaGetJSONResponse = `

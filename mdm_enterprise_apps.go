@@ -163,16 +163,5 @@ func (s *MDMEnterpriseAppsServiceOp) list(ctx context.Context, opt *ListOptions,
 		return nil, nil, err
 	}
 
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var meas []MDMEnterpriseApp
-	resp, err := s.client.Do(ctx, req, &meas)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return meas, resp, err
+	return resolveAllPages[MDMEnterpriseApp](ctx, s.client, path)
 }
