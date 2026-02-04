@@ -46,6 +46,20 @@ var probeActionGetJSONResponse = `
   "updated_at": "2022-07-22T01:02:03.444444"
 }
 `
+var probeActionCreateHTTPActionJSONResponse = `
+{
+  "id": "eaabf092-caed-4b0e-a8d5-851205b2fa56",
+  "name": "Default",
+  "description": "Description",
+  "backend": "HTTP_POST",
+  "http_post_kwargs": {
+    "url": "https://www.example.com/post",
+	"cel_transformation": "{\"serial_number\": metadata.machine_serial_number}"
+  },
+  "created_at": "2022-07-22T01:02:03.444444",
+  "updated_at": "2022-07-22T01:02:03.444444"
+}
+`
 
 var probeActionCreateJSONResponse = `
 {
@@ -217,6 +231,57 @@ func TestProbesActionsService_Create(t *testing.T) {
 		Backend:     "SLACK_INCOMING_WEBHOOK",
 		SlackIncomingWebhook: &ProbeActionSlackIncomingWebhook{
 			URL: "https://www.example.com/post",
+		},
+		Created: Timestamp{referenceTime},
+		Updated: Timestamp{referenceTime},
+	}
+	if !cmp.Equal(got, want) {
+		t.Errorf("ProbesActions.Create returned %+v, want %+v", got, want)
+	}
+}
+
+func TestProbesActionsService_CreateCEL(t *testing.T) {
+	client, mux, teardown := setup()
+	defer teardown()
+
+	createRequest := &ProbeActionRequest{
+		Name:        "Default",
+		Description: "Description",
+		Backend:     "HTTP_POST",
+		HTTPPost: &ProbeActionHTTPPost{
+			URL:               "https://www.example.com/post",
+			CELTransformation: String("{\"serial_number\": metadata.machine_serial_number}"),
+		},
+	}
+
+	mux.HandleFunc("/probes/actions/", func(w http.ResponseWriter, r *http.Request) {
+		v := new(ProbeActionRequest)
+		err := json.NewDecoder(r.Body).Decode(v)
+		if err != nil {
+			t.Fatal(err)
+		}
+		testMethod(t, r, "POST")
+		testHeader(t, r, "Accept", "application/json")
+		testHeader(t, r, "Content-Type", "application/json")
+		assert.Equal(t, createRequest, v)
+
+		fmt.Fprint(w, probeActionCreateHTTPActionJSONResponse)
+	})
+
+	ctx := context.Background()
+	got, _, err := client.ProbesActions.Create(ctx, createRequest)
+	if err != nil {
+		t.Errorf("ProbesActions.Create returned error: %v", err)
+	}
+
+	want := &ProbeAction{
+		ID:          "eaabf092-caed-4b0e-a8d5-851205b2fa56",
+		Name:        "Default",
+		Description: "Description",
+		Backend:     "HTTP_POST",
+		HTTPPost: &ProbeActionHTTPPost{
+			URL:               "https://www.example.com/post",
+			CELTransformation: String("{\"serial_number\": metadata.machine_serial_number}"),
 		},
 		Created: Timestamp{referenceTime},
 		Updated: Timestamp{referenceTime},
