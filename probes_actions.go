@@ -30,10 +30,11 @@ var _ ProbesActionsService = &ProbesActionsServiceOp{}
 // ProbeAction represents a Zentral probe action
 
 type ProbeActionHTTPPost struct {
-	URL      string       `json:"url"`
-	Username *string      `json:"username"`
-	Password *string      `json:"password"`
-	Headers  []HTTPHeader `json:"headers"`
+	URL               string       `json:"url"`
+	Username          *string      `json:"username"`
+	Password          *string      `json:"password"`
+	Headers           []HTTPHeader `json:"headers"`
+	CELTransformation *string      `json:"cel_transformation"`
 }
 
 type ProbeActionSlackIncomingWebhook struct {
