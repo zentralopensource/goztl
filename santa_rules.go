@@ -39,6 +39,7 @@ type SantaRule struct {
 	TargetIdentifier      string    `json:"target_identifier"`
 	Description           string    `json:"description"`
 	CustomMessage         string    `json:"custom_msg"`
+	CustomURL             string    `json:"custom_url"`
 	RulesetID             *int      `json:"ruleset"`
 	PrimaryUsers          []string  `json:"primary_users"`
 	ExcludedPrimaryUsers  []string  `json:"excluded_primary_users"`
@@ -64,6 +65,7 @@ type SantaRuleRequest struct {
 	TargetIdentifier      string   `json:"target_identifier"`
 	Description           string   `json:"description"`
 	CustomMessage         string   `json:"custom_msg"`
+	CustomURL             string   `json:"custom_url"`
 	PrimaryUsers          []string `json:"primary_users"`
 	ExcludedPrimaryUsers  []string `json:"excluded_primary_users"`
 	SerialNumbers         []string `json:"serial_numbers"`
