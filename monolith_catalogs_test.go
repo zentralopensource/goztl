@@ -11,16 +11,18 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var mcListJSONResponse = `
-[
-    {
-        "id": 4,
-	"repository": 3,
-        "name": "Default",
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+var mcListJSONResponse = `{
+	"count": 1,
+	"results": [
+		{
+			"id": 4,
+			"repository": 3,
+			"name": "Default",
+			"created_at": "2022-07-22T01:02:03.444444",
+			"updated_at": "2022-07-22T01:02:03.444444"
+		}
+	]
+}
 `
 
 var mcGetJSONResponse = `
@@ -115,7 +117,7 @@ func TestMonolithCatalogsService_GetByID(t *testing.T) {
 	}
 }
 
-func TestMonolithCatalogsService_GetByName(t *testing.T) {
+func TestMonolithCatalogsService_GetByNameAndRepositoryID(t *testing.T) {
 	client, mux, teardown := setup()
 	defer teardown()
 
@@ -127,9 +129,9 @@ func TestMonolithCatalogsService_GetByName(t *testing.T) {
 	})
 
 	ctx := context.Background()
-	got, _, err := client.MonolithCatalogs.GetByName(ctx, "Default")
+	got, _, err := client.MonolithCatalogs.GetByNameAndRepositoryID(ctx, "Default", 3)
 	if err != nil {
-		t.Errorf("MonolithCatalogs.GetByName returned error: %v", err)
+		t.Errorf("MonolithCatalogs.GetByNameAndRepositoryID returned error: %v", err)
 	}
 
 	want := &MonolithCatalog{
@@ -140,7 +142,7 @@ func TestMonolithCatalogsService_GetByName(t *testing.T) {
 		Updated:      Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
-		t.Errorf("MonolithCatalogs.GetByName returned %+v, want %+v", got, want)
+		t.Errorf("MonolithCatalogs.GetByNameAndRepositoryID returned %+v, want %+v", got, want)
 	}
 }
 
