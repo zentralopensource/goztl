@@ -13,7 +13,7 @@ const mcBasePath = "monolith/catalogs/"
 type MonolithCatalogsService interface {
 	List(context.Context, *ListOptions) ([]MonolithCatalog, *Response, error)
 	GetByID(context.Context, int) (*MonolithCatalog, *Response, error)
-	GetByName(context.Context, string) (*MonolithCatalog, *Response, error)
+	GetByNameAndRepositoryID(context.Context, string, int) (*MonolithCatalog, *Response, error)
 	Create(context.Context, *MonolithCatalogRequest) (*MonolithCatalog, *Response, error)
 	Update(context.Context, int, *MonolithCatalogRequest) (*MonolithCatalog, *Response, error)
 	Delete(context.Context, int) (*Response, error)
@@ -48,7 +48,8 @@ type MonolithCatalogRequest struct {
 }
 
 type listMCOptions struct {
-	Name string `url:"name,omitempty"`
+	Name         string `url:"name,omitempty"`
+	RepositoryID int    `url:"repository,omitempty"`
 }
 
 // List lists all the Monolith catalogs.
@@ -79,13 +80,16 @@ func (s *MonolithCatalogsServiceOp) GetByID(ctx context.Context, mcID int) (*Mon
 	return mc, resp, err
 }
 
-// GetByName retrieves a Monolith catalog by name.
-func (s *MonolithCatalogsServiceOp) GetByName(ctx context.Context, name string) (*MonolithCatalog, *Response, error) {
+// GetByNameAndRepositoryID retrieves a Monolith catalog by name.
+func (s *MonolithCatalogsServiceOp) GetByNameAndRepositoryID(ctx context.Context, name string, repository_id int) (*MonolithCatalog, *Response, error) {
 	if len(name) < 1 {
 		return nil, nil, NewArgError("name", "cannot be blank")
 	}
+	if repository_id == 0 {
+		return nil, nil, NewArgError("repository_id", "cannot be blank")
+	}
 
-	listMCOpt := &listMCOptions{Name: name}
+	listMCOpt := &listMCOptions{Name: name, RepositoryID: repository_id}
 
 	mcs, resp, err := s.list(ctx, nil, listMCOpt)
 	if err != nil {
@@ -173,17 +177,5 @@ func (s *MonolithCatalogsServiceOp) list(ctx context.Context, opt *ListOptions, 
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mcs []MonolithCatalog
-	resp, err := s.client.Do(ctx, req, &mcs)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mcs, resp, err
+	return resolveAllPages[MonolithCatalog](ctx, s.client, path)
 }
