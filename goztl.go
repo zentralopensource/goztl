@@ -115,6 +115,13 @@ type Client struct {
 	SantaRules          SantaRulesService
 	// Stores
 	Stores StoresService
+	// Turbo
+	TurboConfigurations TurboConfigurationsService
+	TurboEnrollments    TurboEnrollmentsService
+	TurboMSCPChecks     TurboMSCPChecksService
+	TurboOneTimeJobs    TurboOneTimeJobsService
+	TurboRecurringJobs  TurboRecurringJobsService
+	TurboScripts        TurboScriptsService
 
 	// Zentral API token
 	token string
@@ -317,6 +324,13 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.SantaRules = &SantaRulesServiceOp{client: c}
 	// Stores
 	c.Stores = &StoresServiceOp{client: c}
+	// Turbo
+	c.TurboConfigurations = &TurboConfigurationsServiceOp{client: c}
+	c.TurboEnrollments = &TurboEnrollmentsServiceOp{client: c}
+	c.TurboMSCPChecks = &TurboMSCPChecksServiceOp{client: c}
+	c.TurboOneTimeJobs = &TurboOneTimeJobsServiceOp{client: c}
+	c.TurboRecurringJobs = &TurboRecurringJobsServiceOp{client: c}
+	c.TurboScripts = &TurboScriptsServiceOp{client: c}
 
 	c.headers = make(map[string]string)
 
