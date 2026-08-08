@@ -11,29 +11,29 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var moeListJSONResponme = `
+var moeListJSONResponse = `
 {
     "count": 1,
     "results": [
         {
             "id": 1,
-    	"name": "Yolo",
-    	"display_name": "Fomo",
-    	"blueprint": 2,
-    	"push_certificate": 3,
-    	"realm": "2217e326-5c12-406f-8c31-cc95fe9fea1b",
-    	"acme_issuer": null,
-    	"scep_issuer": "0a0281b1-6fc0-462b-9128-67d2c87a0f45",
-    	"enrollment_secret": {
-    	    "id": 6,
-    	    "secret": "SECRET",
-    	    "meta_business_unit": 7,
-    	    "tags": [8, 9],
-    	    "serial_numbers": ["dix", "onze"],
-    	    "udids": [],
-    	    "quota": null,
-    	    "request_count": 12
-    	},
+            "name": "Yolo",
+            "display_name": "Fomo",
+            "blueprint": 2,
+            "push_certificate": 3,
+            "realm": "2217e326-5c12-406f-8c31-cc95fe9fea1b",
+            "acme_issuer": null,
+            "scep_issuer": "0a0281b1-6fc0-462b-9128-67d2c87a0f45",
+            "enrollment_secret": {
+                "id": 6,
+                "secret": "SECRET",
+                "meta_business_unit": 7,
+                "tags": [8, 9],
+                "serial_numbers": ["dix", "onze"],
+                "udids": [],
+                "quota": null,
+                "request_count": 12
+            },
             "created_at": "2022-07-22T01:02:03.444444",
             "updated_at": "2022-07-22T01:02:03.444444"
         }
@@ -41,7 +41,7 @@ var moeListJSONResponme = `
 }
 `
 
-var moeGetJSONResponme = `
+var moeGetJSONResponse = `
 {
     "id": 1,
     "name": "Yolo",
@@ -52,21 +52,21 @@ var moeGetJSONResponme = `
     "acme_issuer": "e55e9dca-1f90-47bb-851c-c28fbf9aa55a",
     "scep_issuer": "0a0281b1-6fc0-462b-9128-67d2c87a0f45",
     "enrollment_secret": {
-	"id": 6,
-	"secret": "SECRET",
-	"meta_business_unit": 7,
-	"tags": [8, 9],
-	"serial_numbers": ["dix", "onze"],
-	"udids": ["AF92DAAB-EC8A-42EB-A11A-60B0BD94CCC1"],
-	"quota": 12,
-	"request_count": 13
+        "id": 6,
+        "secret": "SECRET",
+        "meta_business_unit": 7,
+        "tags": [8, 9],
+        "serial_numbers": ["dix", "onze"],
+        "udids": ["AF92DAAB-EC8A-42EB-A11A-60B0BD94CCC1"],
+        "quota": 12,
+        "request_count": 13
     },
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
 `
 
-var moeCreateJSONResponme = `
+var moeCreateJSONResponse = `
 {
     "id": 1,
     "name": "Yolo",
@@ -77,21 +77,21 @@ var moeCreateJSONResponme = `
     "acme_issuer": null,
     "scep_issuer": "0a0281b1-6fc0-462b-9128-67d2c87a0f45",
     "enrollment_secret": {
-	"id": 6,
-	"secret": "SECRET",
-	"meta_business_unit": 7,
-	"tags": [8, 9],
-	"serial_numbers": ["dix", "onze"],
-	"udids": ["AF92DAAB-EC8A-42EB-A11A-60B0BD94CCC1"],
-	"quota": 12,
-	"request_count": 13
+        "id": 6,
+        "secret": "SECRET",
+        "meta_business_unit": 7,
+        "tags": [8, 9],
+        "serial_numbers": ["dix", "onze"],
+        "udids": ["AF92DAAB-EC8A-42EB-A11A-60B0BD94CCC1"],
+        "quota": 12,
+        "request_count": 13
     },
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
 `
 
-var moeUpdateJSONResponme = `
+var moeUpdateJSONResponse = `
 {
     "id": 1,
     "name": "Yolo",
@@ -102,14 +102,14 @@ var moeUpdateJSONResponme = `
     "acme_issuer": "e55e9dca-1f90-47bb-851c-c28fbf9aa55a",
     "scep_issuer": "0a0281b1-6fc0-462b-9128-67d2c87a0f45",
     "enrollment_secret": {
-	"id": 6,
-	"secret": "SECRET",
-	"meta_business_unit": 7,
-	"tags": [8, 9],
-	"serial_numbers": ["dix", "onze"],
-	"udids": ["AF92DAAB-EC8A-42EB-A11A-60B0BD94CCC1"],
-	"quota": 12,
-	"request_count": 13
+        "id": 6,
+        "secret": "SECRET",
+        "meta_business_unit": 7,
+        "tags": [8, 9],
+        "serial_numbers": ["dix", "onze"],
+        "udids": ["AF92DAAB-EC8A-42EB-A11A-60B0BD94CCC1"],
+        "quota": 12,
+        "request_count": 13
     },
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
@@ -123,7 +123,7 @@ func TestMDMOTAEnrollmentsService_List(t *testing.T) {
 	mux.HandleFunc("/mdm/ota_enrollments/", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		testHeader(t, r, "Accept", "application/json")
-		fmt.Fprint(w, moeListJSONResponme)
+		fmt.Fprint(w, moeListJSONResponse)
 	})
 
 	ctx := context.Background()
@@ -166,7 +166,7 @@ func TestMDMOTAEnrollmentsService_GetByID(t *testing.T) {
 	mux.HandleFunc("/mdm/ota_enrollments/1/", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		testHeader(t, r, "Accept", "application/json")
-		fmt.Fprint(w, moeGetJSONResponme)
+		fmt.Fprint(w, moeGetJSONResponse)
 	})
 
 	ctx := context.Background()
@@ -208,7 +208,7 @@ func TestMDMOTAEnrollmentsService_GetByName(t *testing.T) {
 		testMethod(t, r, "GET")
 		testHeader(t, r, "Accept", "application/json")
 		testQueryArg(t, r, "name", "Yolo")
-		fmt.Fprint(w, moeListJSONResponme)
+		fmt.Fprint(w, moeListJSONResponse)
 	})
 
 	ctx := context.Background()
@@ -273,7 +273,7 @@ func TestMDMOTAEnrollmentsService_Create(t *testing.T) {
 		testHeader(t, r, "Content-Type", "application/json")
 		assert.Equal(t, createRequest, v)
 
-		fmt.Fprint(w, moeCreateJSONResponme)
+		fmt.Fprint(w, moeCreateJSONResponse)
 	})
 
 	ctx := context.Background()
@@ -339,7 +339,7 @@ func TestMDMOTAEnrollmentsService_Update(t *testing.T) {
 		testHeader(t, r, "Accept", "application/json")
 		testHeader(t, r, "Content-Type", "application/json")
 		assert.Equal(t, updateRequest, v)
-		fmt.Fprint(w, moeUpdateJSONResponme)
+		fmt.Fprint(w, moeUpdateJSONResponse)
 	})
 
 	ctx := context.Background()
