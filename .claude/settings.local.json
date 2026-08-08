@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(git push *)",
+      "Bash(ls /Users/eric/dev/zentral/ 2>&1 | head -30)",
+      "Bash(git checkout *)",
+      "Bash(ls /Users/eric/.claude/projects/-Users-eric-dev-zentral/memory/ 2>&1)",
+      "Bash(docker compose *)",
+      "Bash(git reset *)"
+    ]
+  }
+}

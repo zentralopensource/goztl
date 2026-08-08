@@ -19,6 +19,7 @@ var mrpcListJSONResponse = `
 	"dynamic_password": true,
 	"static_password": null,
 	"rotation_interval_days": 90,
+	"reveal_rotation_delay": 30,
 	"rotate_firmware_password": true,
         "created_at": "2022-07-22T01:02:03.444444",
         "updated_at": "2022-07-22T01:02:03.444444"
@@ -33,6 +34,7 @@ var mrpcGetJSONResponse = `
     "dynamic_password": false,
     "static_password": "12345678",
     "rotation_interval_days": 0,
+    "reveal_rotation_delay": 30,
     "rotate_firmware_password": false,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
@@ -46,6 +48,7 @@ var mrpcCreateJSONResponse = `
     "dynamic_password": false,
     "static_password": "12345678",
     "rotation_interval_days": 0,
+    "reveal_rotation_delay": 30,
     "rotate_firmware_password": false,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
@@ -58,6 +61,7 @@ var mrpcUpdateJSONResponse = `
     "name": "Default",
     "dynamic_password": true,
     "rotation_interval_days": 90,
+    "reveal_rotation_delay": 30,
     "rotate_firmware_password": true,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
@@ -86,6 +90,7 @@ func TestMDMRecoveryPasswordConfigsService_List(t *testing.T) {
 			Name:                   "Default",
 			DynamicPassword:        true,
 			RotationIntervalDays:   90,
+			RevealRotationDelay:    30,
 			RotateFirmwarePassword: true,
 			Created:                Timestamp{referenceTime},
 			Updated:                Timestamp{referenceTime},
@@ -118,6 +123,7 @@ func TestMDMRecoveryPasswordConfigsService_GetByID(t *testing.T) {
 		DynamicPassword:        false,
 		StaticPassword:         String("12345678"),
 		RotationIntervalDays:   0,
+		RevealRotationDelay:    30,
 		RotateFirmwarePassword: false,
 		Created:                Timestamp{referenceTime},
 		Updated:                Timestamp{referenceTime},
@@ -149,6 +155,7 @@ func TestMDMRecoveryPasswordConfigsService_GetByName(t *testing.T) {
 		Name:                   "Default",
 		DynamicPassword:        true,
 		RotationIntervalDays:   90,
+		RevealRotationDelay:    30,
 		RotateFirmwarePassword: true,
 		Created:                Timestamp{referenceTime},
 		Updated:                Timestamp{referenceTime},
@@ -167,6 +174,7 @@ func TestMDMRecoveryPasswordConfigsService_Create(t *testing.T) {
 		DynamicPassword:        false,
 		StaticPassword:         String("12345678"),
 		RotationIntervalDays:   0,
+		RevealRotationDelay:    30,
 		RotateFirmwarePassword: false,
 	}
 
@@ -196,6 +204,7 @@ func TestMDMRecoveryPasswordConfigsService_Create(t *testing.T) {
 		DynamicPassword:        false,
 		StaticPassword:         String("12345678"),
 		RotationIntervalDays:   0,
+		RevealRotationDelay:    30,
 		RotateFirmwarePassword: false,
 		Created:                Timestamp{referenceTime},
 		Updated:                Timestamp{referenceTime},
@@ -213,6 +222,7 @@ func TestMDMRecoveryPasswordConfigsService_Update(t *testing.T) {
 		Name:                   "Default",
 		DynamicPassword:        true,
 		RotationIntervalDays:   90,
+		RevealRotationDelay:    30,
 		RotateFirmwarePassword: true,
 	}
 
@@ -240,6 +250,7 @@ func TestMDMRecoveryPasswordConfigsService_Update(t *testing.T) {
 		Name:                   "Default",
 		DynamicPassword:        true,
 		RotationIntervalDays:   90,
+		RevealRotationDelay:    30,
 		RotateFirmwarePassword: true,
 		Created:                Timestamp{referenceTime},
 		Updated:                Timestamp{referenceTime},

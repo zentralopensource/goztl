@@ -34,6 +34,7 @@ type MDMRecoveryPasswordConfig struct {
 	DynamicPassword        bool      `json:"dynamic_password"`
 	StaticPassword         *string   `json:"static_password"`
 	RotationIntervalDays   int       `json:"rotation_interval_days"`
+	RevealRotationDelay    int       `json:"reveal_rotation_delay"`
 	RotateFirmwarePassword bool      `json:"rotate_firmware_password"`
 	Created                Timestamp `json:"created_at,omitempty"`
 	Updated                Timestamp `json:"updated_at,omitempty"`
@@ -49,6 +50,7 @@ type MDMRecoveryPasswordConfigRequest struct {
 	DynamicPassword        bool    `json:"dynamic_password"`
 	StaticPassword         *string `json:"static_password"`
 	RotationIntervalDays   int     `json:"rotation_interval_days"`
+	RevealRotationDelay    int     `json:"reveal_rotation_delay"`
 	RotateFirmwarePassword bool    `json:"rotate_firmware_password"`
 }
 

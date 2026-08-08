@@ -37,6 +37,7 @@ type MDMFileVaultConfig struct {
 	ShowRecoveryKey           bool      `json:"show_recovery_key"`
 	DestroyKeyOnStandby       bool      `json:"destroy_key_on_standby"`
 	PRKRotationIntervalDays   int       `json:"prk_rotation_interval_days"`
+	PRKRevealRotationDelay    int       `json:"prk_reveal_rotation_delay"`
 	Created                   Timestamp `json:"created_at,omitempty"`
 	Updated                   Timestamp `json:"updated_at,omitempty"`
 }
@@ -54,6 +55,7 @@ type MDMFileVaultConfigRequest struct {
 	ShowRecoveryKey           bool   `json:"show_recovery_key"`
 	DestroyKeyOnStandby       bool   `json:"destroy_key_on_standby"`
 	PRKRotationIntervalDays   int    `json:"prk_rotation_interval_days"`
+	PRKRevealRotationDelay    int    `json:"prk_reveal_rotation_delay"`
 }
 
 type listMFCOptions struct {

@@ -22,6 +22,7 @@ var mfcListJSONResponse = `
 	"show_recovery_key": true,
 	"destroy_key_on_standby": true,
 	"prk_rotation_interval_days": 90,
+	"prk_reveal_rotation_delay": 30,
         "created_at": "2022-07-22T01:02:03.444444",
         "updated_at": "2022-07-22T01:02:03.444444"
     }
@@ -38,6 +39,7 @@ var mfcGetJSONResponse = `
     "show_recovery_key": true,
     "destroy_key_on_standby": true,
     "prk_rotation_interval_days": 90,
+    "prk_reveal_rotation_delay": 30,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -53,6 +55,7 @@ var mfcCreateJSONResponse = `
     "show_recovery_key": true,
     "destroy_key_on_standby": true,
     "prk_rotation_interval_days": 90,
+    "prk_reveal_rotation_delay": 30,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -68,6 +71,7 @@ var mfcUpdateJSONResponse = `
     "show_recovery_key": true,
     "destroy_key_on_standby": true,
     "prk_rotation_interval_days": 90,
+    "prk_reveal_rotation_delay": 30,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -99,6 +103,7 @@ func TestMDMFileVaultConfigsService_List(t *testing.T) {
 			ShowRecoveryKey:           true,
 			DestroyKeyOnStandby:       true,
 			PRKRotationIntervalDays:   90,
+			PRKRevealRotationDelay:    30,
 			Created:                   Timestamp{referenceTime},
 			Updated:                   Timestamp{referenceTime},
 		},
@@ -133,6 +138,7 @@ func TestMDMFileVaultConfigsService_GetByID(t *testing.T) {
 		ShowRecoveryKey:           true,
 		DestroyKeyOnStandby:       true,
 		PRKRotationIntervalDays:   90,
+		PRKRevealRotationDelay:    30,
 		Created:                   Timestamp{referenceTime},
 		Updated:                   Timestamp{referenceTime},
 	}
@@ -167,6 +173,7 @@ func TestMDMFileVaultConfigsService_GetByName(t *testing.T) {
 		ShowRecoveryKey:           true,
 		DestroyKeyOnStandby:       true,
 		PRKRotationIntervalDays:   90,
+		PRKRevealRotationDelay:    30,
 		Created:                   Timestamp{referenceTime},
 		Updated:                   Timestamp{referenceTime},
 	}
@@ -187,6 +194,7 @@ func TestMDMFileVaultConfigsService_Create(t *testing.T) {
 		ShowRecoveryKey:           true,
 		DestroyKeyOnStandby:       true,
 		PRKRotationIntervalDays:   90,
+		PRKRevealRotationDelay:    30,
 	}
 
 	mux.HandleFunc("/mdm/filevault_configs/", func(w http.ResponseWriter, r *http.Request) {
@@ -218,6 +226,7 @@ func TestMDMFileVaultConfigsService_Create(t *testing.T) {
 		ShowRecoveryKey:           true,
 		DestroyKeyOnStandby:       true,
 		PRKRotationIntervalDays:   90,
+		PRKRevealRotationDelay:    30,
 		Created:                   Timestamp{referenceTime},
 		Updated:                   Timestamp{referenceTime},
 	}
@@ -238,6 +247,7 @@ func TestMDMFileVaultConfigsService_Update(t *testing.T) {
 		ShowRecoveryKey:           true,
 		DestroyKeyOnStandby:       true,
 		PRKRotationIntervalDays:   90,
+		PRKRevealRotationDelay:    30,
 	}
 
 	mux.HandleFunc("/mdm/filevault_configs/4/", func(w http.ResponseWriter, r *http.Request) {
@@ -268,6 +278,7 @@ func TestMDMFileVaultConfigsService_Update(t *testing.T) {
 		ShowRecoveryKey:           true,
 		DestroyKeyOnStandby:       true,
 		PRKRotationIntervalDays:   90,
+		PRKRevealRotationDelay:    30,
 		Created:                   Timestamp{referenceTime},
 		Updated:                   Timestamp{referenceTime},
 	}
