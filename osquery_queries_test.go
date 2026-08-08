@@ -30,6 +30,7 @@ var oqListJSONResponse = `
 	    "snapshot_mode": false
 	},
 	"compliance_check_enabled": false,
+	"compliance_check_id": null,
 	"tag": null,
         "created_at": "2022-07-22T01:02:03.444444",
         "updated_at": "2022-07-22T01:02:03.444444"
@@ -47,7 +48,8 @@ var oqGetJSONResponse = `
     "description": "List all users",
     "value": "A list of user attributes",
     "version": 1,
-    "compliance_check_enabled": false,
+    "compliance_check_enabled": true,
+    "compliance_check_id": 42,
     "tag": 17,
     "scheduling": null,
     "created_at": "2022-07-22T01:02:03.444444",
@@ -67,6 +69,7 @@ var oqCreateJSONResponse = `
     "version": 1,
     "scheduling": null,
     "compliance_check_enabled": false,
+    "compliance_check_id": null,
     "tag": 17,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
@@ -84,6 +87,7 @@ var oqUpdateJSONResponse = `
     "value": "A list of user attributes",
     "version": 1,
     "compliance_check_enabled": false,
+    "compliance_check_id": null,
     "tag": null,
     "scheduling": {
 	"can_be_denylisted": true,
@@ -124,6 +128,7 @@ func TestOsqueryQueriesService_List(t *testing.T) {
 			Value:                  "A list of user attributes",
 			Version:                1,
 			ComplianceCheckEnabled: false,
+			ComplianceCheckID:      nil,
 			Scheduling: &OsqueryQueryScheduling{
 				CanBeDenyListed:   true,
 				Interval:          60,
@@ -165,7 +170,8 @@ func TestOsqueryQueriesService_GetByID(t *testing.T) {
 		Description:            "List all users",
 		Value:                  "A list of user attributes",
 		Version:                1,
-		ComplianceCheckEnabled: false,
+		ComplianceCheckEnabled: true,
+		ComplianceCheckID:      Int(42),
 		TagID:                  Int(17),
 		Created:                Timestamp{referenceTime},
 		Updated:                Timestamp{referenceTime},
@@ -201,6 +207,7 @@ func TestOsqueryQueriesService_GetByName(t *testing.T) {
 		Value:                  "A list of user attributes",
 		Version:                1,
 		ComplianceCheckEnabled: false,
+		ComplianceCheckID:      nil,
 		Scheduling: &OsqueryQueryScheduling{
 			CanBeDenyListed:   true,
 			Interval:          60,
@@ -244,6 +251,7 @@ func TestOsqueryQueriesService_GetByPackID(t *testing.T) {
 			Value:                  "A list of user attributes",
 			Version:                1,
 			ComplianceCheckEnabled: false,
+			ComplianceCheckID:      nil,
 			Scheduling: &OsqueryQueryScheduling{
 				CanBeDenyListed:   true,
 				Interval:          60,
@@ -305,6 +313,7 @@ func TestOsqueryQueriesService_Create(t *testing.T) {
 		Value:                  "A list of user attributes",
 		Version:                1,
 		ComplianceCheckEnabled: false,
+		ComplianceCheckID:      nil,
 		TagID:                  Int(17),
 		Created:                Timestamp{referenceTime},
 		Updated:                Timestamp{referenceTime},
@@ -361,6 +370,7 @@ func TestOsqueryQueriesService_Update(t *testing.T) {
 		Value:                  "A list of user attributes",
 		Version:                1,
 		ComplianceCheckEnabled: false,
+		ComplianceCheckID:      nil,
 		Scheduling: &OsqueryQueryScheduling{
 			CanBeDenyListed:   true,
 			Interval:          161,

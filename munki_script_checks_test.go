@@ -27,6 +27,7 @@ var mscListJSONResponse = `
 	"tags": [2, 3, 4],
 	"excluded_tags": [6, 7],
         "version": 5,
+        "compliance_check_id": 42,
         "created_at": "2022-07-22T01:02:03.444444",
         "updated_at": "2022-07-22T01:02:03.444444"
     }
@@ -48,6 +49,7 @@ var mscGetJSONResponse = `
     "tags": [2, 3, 4],
     "excluded_tags": [6, 7],
     "version": 5,
+    "compliance_check_id": 42,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -68,6 +70,7 @@ var mscCreateJSONResponse = `
     "tags": [2, 3, 4],
     "excluded_tags": [6, 7],
     "version": 5,
+    "compliance_check_id": 42,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -88,6 +91,7 @@ var mscUpdateJSONResponse = `
     "tags": [2, 3, 4],
     "excluded_tags": [6, 7],
     "version": 5,
+    "compliance_check_id": 42,
     "created_at": "2022-07-22T01:02:03.444444",
     "updated_at": "2022-07-22T01:02:03.444444"
 }
@@ -111,21 +115,22 @@ func TestMunkiScriptChecksService_List(t *testing.T) {
 
 	want := []MunkiScriptCheck{
 		{
-			ID:             1,
-			Name:           "Default",
-			Description:    "Description",
-			Type:           "ZTL_INT",
-			Source:         "echo 10",
-			ExpectedResult: "10",
-			ArchAMD64:      false,
-			ArchARM64:      true,
-			MinOSVersion:   "14",
-			MaxOSVersion:   "15",
-			TagIDs:         []int{2, 3, 4},
-			ExcludedTagIDs: []int{6, 7},
-			Version:        5,
-			Created:        Timestamp{referenceTime},
-			Updated:        Timestamp{referenceTime},
+			ID:                1,
+			Name:              "Default",
+			Description:       "Description",
+			Type:              "ZTL_INT",
+			Source:            "echo 10",
+			ExpectedResult:    "10",
+			ArchAMD64:         false,
+			ArchARM64:         true,
+			MinOSVersion:      "14",
+			MaxOSVersion:      "15",
+			TagIDs:            []int{2, 3, 4},
+			ExcludedTagIDs:    []int{6, 7},
+			Version:           5,
+			ComplianceCheckID: 42,
+			Created:           Timestamp{referenceTime},
+			Updated:           Timestamp{referenceTime},
 		},
 	}
 	if !cmp.Equal(got, want) {
@@ -150,21 +155,22 @@ func TestMunkiScriptChecksService_GetByID(t *testing.T) {
 	}
 
 	want := &MunkiScriptCheck{
-		ID:             1,
-		Name:           "Default",
-		Description:    "Description",
-		Type:           "ZTL_INT",
-		Source:         "echo 10",
-		ExpectedResult: "10",
-		ArchAMD64:      false,
-		ArchARM64:      true,
-		MinOSVersion:   "14",
-		MaxOSVersion:   "15",
-		TagIDs:         []int{2, 3, 4},
-		ExcludedTagIDs: []int{6, 7},
-		Version:        5,
-		Created:        Timestamp{referenceTime},
-		Updated:        Timestamp{referenceTime},
+		ID:                1,
+		Name:              "Default",
+		Description:       "Description",
+		Type:              "ZTL_INT",
+		Source:            "echo 10",
+		ExpectedResult:    "10",
+		ArchAMD64:         false,
+		ArchARM64:         true,
+		MinOSVersion:      "14",
+		MaxOSVersion:      "15",
+		TagIDs:            []int{2, 3, 4},
+		ExcludedTagIDs:    []int{6, 7},
+		Version:           5,
+		ComplianceCheckID: 42,
+		Created:           Timestamp{referenceTime},
+		Updated:           Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("MunkiScriptChecks.GetByID returned %+v, want %+v", got, want)
@@ -189,21 +195,22 @@ func TestMunkiScriptChecksService_GetByName(t *testing.T) {
 	}
 
 	want := &MunkiScriptCheck{
-		ID:             1,
-		Name:           "Default",
-		Description:    "Description",
-		Type:           "ZTL_INT",
-		Source:         "echo 10",
-		ExpectedResult: "10",
-		ArchAMD64:      false,
-		ArchARM64:      true,
-		MinOSVersion:   "14",
-		MaxOSVersion:   "15",
-		TagIDs:         []int{2, 3, 4},
-		ExcludedTagIDs: []int{6, 7},
-		Version:        5,
-		Created:        Timestamp{referenceTime},
-		Updated:        Timestamp{referenceTime},
+		ID:                1,
+		Name:              "Default",
+		Description:       "Description",
+		Type:              "ZTL_INT",
+		Source:            "echo 10",
+		ExpectedResult:    "10",
+		ArchAMD64:         false,
+		ArchARM64:         true,
+		MinOSVersion:      "14",
+		MaxOSVersion:      "15",
+		TagIDs:            []int{2, 3, 4},
+		ExcludedTagIDs:    []int{6, 7},
+		Version:           5,
+		ComplianceCheckID: 42,
+		Created:           Timestamp{referenceTime},
+		Updated:           Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("MunkiScriptChecks.GetByName returned %+v, want %+v", got, want)
@@ -249,21 +256,22 @@ func TestMunkiScriptChecksService_Create(t *testing.T) {
 	}
 
 	want := &MunkiScriptCheck{
-		ID:             1,
-		Name:           "Default",
-		Description:    "Description",
-		Type:           "ZTL_INT",
-		Source:         "echo 10",
-		ExpectedResult: "10",
-		ArchAMD64:      false,
-		ArchARM64:      true,
-		MinOSVersion:   "14",
-		MaxOSVersion:   "15",
-		TagIDs:         []int{2, 3, 4},
-		ExcludedTagIDs: []int{6, 7},
-		Version:        5,
-		Created:        Timestamp{referenceTime},
-		Updated:        Timestamp{referenceTime},
+		ID:                1,
+		Name:              "Default",
+		Description:       "Description",
+		Type:              "ZTL_INT",
+		Source:            "echo 10",
+		ExpectedResult:    "10",
+		ArchAMD64:         false,
+		ArchARM64:         true,
+		MinOSVersion:      "14",
+		MaxOSVersion:      "15",
+		TagIDs:            []int{2, 3, 4},
+		ExcludedTagIDs:    []int{6, 7},
+		Version:           5,
+		ComplianceCheckID: 42,
+		Created:           Timestamp{referenceTime},
+		Updated:           Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("MunkiScriptChecks.Create returned %+v, want %+v", got, want)
@@ -308,21 +316,22 @@ func TestMunkiScriptChecksService_Update(t *testing.T) {
 	}
 
 	want := &MunkiScriptCheck{
-		ID:             1,
-		Name:           "Default",
-		Description:    "Description",
-		Type:           "ZTL_INT",
-		Source:         "echo 10",
-		ExpectedResult: "10",
-		ArchAMD64:      false,
-		ArchARM64:      true,
-		MinOSVersion:   "14",
-		MaxOSVersion:   "15",
-		TagIDs:         []int{2, 3, 4},
-		ExcludedTagIDs: []int{6, 7},
-		Version:        5,
-		Created:        Timestamp{referenceTime},
-		Updated:        Timestamp{referenceTime},
+		ID:                1,
+		Name:              "Default",
+		Description:       "Description",
+		Type:              "ZTL_INT",
+		Source:            "echo 10",
+		ExpectedResult:    "10",
+		ArchAMD64:         false,
+		ArchARM64:         true,
+		MinOSVersion:      "14",
+		MaxOSVersion:      "15",
+		TagIDs:            []int{2, 3, 4},
+		ExcludedTagIDs:    []int{6, 7},
+		Version:           5,
+		ComplianceCheckID: 42,
+		Created:           Timestamp{referenceTime},
+		Updated:           Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("MunkiScriptChecks.Update returned %+v, want %+v", got, want)

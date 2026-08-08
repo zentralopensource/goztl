@@ -49,6 +49,7 @@ type OsqueryQuery struct {
 	Value                  string                  `json:"value"`
 	Version                int                     `json:"version"`
 	ComplianceCheckEnabled bool                    `json:"compliance_check_enabled"`
+	ComplianceCheckID      *int                    `json:"compliance_check_id"`
 	TagID                  *int                    `json:"tag"`
 	Scheduling             *OsqueryQueryScheduling `json:"scheduling"`
 	Created                Timestamp               `json:"created_at"`

@@ -29,21 +29,22 @@ var _ MunkiScriptChecksService = &MunkiScriptChecksServiceOp{}
 
 // MunkiScriptCheck represents a Zentral Munki script check.
 type MunkiScriptCheck struct {
-	ID             int       `json:"id"`
-	Name           string    `json:"name"`
-	Description    string    `json:"description"`
-	Type           string    `json:"type"`
-	Source         string    `json:"source"`
-	ExpectedResult string    `json:"expected_result"`
-	ArchAMD64      bool      `json:"arch_amd64"`
-	ArchARM64      bool      `json:"arch_arm64"`
-	MinOSVersion   string    `json:"min_os_version"`
-	MaxOSVersion   string    `json:"max_os_version"`
-	TagIDs         []int     `json:"tags"`
-	ExcludedTagIDs []int     `json:"excluded_tags"`
-	Version        int       `json:"version"`
-	Created        Timestamp `json:"created_at"`
-	Updated        Timestamp `json:"updated_at"`
+	ID                int       `json:"id"`
+	Name              string    `json:"name"`
+	Description       string    `json:"description"`
+	Type              string    `json:"type"`
+	Source            string    `json:"source"`
+	ExpectedResult    string    `json:"expected_result"`
+	ArchAMD64         bool      `json:"arch_amd64"`
+	ArchARM64         bool      `json:"arch_arm64"`
+	MinOSVersion      string    `json:"min_os_version"`
+	MaxOSVersion      string    `json:"max_os_version"`
+	TagIDs            []int     `json:"tags"`
+	ExcludedTagIDs    []int     `json:"excluded_tags"`
+	Version           int       `json:"version"`
+	ComplianceCheckID int       `json:"compliance_check_id"`
+	Created           Timestamp `json:"created_at"`
+	Updated           Timestamp `json:"updated_at"`
 }
 
 // MunkiScriptCheckRequest represents a request to create or update a Munki script check.
