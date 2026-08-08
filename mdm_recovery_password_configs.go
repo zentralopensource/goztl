@@ -180,17 +180,5 @@ func (s *MDMRecoveryPasswordConfigsServiceOp) list(ctx context.Context, opt *Lis
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mrpcs []MDMRecoveryPasswordConfig
-	resp, err := s.client.Do(ctx, req, &mrpcs)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mrpcs, resp, err
+	return resolveAllPages[MDMRecoveryPasswordConfig](ctx, s.client, path)
 }

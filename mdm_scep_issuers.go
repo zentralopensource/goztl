@@ -197,17 +197,5 @@ func (s *MDMSCEPIssuersServiceOp) list(ctx context.Context, opt *ListOptions, ms
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var msis []MDMSCEPIssuer
-	resp, err := s.client.Do(ctx, req, &msis)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return msis, resp, err
+	return resolveAllPages[MDMSCEPIssuer](ctx, s.client, path)
 }

@@ -12,24 +12,27 @@ import (
 )
 
 var msueListJSONResponse = `
-[
-    {
-        "id": 4,
-        "name": "Default",
-	"details_url": "https://www.example.com",
-	"platforms": ["macOS"],
-	"tags": [1, 2],
-	"os_version": "14.1",
-	"build_version": "23B74",
-	"local_datetime": "2023-11-05T09:30:00",
-	"max_os_version": "",
-	"delay_days": null,
-	"local_time": null,
-	"rotate_firmware_password": true,
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+{
+    "count": 1,
+    "results": [
+        {
+            "id": 4,
+            "name": "Default",
+    	"details_url": "https://www.example.com",
+    	"platforms": ["macOS"],
+    	"tags": [1, 2],
+    	"os_version": "14.1",
+    	"build_version": "23B74",
+    	"local_datetime": "2023-11-05T09:30:00",
+    	"max_os_version": "",
+    	"delay_days": null,
+    	"local_time": null,
+    	"rotate_firmware_password": true,
+            "created_at": "2022-07-22T01:02:03.444444",
+            "updated_at": "2022-07-22T01:02:03.444444"
+        }
+    ]
+}
 `
 
 var msueGetJSONResponse = `

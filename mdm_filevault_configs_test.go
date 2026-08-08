@@ -12,21 +12,24 @@ import (
 )
 
 var mfcListJSONResponse = `
-[
-    {
-        "id": 4,
-        "name": "Default",
-	"escrow_location_display_name": "Escrow",
-	"at_login_only": true,
-	"bypass_attempts": 1,
-	"show_recovery_key": true,
-	"destroy_key_on_standby": true,
-	"prk_rotation_interval_days": 90,
-	"prk_reveal_rotation_delay": 30,
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+{
+    "count": 1,
+    "results": [
+        {
+            "id": 4,
+            "name": "Default",
+    	"escrow_location_display_name": "Escrow",
+    	"at_login_only": true,
+    	"bypass_attempts": 1,
+    	"show_recovery_key": true,
+    	"destroy_key_on_standby": true,
+    	"prk_rotation_interval_days": 90,
+    	"prk_reveal_rotation_delay": 30,
+            "created_at": "2022-07-22T01:02:03.444444",
+            "updated_at": "2022-07-22T01:02:03.444444"
+        }
+    ]
+}
 `
 
 var mfcGetJSONResponse = `

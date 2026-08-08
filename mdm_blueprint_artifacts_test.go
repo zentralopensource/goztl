@@ -12,33 +12,36 @@ import (
 )
 
 var mbaListJSONResponse = `
-[
-    {
-        "id": 4,
-	"blueprint": 5,
-	"artifact": "b89d21e8-76de-4ae5-948d-5627474ab8be",
-	"ios": true,
-	"ios_max_version": "14",
-	"ios_min_version": "13",
-	"ipados": true,
-	"ipados_max_version": "16",
-	"ipados_min_version": "15",
-	"macos": true,
-	"macos_max_version": "18",
-	"macos_min_version": "17",
-	"tvos": true,
-	"tvos_max_version": "20",
-	"tvos_min_version": "19",
-	"default_shard": 17,
-	"shard_modulo": 35,
-	"excluded_tags": [1],
-	"tag_shards": [
-	  {"tag": 2, "shard": 11}
-        ],
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+{
+    "count": 1,
+    "results": [
+        {
+            "id": 4,
+    	"blueprint": 5,
+    	"artifact": "b89d21e8-76de-4ae5-948d-5627474ab8be",
+    	"ios": true,
+    	"ios_max_version": "14",
+    	"ios_min_version": "13",
+    	"ipados": true,
+    	"ipados_max_version": "16",
+    	"ipados_min_version": "15",
+    	"macos": true,
+    	"macos_max_version": "18",
+    	"macos_min_version": "17",
+    	"tvos": true,
+    	"tvos_max_version": "20",
+    	"tvos_min_version": "19",
+    	"default_shard": 17,
+    	"shard_modulo": 35,
+    	"excluded_tags": [1],
+    	"tag_shards": [
+    	  {"tag": 2, "shard": 11}
+            ],
+            "created_at": "2022-07-22T01:02:03.444444",
+            "updated_at": "2022-07-22T01:02:03.444444"
+        }
+    ]
+}
 `
 
 var mbaGetJSONResponse = `

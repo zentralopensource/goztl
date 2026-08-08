@@ -12,59 +12,65 @@ import (
 )
 
 var macmeListJSONResponse = `
-[
-    {
-        "id": "eaabf092-caed-4b0e-a8d5-851205b2fa56",
-	"provisioning_uid": null,
-        "name": "Default",
-	"description": "Description",
-	"directory_url": "https://www.example.com/acme/",
-	"key_type": "ECSECPrimeRandom",
-	"key_size": 384,
-	"usage_flags": 1,
-	"extended_key_usage": ["1.3.6.1.5.5.7.3.2"],
-	"hardware_bound": true,
-	"attest": true,
-	"backend": "MICROSOFT_CA",
-	"microsoft_ca_kwargs" : {
-	    "url": "https://www.example.com/ndes/",
-	    "username": "Yolo",
-	    "password": "Fomo"
-	},
-	"okta_ca_kwargs": null,
-	"static_challenge_kwargs": null,
-	"version": 1,
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+{
+    "count": 1,
+    "results": [
+        {
+            "id": "eaabf092-caed-4b0e-a8d5-851205b2fa56",
+    	"provisioning_uid": null,
+            "name": "Default",
+    	"description": "Description",
+    	"directory_url": "https://www.example.com/acme/",
+    	"key_type": "ECSECPrimeRandom",
+    	"key_size": 384,
+    	"usage_flags": 1,
+    	"extended_key_usage": ["1.3.6.1.5.5.7.3.2"],
+    	"hardware_bound": true,
+    	"attest": true,
+    	"backend": "MICROSOFT_CA",
+    	"microsoft_ca_kwargs" : {
+    	    "url": "https://www.example.com/ndes/",
+    	    "username": "Yolo",
+    	    "password": "Fomo"
+    	},
+    	"okta_ca_kwargs": null,
+    	"static_challenge_kwargs": null,
+    	"version": 1,
+            "created_at": "2022-07-22T01:02:03.444444",
+            "updated_at": "2022-07-22T01:02:03.444444"
+        }
+    ]
+}
 `
 
 var macmeGetByNameJSONResponse = `
-[
-    {
-        "id": "eaabf092-caed-4b0e-a8d5-851205b2fa56",
-	"provisioning_uid": null,
-        "name": "Default",
-	"description": "Description",
-	"directory_url": "https://www.example.com/acme/",
-	"key_type": "RSA",
-	"key_size": 2048,
-	"usage_flags": 1,
-	"extended_key_usage": [],
-	"hardware_bound": false,
-	"attest": false,
-	"backend": "STATIC_CHALLENGE",
-	"microsoft_ca_kwargs" : null,
-	"okta_ca_kwargs": null,
-	"static_challenge_kwargs": {
-	    "challenge": "YoloFomo"
-	},
-	"version": 1,
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+{
+    "count": 1,
+    "results": [
+        {
+            "id": "eaabf092-caed-4b0e-a8d5-851205b2fa56",
+    	"provisioning_uid": null,
+            "name": "Default",
+    	"description": "Description",
+    	"directory_url": "https://www.example.com/acme/",
+    	"key_type": "RSA",
+    	"key_size": 2048,
+    	"usage_flags": 1,
+    	"extended_key_usage": [],
+    	"hardware_bound": false,
+    	"attest": false,
+    	"backend": "STATIC_CHALLENGE",
+    	"microsoft_ca_kwargs" : null,
+    	"okta_ca_kwargs": null,
+    	"static_challenge_kwargs": {
+    	    "challenge": "YoloFomo"
+    	},
+    	"version": 1,
+            "created_at": "2022-07-22T01:02:03.444444",
+            "updated_at": "2022-07-22T01:02:03.444444"
+        }
+    ]
+}
 `
 
 var macmeCreateJSONResponse = `

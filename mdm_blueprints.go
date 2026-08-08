@@ -188,17 +188,5 @@ func (s *MDMBlueprintsServiceOp) list(ctx context.Context, opt *ListOptions, mbO
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var scs []MDMBlueprint
-	resp, err := s.client.Do(ctx, req, &scs)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return scs, resp, err
+	return resolveAllPages[MDMBlueprint](ctx, s.client, path)
 }

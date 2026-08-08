@@ -126,17 +126,5 @@ func (s *MDMLocationsServiceOp) list(ctx context.Context, opt *ListOptions, mlOp
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var ls []MDMLocation
-	resp, err := s.client.Do(ctx, req, &ls)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return ls, resp, err
+	return resolveAllPages[MDMLocation](ctx, s.client, path)
 }

@@ -12,19 +12,22 @@ import (
 )
 
 var mrpcListJSONResponse = `
-[
-    {
-        "id": 4,
-        "name": "Default",
-	"dynamic_password": true,
-	"static_password": null,
-	"rotation_interval_days": 90,
-	"reveal_rotation_delay": 30,
-	"rotate_firmware_password": true,
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+{
+    "count": 1,
+    "results": [
+        {
+            "id": 4,
+            "name": "Default",
+    	"dynamic_password": true,
+    	"static_password": null,
+    	"rotation_interval_days": 90,
+    	"reveal_rotation_delay": 30,
+    	"rotate_firmware_password": true,
+            "created_at": "2022-07-22T01:02:03.444444",
+            "updated_at": "2022-07-22T01:02:03.444444"
+        }
+    ]
+}
 `
 
 var mrpcGetJSONResponse = `

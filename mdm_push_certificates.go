@@ -103,17 +103,5 @@ func (s *MDMPushCertificatesServiceOp) list(ctx context.Context, opt *ListOption
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var pcs []MDMPushCertificate
-	resp, err := s.client.Do(ctx, req, &pcs)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return pcs, resp, err
+	return resolveAllPages[MDMPushCertificate](ctx, s.client, path)
 }

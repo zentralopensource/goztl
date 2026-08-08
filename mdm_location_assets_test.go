@@ -10,21 +10,24 @@ import (
 )
 
 var mlaListJSONResponse = `
-[
-    {
-        "id": 4,
-	"location": 5,
-	"asset": 6,
-	"adam_id": "0123456789",
-	"pricing_param": "STDQ",
-	"assigned_count": 7,
-	"available_count": 8,
-	"retired_count": 9,
-	"total_count": 24,
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+{
+    "count": 1,
+    "results": [
+        {
+            "id": 4,
+    	"location": 5,
+    	"asset": 6,
+    	"adam_id": "0123456789",
+    	"pricing_param": "STDQ",
+    	"assigned_count": 7,
+    	"available_count": 8,
+    	"retired_count": 9,
+    	"total_count": 24,
+            "created_at": "2022-07-22T01:02:03.444444",
+            "updated_at": "2022-07-22T01:02:03.444444"
+        }
+    ]
+}
 `
 
 func TestMDMLocationAssetsService_List(t *testing.T) {

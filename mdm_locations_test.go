@@ -10,21 +10,24 @@ import (
 )
 
 var mlListJSONResponse = `
-[
-    {
-        "id": 4,
-	"name": "Yolo",
-	"organization_name": "Fomo",
-	"country_code": "DE",
-	"library_uid": "01234578910",
-	"mdm_info_id": "0dcc02e3-5802-47cd-9ee4-fcf977277ff0",
-	"platform": "enterprisestore",
-	"server_token_expiration_date": "2022-07-22T01:02:03.444444",
-	"website_url": "https://business.apple.com",
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+{
+    "count": 1,
+    "results": [
+        {
+            "id": 4,
+    	"name": "Yolo",
+    	"organization_name": "Fomo",
+    	"country_code": "DE",
+    	"library_uid": "01234578910",
+    	"mdm_info_id": "0dcc02e3-5802-47cd-9ee4-fcf977277ff0",
+    	"platform": "enterprisestore",
+    	"server_token_expiration_date": "2022-07-22T01:02:03.444444",
+    	"website_url": "https://business.apple.com",
+            "created_at": "2022-07-22T01:02:03.444444",
+            "updated_at": "2022-07-22T01:02:03.444444"
+        }
+    ]
+}
 `
 
 var mlGetJSONResponse = `

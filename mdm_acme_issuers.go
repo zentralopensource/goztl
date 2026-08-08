@@ -203,17 +203,5 @@ func (s *MDMACMEIssuersServiceOp) list(ctx context.Context, opt *ListOptions, ma
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mais []MDMACMEIssuer
-	resp, err := s.client.Do(ctx, req, &mais)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mais, resp, err
+	return resolveAllPages[MDMACMEIssuer](ctx, s.client, path)
 }

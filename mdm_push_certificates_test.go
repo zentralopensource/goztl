@@ -10,19 +10,22 @@ import (
 )
 
 var mpcListJSONResponse = `
-[
-    {
-        "id": 4,
-	"provisioning_uid": null,
-        "name": "Default",
-	"topic": null,
-	"not_before": null,
-	"not_after": null,
-	"certificate": null,
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+{
+    "count": 1,
+    "results": [
+        {
+            "id": 4,
+    	"provisioning_uid": null,
+            "name": "Default",
+    	"topic": null,
+    	"not_before": null,
+    	"not_after": null,
+    	"certificate": null,
+            "created_at": "2022-07-22T01:02:03.444444",
+            "updated_at": "2022-07-22T01:02:03.444444"
+        }
+    ]
+}
 `
 
 var mpcGetJSONResponse = `

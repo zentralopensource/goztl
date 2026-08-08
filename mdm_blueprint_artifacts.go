@@ -182,17 +182,5 @@ func (s *MDMBlueprintArtifactsServiceOp) list(ctx context.Context, opt *ListOpti
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mbas []MDMBlueprintArtifact
-	resp, err := s.client.Do(ctx, req, &mbas)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mbas, resp, err
+	return resolveAllPages[MDMBlueprintArtifact](ctx, s.client, path)
 }

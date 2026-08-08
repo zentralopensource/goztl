@@ -12,30 +12,33 @@ import (
 )
 
 var moeListJSONResponme = `
-[
-    {
-        "id": 1,
-	"name": "Yolo",
-	"display_name": "Fomo",
-	"blueprint": 2,
-	"push_certificate": 3,
-	"realm": "2217e326-5c12-406f-8c31-cc95fe9fea1b",
-	"acme_issuer": null,
-	"scep_issuer": "0a0281b1-6fc0-462b-9128-67d2c87a0f45",
-	"enrollment_secret": {
-	    "id": 6,
-	    "secret": "SECRET",
-	    "meta_business_unit": 7,
-	    "tags": [8, 9],
-	    "serial_numbers": ["dix", "onze"],
-	    "udids": [],
-	    "quota": null,
-	    "request_count": 12
-	},
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+{
+    "count": 1,
+    "results": [
+        {
+            "id": 1,
+    	"name": "Yolo",
+    	"display_name": "Fomo",
+    	"blueprint": 2,
+    	"push_certificate": 3,
+    	"realm": "2217e326-5c12-406f-8c31-cc95fe9fea1b",
+    	"acme_issuer": null,
+    	"scep_issuer": "0a0281b1-6fc0-462b-9128-67d2c87a0f45",
+    	"enrollment_secret": {
+    	    "id": 6,
+    	    "secret": "SECRET",
+    	    "meta_business_unit": 7,
+    	    "tags": [8, 9],
+    	    "serial_numbers": ["dix", "onze"],
+    	    "udids": [],
+    	    "quota": null,
+    	    "request_count": 12
+    	},
+            "created_at": "2022-07-22T01:02:03.444444",
+            "updated_at": "2022-07-22T01:02:03.444444"
+        }
+    ]
+}
 `
 
 var moeGetJSONResponme = `

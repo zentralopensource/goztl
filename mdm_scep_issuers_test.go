@@ -12,51 +12,57 @@ import (
 )
 
 var mscepListJSONResponse = `
-[
-    {
-        "id": "eaabf092-caed-4b0e-a8d5-851205b2fa56",
-	"provisioning_uid": null,
-        "name": "Default",
-	"description": "Description",
-	"url": "https://www.example.com/scep/",
-	"key_usage": 1,
-	"key_size": 2048,
-	"backend": "MICROSOFT_CA",
-	"microsoft_ca_kwargs" : {
-	    "url": "https://www.example.com/ndes/",
-	    "username": "Yolo",
-	    "password": "Fomo"
-	},
-	"okta_ca_kwargs": null,
-	"static_challenge_kwargs": null,
-	"version": 1,
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+{
+    "count": 1,
+    "results": [
+        {
+            "id": "eaabf092-caed-4b0e-a8d5-851205b2fa56",
+    	"provisioning_uid": null,
+            "name": "Default",
+    	"description": "Description",
+    	"url": "https://www.example.com/scep/",
+    	"key_usage": 1,
+    	"key_size": 2048,
+    	"backend": "MICROSOFT_CA",
+    	"microsoft_ca_kwargs" : {
+    	    "url": "https://www.example.com/ndes/",
+    	    "username": "Yolo",
+    	    "password": "Fomo"
+    	},
+    	"okta_ca_kwargs": null,
+    	"static_challenge_kwargs": null,
+    	"version": 1,
+            "created_at": "2022-07-22T01:02:03.444444",
+            "updated_at": "2022-07-22T01:02:03.444444"
+        }
+    ]
+}
 `
 
 var mscepGetByNameJSONResponse = `
-[
-    {
-        "id": "eaabf092-caed-4b0e-a8d5-851205b2fa56",
-	"provisioning_uid": null,
-        "name": "Default",
-	"description": "Description",
-	"url": "https://www.example.com/scep/",
-	"key_usage": 1,
-	"key_size": 2048,
-	"backend": "STATIC_CHALLENGE",
-	"microsoft_ca_kwargs" : null,
-	"okta_ca_kwargs": null,
-	"static_challenge_kwargs": {
-	    "challenge": "YoloFomo"
-	},
-	"version": 1,
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+{
+    "count": 1,
+    "results": [
+        {
+            "id": "eaabf092-caed-4b0e-a8d5-851205b2fa56",
+    	"provisioning_uid": null,
+            "name": "Default",
+    	"description": "Description",
+    	"url": "https://www.example.com/scep/",
+    	"key_usage": 1,
+    	"key_size": 2048,
+    	"backend": "STATIC_CHALLENGE",
+    	"microsoft_ca_kwargs" : null,
+    	"okta_ca_kwargs": null,
+    	"static_challenge_kwargs": {
+    	    "challenge": "YoloFomo"
+    	},
+    	"version": 1,
+            "created_at": "2022-07-22T01:02:03.444444",
+            "updated_at": "2022-07-22T01:02:03.444444"
+        }
+    ]
+}
 `
 
 var mscepCreateJSONResponse = `

@@ -12,23 +12,26 @@ import (
 )
 
 var mbListJSONResponse = `
-[
-    {
-        "id": 4,
-        "name": "Default",
-	"inventory_interval": 77777,
-	"collect_apps": 0,
-	"collect_certificates": 1,
-	"collect_profiles": 2,
-	"legacy_profiles_via_ddm": false,
-	"default_location": null,
-	"filevault_config": null,
-	"recovery_password_config": null,
-	"software_update_enforcements": [],
-        "created_at": "2022-07-22T01:02:03.444444",
-        "updated_at": "2022-07-22T01:02:03.444444"
-    }
-]
+{
+    "count": 1,
+    "results": [
+        {
+            "id": 4,
+            "name": "Default",
+    	"inventory_interval": 77777,
+    	"collect_apps": 0,
+    	"collect_certificates": 1,
+    	"collect_profiles": 2,
+    	"legacy_profiles_via_ddm": false,
+    	"default_location": null,
+    	"filevault_config": null,
+    	"recovery_password_config": null,
+    	"software_update_enforcements": [],
+            "created_at": "2022-07-22T01:02:03.444444",
+            "updated_at": "2022-07-22T01:02:03.444444"
+        }
+    ]
+}
 `
 
 var mbGetJSONResponse = `
