@@ -18,7 +18,7 @@ func TestJMESPathChecksService_List(t *testing.T) {
 		testHeader(t, r, "Accept", "application/json")
 		fmt.Fprintf(w, `[{"id":1,"name":"yolo","description":"desc",
                                   "source_name":"source","platforms":["MACOS"],"tags":[18,29],
-			          "jmespath_expression":"ok","version":3,
+			          "jmespath_expression":"ok","version":3,"compliance_check_id":42,
 		                  "created_at":%[1]s,"updated_at":%[1]s}]`, referenceTimeStr)
 	})
 
@@ -37,6 +37,7 @@ func TestJMESPathChecksService_List(t *testing.T) {
 			TagIDs:             []int{18, 29},
 			JMESPathExpression: "ok",
 			Version:            3,
+			ComplianceCheckID:  42,
 			Created:            Timestamp{referenceTime},
 			Updated:            Timestamp{referenceTime}},
 	}
@@ -54,7 +55,7 @@ func TestJMESPathChecksService_GetByID(t *testing.T) {
 		testHeader(t, r, "Accept", "application/json")
 		fmt.Fprintf(w, `{"id":17,"name":"yolo","description":"desc",
                                  "source_name":"source","platforms":["MACOS"],
-			         "jmespath_expression":"ok","version":3,
+			         "jmespath_expression":"ok","version":3,"compliance_check_id":42,
 		                 "created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr)
 	})
 
@@ -72,6 +73,7 @@ func TestJMESPathChecksService_GetByID(t *testing.T) {
 		Platforms:          []string{"MACOS"},
 		JMESPathExpression: "ok",
 		Version:            3,
+		ComplianceCheckID:  42,
 		Created:            Timestamp{referenceTime},
 		Updated:            Timestamp{referenceTime},
 	}
@@ -90,7 +92,7 @@ func TestJMESPathChecksService_GetByName(t *testing.T) {
 		testQueryArg(t, r, "name", "yolo")
 		fmt.Fprintf(w, `[{"id":18,"name":"yolo","description":"desc",
                                   "source_name":"source",
-			          "jmespath_expression":"ok","version":3,
+			          "jmespath_expression":"ok","version":3,"compliance_check_id":42,
 		                  "created_at":%[1]s,"updated_at":%[1]s}]`, referenceTimeStr)
 	})
 
@@ -107,6 +109,7 @@ func TestJMESPathChecksService_GetByName(t *testing.T) {
 		SourceName:         "source",
 		JMESPathExpression: "ok",
 		Version:            3,
+		ComplianceCheckID:  42,
 		Created:            Timestamp{referenceTime},
 		Updated:            Timestamp{referenceTime},
 	}
@@ -126,7 +129,7 @@ func TestJMESPathChecksService_Create(t *testing.T) {
 		testBody(t, r, `{"name":"yolo","description":"desc","source_name":"source","platforms":["MACOS"],"tags":[18,29],"jmespath_expression":"ok"}`+"\n")
 		fmt.Fprintf(w, `{"id":19,"name":"yolo","description":"desc",
                                  "source_name":"source","platforms":["MACOS"],"tags":[18,29],
-			         "jmespath_expression":"ok","version":3,
+			         "jmespath_expression":"ok","version":3,"compliance_check_id":42,
 		                 "created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr)
 	})
 
@@ -155,6 +158,7 @@ func TestJMESPathChecksService_Create(t *testing.T) {
 		TagIDs:             []int{18, 29},
 		JMESPathExpression: "ok",
 		Version:            3,
+		ComplianceCheckID:  42,
 		Created:            Timestamp{referenceTime},
 		Updated:            Timestamp{referenceTime},
 	}
@@ -174,7 +178,7 @@ func TestJMESPathChecksService_Update(t *testing.T) {
 		testBody(t, r, `{"name":"yolo1","description":"","source_name":"source","platforms":["MACOS"],"tags":[],"jmespath_expression":"ok"}`+"\n")
 		fmt.Fprintf(w, `{"id":1,"name":"yolo1","description":"",
                                  "source_name":"source","platforms":["MACOS"],"tags":[],
-			         "jmespath_expression":"ok","version":3,
+			         "jmespath_expression":"ok","version":3,"compliance_check_id":42,
 		                 "created_at":%[1]s,"updated_at":%[1]s}`, referenceTimeStr)
 	})
 
@@ -202,6 +206,7 @@ func TestJMESPathChecksService_Update(t *testing.T) {
 		TagIDs:             make([]int, 0),
 		JMESPathExpression: "ok",
 		Version:            3,
+		ComplianceCheckID:  42,
 		Created:            Timestamp{referenceTime},
 		Updated:            Timestamp{referenceTime},
 	}

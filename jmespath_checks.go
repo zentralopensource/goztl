@@ -37,6 +37,7 @@ type JMESPathCheck struct {
 	TagIDs             []int     `json:"tags"`
 	JMESPathExpression string    `json:"jmespath_expression"`
 	Version            int       `json:"version"`
+	ComplianceCheckID  int       `json:"compliance_check_id"`
 	Created            Timestamp `json:"created_at"`
 	Updated            Timestamp `json:"updated_at"`
 }
