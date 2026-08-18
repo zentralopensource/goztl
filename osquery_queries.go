@@ -221,17 +221,5 @@ func (s *OsqueryQueriesServiceOp) list(ctx context.Context, opt *ListOptions, oq
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var oqs []OsqueryQuery
-	resp, err := s.client.Do(ctx, req, &oqs)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return oqs, resp, err
+	return resolveAllPages[OsqueryQuery](ctx, s.client, path)
 }

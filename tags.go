@@ -183,17 +183,5 @@ func (s *TagsServiceOp) list(ctx context.Context, opt *ListOptions, tagOpt *list
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var tags []Tag
-	resp, err := s.client.Do(ctx, req, &tags)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return tags, resp, err
+	return resolveAllPages[Tag](ctx, s.client, path)
 }

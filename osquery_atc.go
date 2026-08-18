@@ -182,17 +182,5 @@ func (s *OsqueryATCServiceOp) list(ctx context.Context, opt *ListOptions, oaOpt 
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var oas []OsqueryATC
-	resp, err := s.client.Do(ctx, req, &oas)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return oas, resp, err
+	return resolveAllPages[OsqueryATC](ctx, s.client, path)
 }

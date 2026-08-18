@@ -241,17 +241,5 @@ func (s *StoresServiceOp) list(ctx context.Context, opt *ListOptions, sOpt *list
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var stores []Store
-	resp, err := s.client.Do(ctx, req, &stores)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return stores, resp, err
+	return resolveAllPages[Store](ctx, s.client, path)
 }

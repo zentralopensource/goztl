@@ -168,17 +168,5 @@ func (s *MonolithEnrollmentsServiceOp) list(ctx context.Context, opt *ListOption
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mes []MonolithEnrollment
-	resp, err := s.client.Do(ctx, req, &mes)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mes, resp, err
+	return resolveAllPages[MonolithEnrollment](ctx, s.client, path)
 }

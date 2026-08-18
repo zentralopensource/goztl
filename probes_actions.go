@@ -191,17 +191,5 @@ func (s *ProbesActionsServiceOp) list(ctx context.Context, opt *ListOptions, paO
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var pas []ProbeAction
-	resp, err := s.client.Do(ctx, req, &pas)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return pas, resp, err
+	return resolveAllPages[ProbeAction](ctx, s.client, path)
 }

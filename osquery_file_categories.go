@@ -181,17 +181,5 @@ func (s *OsqueryFileCategoriesServiceOp) list(ctx context.Context, opt *ListOpti
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var ofcs []OsqueryFileCategory
-	resp, err := s.client.Do(ctx, req, &ofcs)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return ofcs, resp, err
+	return resolveAllPages[OsqueryFileCategory](ctx, s.client, path)
 }

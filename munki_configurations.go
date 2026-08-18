@@ -189,17 +189,5 @@ func (s *MunkiConfigurationsServiceOp) list(ctx context.Context, opt *ListOption
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mcs []MunkiConfiguration
-	resp, err := s.client.Do(ctx, req, &mcs)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mcs, resp, err
+	return resolveAllPages[MunkiConfiguration](ctx, s.client, path)
 }

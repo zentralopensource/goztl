@@ -174,17 +174,5 @@ func (s *MonolithSubManifestsServiceOp) list(ctx context.Context, opt *ListOptio
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var msms []MonolithSubManifest
-	resp, err := s.client.Do(ctx, req, &msms)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return msms, resp, err
+	return resolveAllPages[MonolithSubManifest](ctx, s.client, path)
 }

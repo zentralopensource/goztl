@@ -192,17 +192,5 @@ func (s *JMESPathChecksServiceOp) list(ctx context.Context, opt *ListOptions, jm
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var jmespath_checks []JMESPathCheck
-	resp, err := s.client.Do(ctx, req, &jmespath_checks)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return jmespath_checks, resp, err
+	return resolveAllPages[JMESPathCheck](ctx, s.client, path)
 }

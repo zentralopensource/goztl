@@ -177,17 +177,5 @@ func (s *MonolithManifestCatalogsServiceOp) list(ctx context.Context, opt *ListO
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mmcs []MonolithManifestCatalog
-	resp, err := s.client.Do(ctx, req, &mmcs)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mmcs, resp, err
+	return resolveAllPages[MonolithManifestCatalog](ctx, s.client, path)
 }

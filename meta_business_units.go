@@ -183,17 +183,5 @@ func (s *MetaBusinessUnitsServiceOp) list(ctx context.Context, opt *ListOptions,
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mbus []MetaBusinessUnit
-	resp, err := s.client.Do(ctx, req, &mbus)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mbus, resp, err
+	return resolveAllPages[MetaBusinessUnit](ctx, s.client, path)
 }

@@ -179,17 +179,5 @@ func (s *OsqueryPacksServiceOp) list(ctx context.Context, opt *ListOptions, opOp
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var ops []OsqueryPack
-	resp, err := s.client.Do(ctx, req, &ops)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return ops, resp, err
+	return resolveAllPages[OsqueryPack](ctx, s.client, path)
 }

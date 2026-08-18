@@ -178,17 +178,5 @@ func (s *TaxonomiesServiceOp) list(ctx context.Context, opt *ListOptions, Taxono
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var Taxonomies []Taxonomy
-	resp, err := s.client.Do(ctx, req, &Taxonomies)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return Taxonomies, resp, err
+	return resolveAllPages[Taxonomy](ctx, s.client, path)
 }

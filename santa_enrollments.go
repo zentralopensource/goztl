@@ -168,17 +168,5 @@ func (s *SantaEnrollmentsServiceOp) list(ctx context.Context, opt *ListOptions, 
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var ses []SantaEnrollment
-	resp, err := s.client.Do(ctx, req, &ses)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return ses, resp, err
+	return resolveAllPages[SantaEnrollment](ctx, s.client, path)
 }

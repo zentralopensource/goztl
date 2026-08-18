@@ -134,17 +134,5 @@ func (s *RealmsRealmsServiceOp) list(ctx context.Context, opt *ListOptions, rOpt
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var rs []RealmsRealm
-	resp, err := s.client.Do(ctx, req, &rs)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return rs, resp, err
+	return resolveAllPages[RealmsRealm](ctx, s.client, path)
 }

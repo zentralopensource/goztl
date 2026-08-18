@@ -169,17 +169,5 @@ func (s *MonolithManifestEnrollmentPackagesServiceOp) list(ctx context.Context, 
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mmeps []MonolithManifestEnrollmentPackage
-	resp, err := s.client.Do(ctx, req, &mmeps)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mmeps, resp, err
+	return resolveAllPages[MonolithManifestEnrollmentPackage](ctx, s.client, path)
 }

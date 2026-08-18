@@ -197,17 +197,5 @@ func (s *GWSGroupTagMappingsServiceOp) list(ctx context.Context, opt *ListOption
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var gwsGroupTagMappings []GWSGroupTagMapping
-	resp, err := s.client.Do(ctx, req, &gwsGroupTagMappings)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return gwsGroupTagMappings, resp, err
+	return resolveAllPages[GWSGroupTagMapping](ctx, s.client, path)
 }

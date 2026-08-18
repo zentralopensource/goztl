@@ -184,17 +184,5 @@ func (s *MonolithSubManifestPkgInfosServiceOp) list(ctx context.Context, opt *Li
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var smpis []MonolithSubManifestPkgInfo
-	resp, err := s.client.Do(ctx, req, &smpis)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return smpis, resp, err
+	return resolveAllPages[MonolithSubManifestPkgInfo](ctx, s.client, path)
 }

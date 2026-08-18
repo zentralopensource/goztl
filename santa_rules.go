@@ -216,17 +216,5 @@ func (s *SantaRulesServiceOp) list(ctx context.Context, opt *ListOptions, srOpt 
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var srs []SantaRule
-	resp, err := s.client.Do(ctx, req, &srs)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return srs, resp, err
+	return resolveAllPages[SantaRule](ctx, s.client, path)
 }

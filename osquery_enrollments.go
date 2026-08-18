@@ -171,17 +171,5 @@ func (s *OsqueryEnrollmentsServiceOp) list(ctx context.Context, opt *ListOptions
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var oes []OsqueryEnrollment
-	resp, err := s.client.Do(ctx, req, &oes)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return oes, resp, err
+	return resolveAllPages[OsqueryEnrollment](ctx, s.client, path)
 }

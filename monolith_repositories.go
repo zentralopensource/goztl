@@ -202,17 +202,5 @@ func (s *MonolithRepositoriesServiceOp) list(ctx context.Context, opt *ListOptio
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mrs []MonolithRepository
-	resp, err := s.client.Do(ctx, req, &mrs)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mrs, resp, err
+	return resolveAllPages[MonolithRepository](ctx, s.client, path)
 }

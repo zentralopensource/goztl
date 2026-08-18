@@ -192,17 +192,5 @@ func (s *MunkiScriptChecksServiceOp) list(ctx context.Context, opt *ListOptions,
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var mscs []MunkiScriptCheck
-	resp, err := s.client.Do(ctx, req, &mscs)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return mscs, resp, err
+	return resolveAllPages[MunkiScriptCheck](ctx, s.client, path)
 }

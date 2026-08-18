@@ -167,17 +167,5 @@ func (s *MunkiEnrollmentsServiceOp) list(ctx context.Context, opt *ListOptions, 
 	if err != nil {
 		return nil, nil, err
 	}
-
-	req, err := s.client.NewRequest(ctx, http.MethodGet, path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var ses []MunkiEnrollment
-	resp, err := s.client.Do(ctx, req, &ses)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return ses, resp, err
+	return resolveAllPages[MunkiEnrollment](ctx, s.client, path)
 }
