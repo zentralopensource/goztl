@@ -163,6 +163,27 @@ type PaginatedResults[T any] struct {
 	Results  []T     `json:"results"`
 }
 
+// maybePaginatedResults is a PaginatedResults that also accepts the bare JSON
+// arrays returned by the endpoints not migrated to the paginated views yet.
+type maybePaginatedResults[T any] struct {
+	PaginatedResults[T]
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface.
+// Results are expected in paginated or bare array form.
+func (p *maybePaginatedResults[T]) UnmarshalJSON(data []byte) error {
+	if bytes.HasPrefix(bytes.TrimLeft(data, " \t\r\n"), []byte("[")) {
+		var results []T
+		if err := json.Unmarshal(data, &results); err != nil {
+			return err
+		}
+		p.Count = len(results)
+		p.Results = results
+		return nil
+	}
+	return json.Unmarshal(data, &p.PaginatedResults)
+}
+
 func addOptions(s string, opt interface{}) (string, error) {
 	v := reflect.ValueOf(opt)
 
@@ -206,7 +227,7 @@ func resolveAllPages[T any](
 			return nil, nil, err
 		}
 
-		page := new(PaginatedResults[T])
+		page := new(maybePaginatedResults[T])
 		resp, err := client.Do(ctx, req, page)
 		if err != nil {
 			return nil, resp, err
