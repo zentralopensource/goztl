@@ -483,6 +483,23 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*Res
 	return response, err
 }
 
+// EndpointOptions makes an OPTIONS request on a path and returns the metadata of the endpoint.
+func (c *Client) EndpointOptions(ctx context.Context, path string) (*EndpointOptions, *Response, error) {
+	req, err := c.NewRequest(ctx, http.MethodOptions, path, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	eo := new(EndpointOptions)
+
+	resp, err := c.Do(ctx, req, eo)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return eo, resp, err
+}
+
 // DoRequestWithClient submits an HTTP request using the specified client.
 func DoRequestWithClient(
 	ctx context.Context,

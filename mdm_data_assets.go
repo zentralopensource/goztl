@@ -16,6 +16,7 @@ type MDMDataAssetsService interface {
 	Create(context.Context, *MDMDataAssetRequest) (*MDMDataAsset, *Response, error)
 	Update(context.Context, string, *MDMDataAssetRequest) (*MDMDataAsset, *Response, error)
 	Delete(context.Context, string) (*Response, error)
+	Options(context.Context) (*EndpointOptions, *Response, error)
 }
 
 // MDMDataAssetsServiceOp handles communication with the MDM data assets related
@@ -145,6 +146,11 @@ func (s *MDMDataAssetsServiceOp) Delete(ctx context.Context, mdaID string) (*Res
 	resp, err := s.client.Do(ctx, req, nil)
 
 	return resp, err
+}
+
+// Options retrieves the metadata of the MDM data asset endpoint.
+func (s *MDMDataAssetsServiceOp) Options(ctx context.Context) (*EndpointOptions, *Response, error) {
+	return s.client.EndpointOptions(ctx, mdaBasePath)
 }
 
 // Helper method for listing MDM data assets

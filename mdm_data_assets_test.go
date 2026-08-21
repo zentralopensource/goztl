@@ -155,6 +155,24 @@ var mdaUpdateJSONResponse = `
 }
 `
 
+var mdaOptionsJSONResponse = `
+{
+  "name": "Data Asset List",
+  "description": "List all DataAssets or create a new DataAsset",
+  "renders": ["application/json"],
+  "parses": ["application/json"],
+  "actions": {
+    "POST": {
+      "type": {"type": "choice", "required": true, "read_only": false, "label": "Type"},
+      "file_uri": {"type": "string", "required": false, "read_only": false, "label": "File uri"},
+      "source": {"type": "field", "required": false, "read_only": false, "label": "Source"},
+      "file_sha256": {"type": "regex", "required": false, "read_only": false, "label": "File sha256"},
+      "filename": {"type": "string", "required": false, "read_only": true, "label": "Filename"}
+    }
+  }
+}
+`
+
 func TestMDMDataAssetsService_List(t *testing.T) {
 	client, mux, teardown := setup()
 	defer teardown()
@@ -464,6 +482,44 @@ func TestMDMDataAssetsService_Update(t *testing.T) {
 	if !cmp.Equal(got, want) {
 		t.Errorf("MDMDataAssets.Update returned %+v, want %+v", got, want)
 	}
+}
+
+func TestMDMDataAssetsService_Options(t *testing.T) {
+	client, mux, teardown := setup()
+	defer teardown()
+
+	mux.HandleFunc("/mdm/data_assets/", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "OPTIONS")
+		testHeader(t, r, "Accept", "application/json")
+
+		fmt.Fprint(w, mdaOptionsJSONResponse)
+	})
+
+	ctx := context.Background()
+	got, _, err := client.MDMDataAssets.Options(ctx)
+	if err != nil {
+		t.Errorf("MDMDataAssets.Options returned error: %v", err)
+	}
+
+	want := &EndpointOptions{
+		Name: "Data Asset List",
+		Actions: map[string]map[string]EndpointField{
+			"POST": {
+				"type":        {Type: "choice", Required: true},
+				"file_uri":    {Type: "string"},
+				"source":      {Type: "field"},
+				"file_sha256": {Type: "regex"},
+				"filename":    {Type: "string", ReadOnly: true},
+			},
+		},
+	}
+	if !cmp.Equal(got, want) {
+		t.Errorf("MDMDataAssets.Options returned %+v, want %+v", got, want)
+	}
+
+	supported, known := got.SupportsField("POST", "source")
+	assert.True(t, known)
+	assert.True(t, supported)
 }
 
 func TestMDMDataAssetsService_Delete(t *testing.T) {
