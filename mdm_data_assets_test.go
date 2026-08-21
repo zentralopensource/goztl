@@ -344,6 +344,44 @@ func TestMDMDataAssetsService_Create(t *testing.T) {
 	}
 }
 
+func TestMDMDataAssetsService_CreateWithSource(t *testing.T) {
+	client, mux, teardown := setup()
+	defer teardown()
+
+	createRequest := &MDMDataAssetRequest{
+		Type:   "ZIP",
+		Source: "UEsDBAoAAAAAAA==",
+		MDMArtifactVersionRequest: MDMArtifactVersionRequest{
+			ArtifactID: "b89d21e8-76de-4ae5-948d-5627474ab8be",
+			MacOS:      true,
+			Version:    42,
+		},
+	}
+
+	mux.HandleFunc("/mdm/data_assets/", func(w http.ResponseWriter, r *http.Request) {
+		v := make(map[string]interface{})
+		err := json.NewDecoder(r.Body).Decode(&v)
+		if err != nil {
+			t.Fatal(err)
+		}
+		testMethod(t, r, "POST")
+		testHeader(t, r, "Accept", "application/json")
+		testHeader(t, r, "Content-Type", "application/json")
+		assert.Equal(t, "UEsDBAoAAAAAAA==", v["source"])
+		// Zentral rejects a request that has a file_uri and a source
+		assert.NotContains(t, v, "file_uri")
+		assert.NotContains(t, v, "file_sha256")
+
+		fmt.Fprint(w, mdaCreateJSONResponse)
+	})
+
+	ctx := context.Background()
+	_, _, err := client.MDMDataAssets.Create(ctx, createRequest)
+	if err != nil {
+		t.Errorf("MDMDataAssets.Create returned error: %v", err)
+	}
+}
+
 func TestMDMDataAssetsService_Update(t *testing.T) {
 	client, mux, teardown := setup()
 	defer teardown()

@@ -42,10 +42,14 @@ func (mda MDMDataAsset) String() string {
 }
 
 // MDMDataAssetRequest represents a request to create or update a MDM data asset
+//
+// Give FileURI and FileSHA256, or give Source with the base 64 encoded content. The empty values
+// are left out of the request, because Zentral rejects a request that has the two of them.
 type MDMDataAssetRequest struct {
 	Type       string `json:"type"`
-	FileURI    string `json:"file_uri"`
-	FileSHA256 string `json:"file_sha256"`
+	FileURI    string `json:"file_uri,omitempty"`
+	FileSHA256 string `json:"file_sha256,omitempty"`
+	Source     string `json:"source,omitempty"`
 	MDMArtifactVersionRequest
 }
 
