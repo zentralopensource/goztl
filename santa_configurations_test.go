@@ -24,6 +24,9 @@ var scListJSONResponse = `
         "enable_transitive_rules": false,
         "allowed_path_regex": "",
         "blocked_path_regex": "",
+        "event_detail_source": "LOCAL",
+        "event_detail_url": "",
+        "event_detail_text": "",
         "block_usb_mount": false,
         "remount_usb_mode": [],
         "allow_unknown_shard": 100,
@@ -36,6 +39,31 @@ var scListJSONResponse = `
 `
 
 var scGetJSONResponse = `
+{
+    "id": 4,
+    "name": "Santa - Monitoring",
+    "client_mode": 1,
+    "client_certificate_auth": false,
+    "batch_size": 50,
+    "full_sync_interval": 600,
+    "enable_bundles": false,
+    "enable_transitive_rules": false,
+    "allowed_path_regex": "",
+    "blocked_path_regex": "",
+    "event_detail_source": "LOCAL",
+    "event_detail_url": "",
+    "event_detail_text": "",
+    "block_usb_mount": false,
+    "remount_usb_mode": [],
+    "allow_unknown_shard": 100,
+    "enable_all_event_upload_shard": 0,
+    "sync_incident_severity": 0,
+    "created_at": "2022-07-22T01:02:03.444444",
+    "updated_at": "2022-07-22T01:02:03.444444"
+}
+`
+
+var scGetWithoutEventDetailJSONResponse = `
 {
     "id": 4,
     "name": "Santa - Monitoring",
@@ -69,6 +97,9 @@ var scCreateJSONResponse = `
     "enable_transitive_rules": true,
     "allowed_path_regex": "un",
     "blocked_path_regex": "deux",
+    "event_detail_source": "CUSTOM",
+    "event_detail_url": "https://www.example.com/blocked/",
+    "event_detail_text": "Request an exception",
     "block_usb_mount": true,
     "remount_usb_mode": [],
     "allow_unknown_shard": 100,
@@ -91,6 +122,9 @@ var scUpdateJSONResponse = `
     "enable_transitive_rules": true,
     "allowed_path_regex": "un",
     "blocked_path_regex": "deux",
+    "event_detail_source": "CUSTOM",
+    "event_detail_url": "https://www.example.com/blocked/",
+    "event_detail_text": "Request an exception",
     "block_usb_mount": true,
     "remount_usb_mode": [],
     "allow_unknown_shard": 100,
@@ -129,6 +163,7 @@ func TestSantaConfigurationsService_List(t *testing.T) {
 			EnableTransitiveRules:     false,
 			AllowedPathRegex:          "",
 			BlockedPathRegex:          "",
+			EventDetailSource:         "LOCAL",
 			BlockUSBMount:             false,
 			RemountUSBMode:            make([]string, 0),
 			AllowUnknownShard:         100,
@@ -170,6 +205,7 @@ func TestSantaConfigurationsService_GetByID(t *testing.T) {
 		EnableTransitiveRules:     false,
 		AllowedPathRegex:          "",
 		BlockedPathRegex:          "",
+		EventDetailSource:         "LOCAL",
 		BlockUSBMount:             false,
 		RemountUSBMode:            make([]string, 0),
 		AllowUnknownShard:         100,
@@ -211,6 +247,7 @@ func TestSantaConfigurationsService_GetByName(t *testing.T) {
 		EnableTransitiveRules:     false,
 		AllowedPathRegex:          "",
 		BlockedPathRegex:          "",
+		EventDetailSource:         "LOCAL",
 		BlockUSBMount:             false,
 		RemountUSBMode:            make([]string, 0),
 		AllowUnknownShard:         100,
@@ -238,6 +275,9 @@ func TestSantaConfigurationsService_Create(t *testing.T) {
 		EnableTransitiveRules:     true,
 		AllowedPathRegex:          "un",
 		BlockedPathRegex:          "deux",
+		EventDetailSource:         "CUSTOM",
+		EventDetailURL:            "https://www.example.com/blocked/",
+		EventDetailText:           "Request an exception",
 		BlockUSBMount:             true,
 		RemountUSBMode:            make([]string, 0),
 		AllowUnknownShard:         100,
@@ -276,6 +316,9 @@ func TestSantaConfigurationsService_Create(t *testing.T) {
 		EnableTransitiveRules:     true,
 		AllowedPathRegex:          "un",
 		BlockedPathRegex:          "deux",
+		EventDetailSource:         "CUSTOM",
+		EventDetailURL:            "https://www.example.com/blocked/",
+		EventDetailText:           "Request an exception",
 		BlockUSBMount:             true,
 		RemountUSBMode:            make([]string, 0),
 		AllowUnknownShard:         100,
@@ -303,6 +346,9 @@ func TestSantaConfigurationsService_Update(t *testing.T) {
 		EnableTransitiveRules:     true,
 		AllowedPathRegex:          "un",
 		BlockedPathRegex:          "deux",
+		EventDetailSource:         "CUSTOM",
+		EventDetailURL:            "https://www.example.com/blocked/",
+		EventDetailText:           "Request an exception",
 		BlockUSBMount:             true,
 		RemountUSBMode:            make([]string, 0),
 		AllowUnknownShard:         100,
@@ -340,6 +386,9 @@ func TestSantaConfigurationsService_Update(t *testing.T) {
 		EnableTransitiveRules:     true,
 		AllowedPathRegex:          "un",
 		BlockedPathRegex:          "deux",
+		EventDetailSource:         "CUSTOM",
+		EventDetailURL:            "https://www.example.com/blocked/",
+		EventDetailText:           "Request an exception",
 		BlockUSBMount:             true,
 		RemountUSBMode:            make([]string, 0),
 		AllowUnknownShard:         100,
@@ -367,4 +416,46 @@ func TestSantaConfigurationsService_Delete(t *testing.T) {
 	if err != nil {
 		t.Errorf("SantaConfigurations.Delete returned error: %v", err)
 	}
+}
+
+func TestSantaConfigurationRequestEventDetailSourceOmittedWhenUnset(t *testing.T) {
+	// the server rejects an empty source, and falls back to its own default when the key is
+	// absent, so a caller built before the field existed has to keep working
+	b, err := json.Marshal(&SantaConfigurationRequest{Name: "Santa - Monitoring"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	assert.NotContains(t, string(b), "event_detail_source")
+}
+
+func TestSantaConfigurationRequestEventDetailSourceSent(t *testing.T) {
+	b, err := json.Marshal(&SantaConfigurationRequest{
+		Name:              "Santa - Monitoring",
+		EventDetailSource: "VOTING_PORTAL",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	assert.Contains(t, string(b), `"event_detail_source":"VOTING_PORTAL"`)
+}
+
+func TestSantaConfigurationsService_GetByIDWithoutEventDetail(t *testing.T) {
+	// a server predating the event detail attributes answers without them
+	client, mux, teardown := setup()
+	defer teardown()
+
+	mux.HandleFunc("/santa/configurations/1/", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		fmt.Fprint(w, scGetWithoutEventDetailJSONResponse)
+	})
+
+	got, _, err := client.SantaConfigurations.GetByID(context.Background(), 1)
+	if err != nil {
+		t.Errorf("SantaConfigurations.GetByID returned error: %v", err)
+	}
+
+	assert.Equal(t, "", got.EventDetailSource)
+	assert.Equal(t, "", got.EventDetailURL)
+	assert.Equal(t, "", got.EventDetailText)
+	assert.Equal(t, "Santa - Monitoring", got.Name)
 }

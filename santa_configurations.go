@@ -29,16 +29,22 @@ var _ SantaConfigurationsService = &SantaConfigurationsServiceOp{}
 
 // SantaConfiguration represents a Zentral SantaConfiguration
 type SantaConfiguration struct {
-	ID                        int       `json:"id,omitempty"`
-	Name                      string    `json:"name"`
-	ClientMode                int       `json:"client_mode"`
-	ClientCertificateAuth     bool      `json:"client_certificate_auth"`
-	BatchSize                 int       `json:"batch_size"`
-	FullSyncInterval          int       `json:"full_sync_interval"`
-	EnableBundles             bool      `json:"enable_bundles"`
-	EnableTransitiveRules     bool      `json:"enable_transitive_rules"`
-	AllowedPathRegex          string    `json:"allowed_path_regex"`
-	BlockedPathRegex          string    `json:"blocked_path_regex"`
+	ID                    int    `json:"id,omitempty"`
+	Name                  string `json:"name"`
+	ClientMode            int    `json:"client_mode"`
+	ClientCertificateAuth bool   `json:"client_certificate_auth"`
+	BatchSize             int    `json:"batch_size"`
+	FullSyncInterval      int    `json:"full_sync_interval"`
+	EnableBundles         bool   `json:"enable_bundles"`
+	EnableTransitiveRules bool   `json:"enable_transitive_rules"`
+	AllowedPathRegex      string `json:"allowed_path_regex"`
+	BlockedPathRegex      string `json:"blocked_path_regex"`
+	// EventDetailSource is empty only when the server predates the attribute. A server that
+	// has it always answers with one of its values, so it doubles as the support marker for
+	// the three event detail attributes.
+	EventDetailSource         string    `json:"event_detail_source"`
+	EventDetailURL            string    `json:"event_detail_url"`
+	EventDetailText           string    `json:"event_detail_text"`
 	BlockUSBMount             bool      `json:"block_usb_mount"`
 	RemountUSBMode            []string  `json:"remount_usb_mode"`
 	AllowUnknownShard         int       `json:"allow_unknown_shard"`
@@ -54,15 +60,20 @@ func (sc SantaConfiguration) String() string {
 
 // SantaConfigurationRequest represents a request to create or update a Santa configuration
 type SantaConfigurationRequest struct {
-	Name                      string   `json:"name"`
-	ClientMode                int      `json:"client_mode"`
-	ClientCertificateAuth     bool     `json:"client_certificate_auth"`
-	BatchSize                 int      `json:"batch_size"`
-	FullSyncInterval          int      `json:"full_sync_interval"`
-	EnableBundles             bool     `json:"enable_bundles"`
-	EnableTransitiveRules     bool     `json:"enable_transitive_rules"`
-	AllowedPathRegex          string   `json:"allowed_path_regex"`
-	BlockedPathRegex          string   `json:"blocked_path_regex"`
+	Name                  string `json:"name"`
+	ClientMode            int    `json:"client_mode"`
+	ClientCertificateAuth bool   `json:"client_certificate_auth"`
+	BatchSize             int    `json:"batch_size"`
+	FullSyncInterval      int    `json:"full_sync_interval"`
+	EnableBundles         bool   `json:"enable_bundles"`
+	EnableTransitiveRules bool   `json:"enable_transitive_rules"`
+	AllowedPathRegex      string `json:"allowed_path_regex"`
+	BlockedPathRegex      string `json:"blocked_path_regex"`
+	// EventDetailSource is omitted when empty: the server rejects an empty choice, and applies
+	// its own default when the attribute is absent. A server predating it ignores it entirely.
+	EventDetailSource         string   `json:"event_detail_source,omitempty"`
+	EventDetailURL            string   `json:"event_detail_url"`
+	EventDetailText           string   `json:"event_detail_text"`
 	BlockUSBMount             bool     `json:"block_usb_mount"`
 	RemountUSBMode            []string `json:"remount_usb_mode"`
 	AllowUnknownShard         int      `json:"allow_unknown_shard"`
