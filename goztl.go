@@ -245,12 +245,14 @@ func resolveAllPages[T any](
 			return nil, resp, err
 		}
 
-		next := u.RequestURI()
-		if next == "" {
-			next = u.String()
-		}
-
-		path = strings.TrimPrefix(next, "/")
+		// the path of the link starts at the root of the server, and the base URL carries
+		// the mount point of the API. Only the path and the query are read: pagination does
+		// not change the host, so the host of the link is dropped
+		next := *client.BaseURL
+		next.Path = u.Path
+		next.RawPath = u.RawPath
+		next.RawQuery = u.RawQuery
+		path = next.String()
 	}
 
 	return all, lastResp, nil
