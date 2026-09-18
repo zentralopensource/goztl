@@ -402,6 +402,41 @@ func TestSantaConfigurationsService_Update(t *testing.T) {
 	}
 }
 
+func TestSantaConfigurationsService_UpdateWithoutEventDetail(t *testing.T) {
+	// the body of a caller that does not manage the block notification button. Decoding it into
+	// a request cannot tell an absent attribute from an empty one, and the server can: it keeps
+	// the value it has stored for the one, and answers 400 for two of the three
+	client, mux, teardown := setup()
+	defer teardown()
+
+	updateRequest := &SantaConfigurationRequest{
+		Name:              "Santa - Monitoring",
+		ClientMode:        1,
+		BatchSize:         50,
+		FullSyncInterval:  600,
+		RemountUSBMode:    make([]string, 0),
+		AllowUnknownShard: 100,
+	}
+
+	mux.HandleFunc("/santa/configurations/1/", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "PUT")
+		testBody(t, r, `{"name":"Santa - Monitoring","client_mode":1,"client_certificate_auth":false,`+
+			`"batch_size":50,"full_sync_interval":600,"enable_bundles":false,`+
+			`"enable_transitive_rules":false,"allowed_path_regex":"","blocked_path_regex":"",`+
+			`"block_usb_mount":false,"remount_usb_mode":[],"allow_unknown_shard":100,`+
+			`"enable_all_event_upload_shard":0,"sync_incident_severity":0}`+"\n")
+		fmt.Fprint(w, scGetJSONResponse)
+	})
+
+	got, _, err := client.SantaConfigurations.Update(context.Background(), 1, updateRequest)
+	if err != nil {
+		t.Errorf("SantaConfigurations.Update returned error: %v", err)
+	}
+
+	// the button the configuration keeps comes back in the answer
+	assert.Equal(t, "LOCAL", got.EventDetailSource)
+}
+
 func TestSantaConfigurationsService_Delete(t *testing.T) {
 	client, mux, teardown := setup()
 	defer teardown()
@@ -418,17 +453,36 @@ func TestSantaConfigurationsService_Delete(t *testing.T) {
 	}
 }
 
-func TestSantaConfigurationRequestEventDetailSourceOmittedWhenUnset(t *testing.T) {
+func TestSantaConfigurationRequestEventDetailOmittedWhenSourceUnset(t *testing.T) {
 	// the server rejects an empty source, and falls back to its own default when the key is
-	// absent, so a caller built before the field existed has to keep working
+	// absent, so a caller built before the attributes existed has to keep working. On an update
+	// it keeps the button it has stored only if the three attributes stay out of the body
 	b, err := json.Marshal(&SantaConfigurationRequest{Name: "Santa - Monitoring"})
 	if err != nil {
 		t.Fatal(err)
 	}
 	assert.NotContains(t, string(b), "event_detail_source")
+	assert.NotContains(t, string(b), "event_detail_url")
+	assert.NotContains(t, string(b), "event_detail_text")
 }
 
-func TestSantaConfigurationRequestEventDetailSourceSent(t *testing.T) {
+func TestSantaConfigurationRequestEventDetailOmittedWithAURLAndNoSource(t *testing.T) {
+	// a URL without a source cannot say what the button has to be: the server answers 400
+	b, err := json.Marshal(&SantaConfigurationRequest{
+		Name:            "Santa - Monitoring",
+		EventDetailURL:  "https://www.example.com/blocked/",
+		EventDetailText: "Request an exception",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	assert.NotContains(t, string(b), "event_detail_url")
+	assert.NotContains(t, string(b), "event_detail_text")
+}
+
+func TestSantaConfigurationRequestEventDetailSentWithTheSource(t *testing.T) {
+	// the source decides what the other two carry, and the server clears the ones it does not
+	// use, so a source goes out with the URL and the label even when they are empty
 	b, err := json.Marshal(&SantaConfigurationRequest{
 		Name:              "Santa - Monitoring",
 		EventDetailSource: "VOTING_PORTAL",
@@ -437,6 +491,8 @@ func TestSantaConfigurationRequestEventDetailSourceSent(t *testing.T) {
 		t.Fatal(err)
 	}
 	assert.Contains(t, string(b), `"event_detail_source":"VOTING_PORTAL"`)
+	assert.Contains(t, string(b), `"event_detail_url":""`)
+	assert.Contains(t, string(b), `"event_detail_text":""`)
 }
 
 func TestSantaConfigurationsService_GetByIDWithoutEventDetail(t *testing.T) {

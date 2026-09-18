@@ -2,6 +2,7 @@ package goztl
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -69,8 +70,8 @@ type SantaConfigurationRequest struct {
 	EnableTransitiveRules bool   `json:"enable_transitive_rules"`
 	AllowedPathRegex      string `json:"allowed_path_regex"`
 	BlockedPathRegex      string `json:"blocked_path_regex"`
-	// EventDetailSource is omitted when empty: the server rejects an empty choice, and applies
-	// its own default when the attribute is absent. A server predating it ignores it entirely.
+	// EventDetailSource, EventDetailURL and EventDetailText are written by MarshalJSON, which
+	// sends the three together or none of them.
 	EventDetailSource         string   `json:"event_detail_source,omitempty"`
 	EventDetailURL            string   `json:"event_detail_url"`
 	EventDetailText           string   `json:"event_detail_text"`
@@ -79,6 +80,27 @@ type SantaConfigurationRequest struct {
 	AllowUnknownShard         int      `json:"allow_unknown_shard"`
 	EnableAllEventUploadShard int      `json:"enable_all_event_upload_shard"`
 	SyncIncidentSeverity      int      `json:"sync_incident_severity"`
+}
+
+// MarshalJSON writes the three block notification button attributes together, or none of them.
+// On an update the server keeps the stored value of an attribute the body leaves out, so one of
+// the three on its own cannot say what the button has to be, and the server answers 400. An empty
+// source is a request that makes no claim about the button: the three stay out of the body, and
+// the configuration keeps the button it has. A server predating them drops the three all the same.
+func (scr SantaConfigurationRequest) MarshalJSON() ([]byte, error) {
+	type request SantaConfigurationRequest // drops MarshalJSON, so json.Marshal does not recurse
+	if scr.EventDetailSource != "" {
+		return json.Marshal(request(scr))
+	}
+	// the two attributes below shadow the ones the embedded request carries, and omitempty
+	// then leaves them out. A "-" tag would not: it takes the field out before the shadowing.
+	scr.EventDetailURL = ""
+	scr.EventDetailText = ""
+	return json.Marshal(struct {
+		request
+		EventDetailURL  string `json:"event_detail_url,omitempty"`
+		EventDetailText string `json:"event_detail_text,omitempty"`
+	}{request: request(scr)})
 }
 
 type listSCOptions struct {
