@@ -106,7 +106,7 @@ var depEnrollmentListJsonResponse = `{
 
 var depEnrollmentListFirstPageJsonResponse = `{
   "count": 2,
-  "next": "http://example.com/mdm/dep_enrollments/?page=2",
+  "next": "$ORIGIN/mdm/dep_enrollments/?page=2",
   "results": [
     {
       "id": 30418,
@@ -318,7 +318,7 @@ func TestMDMDEPEnrollmentsService_List(t *testing.T) {
 		testHeader(t, r, "Accept", "application/json")
 
 		if r.URL.Query().Get("page") == "" {
-			fmt.Fprint(w, depEnrollmentListFirstPageJsonResponse)
+			fmt.Fprint(w, withOrigin(depEnrollmentListFirstPageJsonResponse, "http://"+r.Host))
 			return
 		}
 

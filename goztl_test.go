@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -27,6 +28,12 @@ func setup() (client *Client, mux *http.ServeMux, teardown func()) {
 	client, _ = NewClient(nil, server.URL, testToken)
 
 	return client, mux, server.Close
+}
+
+// withOrigin fills the origin in a fixture. DRF builds the next link of a page from the
+// incoming request, so a fixture cannot carry a host the client never talked to.
+func withOrigin(body string, origin string) string {
+	return strings.ReplaceAll(body, "$ORIGIN", origin)
 }
 
 func testBody(t *testing.T, r *http.Request, want string) {
@@ -68,7 +75,7 @@ type rapTestItem struct {
 
 var rapFirstPageJSONResponse = `{
 	"count": 2,
-	"next": "http://example.com/test/items/?page=2",
+	"next": "$ORIGIN/test/items/?page=2",
 	"results": [
 		{"id": 1, "name": "un"}
 	]
@@ -94,7 +101,7 @@ func TestResolveAllPages(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		if r.URL.Query().Get("page") == "" {
-			fmt.Fprint(w, rapFirstPageJSONResponse)
+			fmt.Fprint(w, withOrigin(rapFirstPageJSONResponse, "http://"+r.Host))
 			return
 		}
 

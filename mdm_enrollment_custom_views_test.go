@@ -39,7 +39,7 @@ var enrollmentCustomViewListJsonResponse = `{
 }`
 var enrollmentCustomViewListFirstPageJsonResponse = `{
 	"count": 2,
-	"next": "http://example.com/mdm/enrollment_custom_views/?page=2",
+	"next": "$ORIGIN/mdm/enrollment_custom_views/?page=2",
 	"results": [
 		{
 			"id": "c4708e87-a6b0-43d4-9715-476fdf791209", 
@@ -79,7 +79,7 @@ func TestMDMEnrollmentCustomViewsService_List(t *testing.T) {
 		testHeader(t, r, "Accept", "application/json")
 
 		if r.URL.Query().Get("page") == "" {
-			fmt.Fprint(w, enrollmentCustomViewListFirstPageJsonResponse)
+			fmt.Fprint(w, withOrigin(enrollmentCustomViewListFirstPageJsonResponse, "http://"+r.Host))
 			return
 		}
 

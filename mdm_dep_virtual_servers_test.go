@@ -32,7 +32,7 @@ var depVirtualServerListJsonResponse = `{
 
 var depVirtualServerListFirstPageJsonResponse = `{
 	"count": 2,
-	"next": "http://example.com/mdm/dep/virtual_servers/?page=2",
+	"next": "$ORIGIN/mdm/dep/virtual_servers/?page=2",
 	"results": [
 		{
 			"id": 39480, 
@@ -66,7 +66,7 @@ func TestMDMDEPVirtualServersService_List(t *testing.T) {
 		testHeader(t, r, "Accept", "application/json")
 
 		if r.URL.Query().Get("page") == "" {
-			fmt.Fprint(w, depVirtualServerListFirstPageJsonResponse)
+			fmt.Fprint(w, withOrigin(depVirtualServerListFirstPageJsonResponse, "http://"+r.Host))
 			return
 		}
 
