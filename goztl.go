@@ -110,9 +110,11 @@ type Client struct {
 	// Realms
 	RealmsRealms RealmsRealmsService
 	// Santa
-	SantaConfigurations SantaConfigurationsService
-	SantaEnrollments    SantaEnrollmentsService
-	SantaRules          SantaRulesService
+	SantaConfigurations    SantaConfigurationsService
+	SantaEnrollments       SantaEnrollmentsService
+	SantaRules             SantaRulesService
+	SantaScopedClientModes SantaScopedClientModesService
+	SantaScopedPathRegexes SantaScopedPathRegexesService
 	// Stores
 	Stores StoresService
 	// Turbo
@@ -345,6 +347,8 @@ func NewClient(httpClient *http.Client, bu string, token string, opts ...ClientO
 	c.SantaConfigurations = &SantaConfigurationsServiceOp{client: c}
 	c.SantaEnrollments = &SantaEnrollmentsServiceOp{client: c}
 	c.SantaRules = &SantaRulesServiceOp{client: c}
+	c.SantaScopedClientModes = &SantaScopedClientModesServiceOp{client: c}
+	c.SantaScopedPathRegexes = &SantaScopedPathRegexesServiceOp{client: c}
 	// Stores
 	c.Stores = &StoresServiceOp{client: c}
 	// Turbo
