@@ -10,24 +10,28 @@ jobs:
   test:
     strategy:
       matrix:
-        go-version: [ 1.25.x ]
         os: [ ubuntu-latest, macos-latest, windows-latest ]
     runs-on: ${{ matrix.os }}
 
     steps:
-    - name: Install Go
-      uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
-      with:
-        go-version: ${{ matrix.go-version }}
-
     - name: Checkout code
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+    - name: Install Go
+      uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      with:
+        # The toolchain pinned by go.mod, so tests and release.yml -- which
+        # already uses go-version-file -- cannot drift apart. Requires the
+        # checkout above: setup-go reads this file from the working tree.
+        go-version-file: go.mod
+
     # Get values for cache paths to be used in later steps
     - id: cache-paths
+      # $GITHUB_OUTPUT is shell syntax; windows-latest defaults to PowerShell.
+      shell: bash
       run: |
-        echo "::set-output name=go-cache::$(go env GOCACHE)"
-        echo "::set-output name=go-mod-cache::$(go env GOMODCACHE)"
+        echo "go-cache=$(go env GOCACHE)" >> "$GITHUB_OUTPUT"
+        echo "go-mod-cache=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
 
     - name: Cache go modules
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0

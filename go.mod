@@ -1,6 +1,6 @@
 module github.com/zentralopensource/goztl
 
-go 1.24
+go 1.26.9
 
 require (
 	github.com/google/go-cmp v0.7.0
