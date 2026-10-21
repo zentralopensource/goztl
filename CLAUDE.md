@@ -2,7 +2,7 @@
 
 Goztl wraps the REST API exposed by [Zentral](https://github.com/zentralopensource/zentral), a Django platform that orchestrates MDM, Munki, Osquery and Santa to manage Apple devices. This repo is the Go client only — server-side concerns (event pipeline, agents, Django apps) live in the Zentral repo.
 
-Module path: `github.com/zentralopensource/goztl`. Single package `goztl` at the repo root. `go.mod` declares `go 1.26.0` (the language floor) and `toolchain go1.26.9` (what builds it); CI takes the version from `go.mod` via `go-version-file` and runs on ubuntu/macos/windows.
+Module path: `github.com/zentralopensource/goztl`. Single package `goztl` at the repo root. `go.mod` declares `go 1.26.0` (the language floor) and `toolchain go1.26.10` (what builds it); CI takes the version from `go.mod` via `go-version-file` and runs on ubuntu/macos/windows.
 
 ## Local environment: Docker only
 
@@ -11,10 +11,10 @@ We develop on macOS machines that run a binary blocker. **Do not install or invo
 One-shot pattern (use the same image tag CI uses):
 
 ```
-docker run --rm -v "$PWD":/src -w /src golang:1.26.9 go test -race ./...
-docker run --rm -v "$PWD":/src -w /src golang:1.26.9 gofmt -s -l .
-docker run --rm -v "$PWD":/src -w /src golang:1.26.9 go mod tidy
-docker run --rm -v "$PWD":/src -w /src golang:1.26.9 go generate -x ./...
+docker run --rm -v "$PWD":/src -w /src golang:1.26.10 go test -race ./...
+docker run --rm -v "$PWD":/src -w /src golang:1.26.10 gofmt -s -l .
+docker run --rm -v "$PWD":/src -w /src golang:1.26.10 go mod tidy
+docker run --rm -v "$PWD":/src -w /src golang:1.26.10 go generate -x ./...
 ```
 
 The repo also ships a devcontainer (`.devcontainer/devcontainer.json`, `mcr.microsoft.com/devcontainers/go:1.26`) — open the folder in a devcontainer-aware editor to get an interactive shell with the toolchain available inside the container.
