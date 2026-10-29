@@ -42,6 +42,8 @@ var msueGetJSONResponse = `
     "details_url": "https://www.example.com",
     "platforms": ["macOS"],
     "tags": [],
+    "min_device_os_version": "",
+    "max_device_os_version": "",
     "os_version": "",
     "build_version": "",
     "local_datetime": null,
@@ -60,6 +62,8 @@ var msueCreateJSONResponse = `
     "details_url": "https://www.example.com",
     "platforms": ["macOS"],
     "tags": [1, 2],
+    "min_device_os_version": "26",
+    "max_device_os_version": "27",
     "os_version": "",
     "build_version": "",
     "local_datetime": null,
@@ -78,6 +82,8 @@ var msueUpdateJSONResponse = `
     "details_url": "https://www.example.com",
     "platforms": ["macOS"],
     "tags": [1, 2],
+    "min_device_os_version": "26",
+    "max_device_os_version": "27",
     "os_version": "",
     "build_version": "",
     "local_datetime": null,
@@ -196,13 +202,15 @@ func TestMDMSoftwareUpdateEnforcementsService_Create(t *testing.T) {
 	defer teardown()
 
 	createRequest := &MDMSoftwareUpdateEnforcementRequest{
-		Name:         "Default",
-		DetailsURL:   "https://www.example.com",
-		Platforms:    []string{"macOS"},
-		TagIDs:       []int{1, 2},
-		MaxOSVersion: "15",
-		DelayDays:    Int(7),
-		LocalTime:    String("09:30:00"),
+		Name:               "Default",
+		DetailsURL:         "https://www.example.com",
+		Platforms:          []string{"macOS"},
+		TagIDs:             []int{1, 2},
+		MinDeviceOSVersion: "26",
+		MaxDeviceOSVersion: "27",
+		MaxOSVersion:       "15",
+		DelayDays:          Int(7),
+		LocalTime:          String("09:30:00"),
 	}
 
 	mux.HandleFunc("/mdm/software_update_enforcements/", func(w http.ResponseWriter, r *http.Request) {
@@ -226,16 +234,18 @@ func TestMDMSoftwareUpdateEnforcementsService_Create(t *testing.T) {
 	}
 
 	want := &MDMSoftwareUpdateEnforcement{
-		ID:           4,
-		Name:         "Default",
-		Platforms:    []string{"macOS"},
-		TagIDs:       []int{1, 2},
-		DetailsURL:   "https://www.example.com",
-		MaxOSVersion: "15",
-		DelayDays:    Int(7),
-		LocalTime:    String("09:30:00"),
-		Created:      Timestamp{referenceTime},
-		Updated:      Timestamp{referenceTime},
+		ID:                 4,
+		Name:               "Default",
+		Platforms:          []string{"macOS"},
+		TagIDs:             []int{1, 2},
+		MinDeviceOSVersion: "26",
+		MaxDeviceOSVersion: "27",
+		DetailsURL:         "https://www.example.com",
+		MaxOSVersion:       "15",
+		DelayDays:          Int(7),
+		LocalTime:          String("09:30:00"),
+		Created:            Timestamp{referenceTime},
+		Updated:            Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("MDMSoftwareUpdateEnforcements.Create returned %+v, want %+v", got, want)
@@ -247,13 +257,15 @@ func TestMDMSoftwareUpdateEnforcementsService_Update(t *testing.T) {
 	defer teardown()
 
 	updateRequest := &MDMSoftwareUpdateEnforcementRequest{
-		Name:         "Default",
-		Platforms:    []string{"macOS"},
-		TagIDs:       []int{1, 2},
-		DetailsURL:   "https://www.example.com",
-		MaxOSVersion: "15",
-		DelayDays:    Int(7),
-		LocalTime:    String("09:30:00"),
+		Name:               "Default",
+		Platforms:          []string{"macOS"},
+		TagIDs:             []int{1, 2},
+		MinDeviceOSVersion: "26",
+		MaxDeviceOSVersion: "27",
+		DetailsURL:         "https://www.example.com",
+		MaxOSVersion:       "15",
+		DelayDays:          Int(7),
+		LocalTime:          String("09:30:00"),
 	}
 
 	mux.HandleFunc("/mdm/software_update_enforcements/4/", func(w http.ResponseWriter, r *http.Request) {
@@ -276,16 +288,18 @@ func TestMDMSoftwareUpdateEnforcementsService_Update(t *testing.T) {
 	}
 
 	want := &MDMSoftwareUpdateEnforcement{
-		ID:           4,
-		Name:         "Default",
-		Platforms:    []string{"macOS"},
-		TagIDs:       []int{1, 2},
-		DetailsURL:   "https://www.example.com",
-		MaxOSVersion: "15",
-		DelayDays:    Int(7),
-		LocalTime:    String("09:30:00"),
-		Created:      Timestamp{referenceTime},
-		Updated:      Timestamp{referenceTime},
+		ID:                 4,
+		Name:               "Default",
+		Platforms:          []string{"macOS"},
+		TagIDs:             []int{1, 2},
+		MinDeviceOSVersion: "26",
+		MaxDeviceOSVersion: "27",
+		DetailsURL:         "https://www.example.com",
+		MaxOSVersion:       "15",
+		DelayDays:          Int(7),
+		LocalTime:          String("09:30:00"),
+		Created:            Timestamp{referenceTime},
+		Updated:            Timestamp{referenceTime},
 	}
 	if !cmp.Equal(got, want) {
 		t.Errorf("MDMSoftwareUpdateEnforcements.Update returned %+v, want %+v", got, want)
